@@ -31,7 +31,8 @@ public class RegistrarDatosMedidor extends AppCompatActivity {
         setContentView(R.layout.activity_registrar_datos_medidor);
 
         btCapturaQr= findViewById(R.id.btCapturaQR);
-        tvQR = findViewById(R.id.tvQR);
+        etNumMedidor= findViewById(R.id.etNumMedidor);
+        //tvQR = findViewById(R.id.tvQR);
 
     }
 
@@ -62,7 +63,7 @@ public class RegistrarDatosMedidor extends AppCompatActivity {
                 Toast.makeText(this, "Cancelaste escaneo", Toast.LENGTH_SHORT).show();
 
             }else {
-                tvQR.setText(result.getContents());
+                etNumMedidor.setText(result.getContents());
 
 
                  super.onActivityResult(requestCode, resultCode, data);
