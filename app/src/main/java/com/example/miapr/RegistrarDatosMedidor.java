@@ -62,7 +62,8 @@ public class RegistrarDatosMedidor extends AppCompatActivity {
                 Toast.makeText(this, "Cancelaste escaneo", Toast.LENGTH_SHORT).show();
 
             }else {
-                tvQR.setText(result.getContents());//imprime código por pantalla
+                tvQR.setText(result.getContents());
+
 
                  super.onActivityResult(requestCode, resultCode, data);
 
