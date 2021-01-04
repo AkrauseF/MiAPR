@@ -1,7 +1,7 @@
 # MiAPR v1.0.0
 Sistema que agiliza los procesos de registro de lectura y gestión de cobros del agua potable rural de Villa San Pedro, comuna de Pucón.
 
-## Explicación de la versión
+## Descripción
 Esta versión esta compuesta por el módulo de captura de códigos QR que permitirá al operador de la A.P.R identificar los medidores antes de registrar la lectura.
 
 ## El producto resultante de esta iteración consta de las siguientes funcionalidades:
@@ -14,7 +14,7 @@ Esta versión esta compuesta por el módulo de captura de códigos QR que permit
 ## Instrucciones de instalación
 1.- Descargue en el dispositivo móvil el instalador de la aplicación desde el repositorio de GitHub en el siguiente link:   https://github.com/AkrauseF/MiAPR/raw/main/app/entregable/release/MiAPR_1_0_0.apk 
 
-2.- Instale la aplicación, aceptando los permisos solicitados.
+2.- Instale la aplicación aceptando los permisos solicitados.
 
 3.- Ejecute la aplicación.
 
