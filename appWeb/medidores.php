@@ -39,7 +39,7 @@ include "modelo/conexiondb.php";
         <td><?php echo $columna[0];?></td>
         <td><?php echo $columna[1];?></td>
         <td><?php echo $columna[2];?></td>
-        <td><button>Editar</button>
+        <td><a href="editarMedidor.php?id=<?php echo $columna[0];?>"><button>Editar</button></a>
           <a href="modelo/eliminarMedidores.php?id=<?php echo $columna[0];?>"><button>Borrar</button></a></td>
 
       </tr>
