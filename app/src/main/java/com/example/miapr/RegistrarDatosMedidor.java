@@ -30,10 +30,12 @@ public class RegistrarDatosMedidor extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registrar_datos_medidor);
 
-        btCapturaQr= findViewById(R.id.btCapturaQR);
+        btCapturaQr= findViewById(R.id.btImportar);
         etNumMedidor= findViewById(R.id.etNumMedidor);
         tvValidar= findViewById(R.id.tvValidacion);
         //tvQR = findViewById(R.id.tvQR);
+
+        selectMedidor();
 
     }
 
@@ -101,5 +103,18 @@ public class RegistrarDatosMedidor extends AppCompatActivity {
             }
         }
         return flag;
+    }
+
+    private void selectMedidor(){
+        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
+        databaseAccess.open();
+
+        String numMedidor = databaseAccess.getMedidor();
+
+        etNumMedidor.setText(numMedidor);
+
+
+        // Toast.makeText(this, numMedidor, Toast.LENGTH_LONG ).show();
+
     }
 }

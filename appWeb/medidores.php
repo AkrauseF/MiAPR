@@ -22,7 +22,7 @@ include "modelo/conexiondb.php";
          <th>Nº </th>
          <th>Codigo </th>
          <th>Marca</th>
-         <th></th>
+         <th><a href="regMedidores.php"><button>Registrar</button></a></th>
          
         
        </tr>
