@@ -41,8 +41,10 @@ Esta versión incluye el módulo de captura de códigos QR que permitirá al ope
 
 2.- Descomprima el archivo v2.0.0.zip y monte los archivos y directorios contenidos en la carpeta "appWeb" en su servidor web.
 
+3.- En el directorio "modelo", dentro del directorio "appWeb", se encontrará un archivo llamado "conexiondb.php" en el cual debe reemplazar los datos de acceso a su servicio de base de datos mysql. 
+
 #### NOTA: 
-    Los servicios utilizados para la ejecución del servidor fueron: Apache 7.2.33 y PHP 7.2.33.
+    Los servicios utilizados para la ejecución del servidor fueron: Apache 2.4.46, PHP 7.2.33 y MariaDB 10.4.14. Todos contenidos en el paquete de software Xampp 7.2.33.
 
 ## Instrucciones de uso de la app web
 
