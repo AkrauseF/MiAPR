@@ -12,7 +12,7 @@ include "modelo/conexiondb.php";
 <body>
 
 <div id="contenedorCliente">
-  <h1>Medidores registrados</h1>
+<h1>Medidores registrados</h1>
 
   <div class="tabla">
 

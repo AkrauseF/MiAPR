@@ -5,6 +5,10 @@ html, body{
 	background: #AED6F1;
 }
 
+h1{
+  text-align: center;
+  
+}
 
 .tabla{
 	display: flex;

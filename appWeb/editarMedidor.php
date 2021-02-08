@@ -21,7 +21,7 @@ $marca = $columna[1];
 
 
 <div id="regMedidores">
-
+  <h1>Edición de medidores</h1>
   <form action="modelo/editarMedidorModelo.php" method="post">
     <label>Código</label>
     <input type="number" name="codigo" value="<?php echo $codigo ?>">

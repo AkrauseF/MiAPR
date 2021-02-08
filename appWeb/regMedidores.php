@@ -23,6 +23,7 @@
     <input type="submit" value="Enviar">
     
   </form>
+  <a href="medidores.php"><button>Medidores Registrados</button></a>
   
 </div>
 
