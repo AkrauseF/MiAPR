@@ -37,13 +37,25 @@ public class DatabaseAccess {
     }
 
 
-    public String getMedidor() {
-        c = db.rawQuery("select numero from medidores", new String[]{});
+    public String getCodigoMedidor(String num) {
+        c = db.rawQuery("select numero from medidores where id_medidor = '"+num+"'", new String[]{});
+        StringBuffer buffer = new StringBuffer();
+       while (c.moveToNext()) {
+            String codigo = c.getString(0);
+
+            buffer.append(codigo);
+
+        }
+        return buffer.toString();
+    }
+
+    public String getMarcaMedidor(String num) {
+        c = db.rawQuery("select marca from medidores where id_medidor = '"+num+"'", new String[]{});
         StringBuffer buffer = new StringBuffer();
         while (c.moveToNext()) {
-            String numMedidor = c.getString(0);
+            String marca = c.getString(0);
 
-            buffer.append(numMedidor);
+            buffer.append(marca);
 
         }
         return buffer.toString();
@@ -56,6 +68,18 @@ public class DatabaseAccess {
             String lecturas = c.getString(0);
 
             buffer.append(lecturas);
+
+        }
+        return buffer.toString();
+    }
+
+    public String UltimoId() {
+        c = db.rawQuery("SELECT * FROM medidores ORDER BY id_medidor DESC LIMIT 1; ", new String[]{});
+        StringBuffer buffer = new StringBuffer();
+        while (c.moveToNext()) {
+            String ultimoId = c.getString(0);
+
+            buffer.append(ultimoId);
 
         }
         return buffer.toString();

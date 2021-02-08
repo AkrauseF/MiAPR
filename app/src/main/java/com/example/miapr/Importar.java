@@ -27,11 +27,10 @@ public class Importar extends AppCompatActivity {
         setContentView(R.layout.activity_importar);
 
         btImportar = findViewById(R.id.btImportar);
-        tvDatos = findViewById(R.id.tvDatos);
     }
 
     public void consulUltId(View view) {
-
+        //DEJAR URL COMO VARIBLE.*********
         StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://192.168.0.4/Apr/modelo/consultaID.php", new Response.Listener<String>() {
 
             @Override
@@ -61,7 +60,7 @@ public class Importar extends AppCompatActivity {
          int ide = Integer.parseInt(id);
          Integer num = 1;
 
-         //While permite parar el ciclo hasta el ultimo id de la tabla.
+         //While repite el ciclo hasta el ultimo id de la tabla.
          while (num <= ide ){
 
              StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://192.168.0.4/Apr/modelo/descargarDatos.php?var='"+num+"'", new Response.Listener<String>() {
@@ -76,16 +75,9 @@ public class Importar extends AppCompatActivity {
                      String numero =respuesta[1];
                      String marca =respuesta[2];
 
-                     //tvDatos.setText(id+"-"+numero+"-"+marca);
 
                      //Se envian los datos consultados a la funcion crear tabla en SQLite
                     crearTabla(id, numero,marca);
-
-                   /* Toast.makeText(getApplicationContext(), respuesta[0], Toast.LENGTH_LONG).show();
-                    Toast.makeText(getApplicationContext(), respuesta[1], Toast.LENGTH_LONG).show();
-                    Toast.makeText(getApplicationContext(), respuesta[2], Toast.LENGTH_LONG).show();
-                    Toast.makeText(getApplicationContext(), respuesta[3], Toast.LENGTH_LONG).show();
-                    Toast.makeText(getApplicationContext(), respuesta[4], Toast.LENGTH_LONG).show();*/
 
                  }
              }, new Response.ErrorListener() {
@@ -118,6 +110,7 @@ public class Importar extends AppCompatActivity {
 
     private void crearTabla(String id, String numero, String marca){
 
+        Toast.makeText(this, numero, Toast.LENGTH_SHORT).show();
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
         databaseAccess.open();
 
@@ -125,7 +118,6 @@ public class Importar extends AppCompatActivity {
 
         String lecturas = databaseAccess.getLecturas();
 
-        tvDatos.setText(lecturas);
 
     }
 }

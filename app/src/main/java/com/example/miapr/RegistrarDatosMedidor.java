@@ -35,7 +35,7 @@ public class RegistrarDatosMedidor extends AppCompatActivity {
         tvValidar= findViewById(R.id.tvValidacion);
         //tvQR = findViewById(R.id.tvQR);
 
-        selectMedidor();
+        //selectMedidor();
 
     }
 
@@ -105,7 +105,7 @@ public class RegistrarDatosMedidor extends AppCompatActivity {
         return flag;
     }
 
-    private void selectMedidor(){
+    /*private void selectMedidor(){
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
         databaseAccess.open();
 
@@ -116,5 +116,5 @@ public class RegistrarDatosMedidor extends AppCompatActivity {
 
         // Toast.makeText(this, numMedidor, Toast.LENGTH_LONG ).show();
 
-    }
+    }*/
 }
