@@ -107,7 +107,6 @@ public class Importar extends AppCompatActivity {
 
         databaseAccess.close();
     }
-
     private void crearTabla(String id, String numero, String marca){
 
         Toast.makeText(this, numero, Toast.LENGTH_SHORT).show();

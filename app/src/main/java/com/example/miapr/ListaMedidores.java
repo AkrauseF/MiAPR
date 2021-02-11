@@ -84,7 +84,6 @@ public class ListaMedidores extends AppCompatActivity {
             contador++;
 
         }
-
         return datos;
 
 

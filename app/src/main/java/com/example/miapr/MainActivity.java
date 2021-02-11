@@ -33,6 +33,5 @@ public class MainActivity extends AppCompatActivity {
     public void ListaMedidores(View view){
         Intent i = new Intent(this, ListaMedidores.class);
         startActivity(i);
-
     }
 }

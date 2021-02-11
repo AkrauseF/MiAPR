@@ -84,7 +84,6 @@ public class RegistrarDatosMedidor extends AppCompatActivity {
         }
 
     }
-
     private boolean validadorLargoString(String str){ //comprueba que el largo del string sea no mas de 15 caractéres, para evitar denegación de servicio.
         if(str.length() > 15){
             return false;

@@ -42,7 +42,6 @@ public class Adaptador extends BaseAdapter {
 
         return vista;
     }
-
     @Override
     public int getCount() {
         return datos.length;
