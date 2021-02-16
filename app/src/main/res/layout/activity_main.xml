@@ -25,29 +25,44 @@
         android:layout_width="304dp"
         android:layout_height="52dp"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="44dp"
         android:background="@drawable/boton"
         android:onClick="Importar"
         android:text="Importar"
         android:textColor="#fff"
-        app:layout_constraintBottom_toTopOf="@+id/btExp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btReg" />
+
+    <Button
+        android:id="@+id/btLista"
+        android:layout_width="304dp"
+        android:layout_height="52dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="44dp"
+        android:background="@drawable/boton"
+        android:onClick="ListaMedidores"
+        android:text="Lista Medidores"
+        android:textColor="#fff"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btReg" />
+        app:layout_constraintTop_toBottomOf="@+id/btImp" />
 
     <Button
         android:id="@+id/btExp"
         android:layout_width="304dp"
         android:layout_height="52dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="300dp"
+        android:layout_marginTop="44dp"
         android:background="@drawable/boton"
-        android:onClick="ListaMedidores"
-        android:text="Lista Medidores"
+        android:onClick="Exportar"
+        android:text="Exportar"
         android:textColor="#fff"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btLista" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

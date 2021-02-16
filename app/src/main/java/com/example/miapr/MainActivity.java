@@ -9,7 +9,7 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button registrar, importar, exportar;
+    Button registrar, importar, lista, exportar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,7 +18,8 @@ public class MainActivity extends AppCompatActivity {
 
         registrar = findViewById(R.id.btReg);
         importar = findViewById(R.id.btImp);
-        exportar = findViewById(R.id.btReg);
+        lista = findViewById(R.id.btLista);
+        exportar = findViewById(R.id.btExp);
     }
 
     public void Registrar(View view){
@@ -32,6 +33,11 @@ public class MainActivity extends AppCompatActivity {
     }
     public void ListaMedidores(View view){
         Intent i = new Intent(this, ListaMedidores.class);
+        startActivity(i);
+    }
+
+    public void Exportar(View view){
+        Intent i = new Intent(this, Exportar.class);
         startActivity(i);
     }
 }

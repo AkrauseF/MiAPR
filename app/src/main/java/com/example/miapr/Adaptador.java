@@ -35,8 +35,8 @@ public class Adaptador extends BaseAdapter {
         TextView codigo = (TextView) vista.findViewById(R.id.tvCodigo);
         TextView marca = (TextView) vista.findViewById(R.id.tvMarca);
 
-        codigo.setText("Código"+datos[i][0]);
-        marca.setText("Marca"+datos[i][1]);
+        codigo.setText("Código: "+datos[i][0]);
+        marca.setText("Marca: "+datos[i][1]);
         //codigo.setText("Hola");
         //marca.setText("Mundo");
 

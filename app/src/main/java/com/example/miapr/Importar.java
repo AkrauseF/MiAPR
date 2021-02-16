@@ -19,7 +19,9 @@ import com.android.volley.toolbox.Volley;
 public class Importar extends AppCompatActivity {
 
     Button btImportar;
-    TextView tvDatos;
+    EditText etUrl;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,18 +29,20 @@ public class Importar extends AppCompatActivity {
         setContentView(R.layout.activity_importar);
 
         btImportar = findViewById(R.id.btImportar);
+        etUrl = (EditText) findViewById(R.id.etUri);
+
     }
 
+
+
     public void consulUltId(View view) {
-        //DEJAR URL COMO VARIBLE.*********
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://192.168.0.4/Apr/modelo/consultaID.php", new Response.Listener<String>() {
+
+        String Url = "http://"+etUrl.getText().toString()+"/Apr/modelo/consultaID.php";
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Url, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
 
-                //Se envia a la funcion el numero del utlimo registro.
-                //conexionUnophp(response);
-                //tvDatos.setText(response);
                 conexionUnophp(response);
             }
         }, new Response.ErrorListener() {
@@ -53,7 +57,7 @@ public class Importar extends AppCompatActivity {
 
     }
      public void conexionUnophp(String id) {
-        Toast.makeText(this, id, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Se importarán "+id+" registros de medidores", Toast.LENGTH_LONG).show();
 
         borrartabla();
 
@@ -63,7 +67,7 @@ public class Importar extends AppCompatActivity {
          //While repite el ciclo hasta el ultimo id de la tabla.
          while (num <= ide ){
 
-             StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://192.168.0.4/Apr/modelo/descargarDatos.php?var='"+num+"'", new Response.Listener<String>() {
+             StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://192.168.0.7/Apr/modelo/descargarDatos.php?var='"+num+"'", new Response.Listener<String>() {
 
                  @Override
                  public void onResponse(String response) {
@@ -109,13 +113,11 @@ public class Importar extends AppCompatActivity {
     }
     private void crearTabla(String id, String numero, String marca){
 
-        Toast.makeText(this, numero, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, numero, Toast.LENGTH_SHORT).show();
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
         databaseAccess.open();
 
         databaseAccess.getInsetarTabla(id,numero,marca);
-
-        String lecturas = databaseAccess.getLecturas();
 
 
     }

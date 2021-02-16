@@ -46,7 +46,7 @@ public class ListaMedidores extends AppCompatActivity {
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
         databaseAccess.open();
 
-        String ultimoId = databaseAccess.UltimoId();
+        String ultimoId = databaseAccess.UltimoIdMedidores();
 
         return ultimoId;
 
@@ -55,12 +55,10 @@ public class ListaMedidores extends AppCompatActivity {
 
     private String[][] crearListaMedidores(){
 
-
-
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
         databaseAccess.open();
 
-        String ultimoId = databaseAccess.UltimoId();
+        String ultimoId = databaseAccess.UltimoIdMedidores();
         int ulId = Integer.parseInt(ultimoId);
 
         String [][] datos = new String[ulId][2];
