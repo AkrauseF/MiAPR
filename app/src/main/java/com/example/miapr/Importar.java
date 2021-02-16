@@ -57,6 +57,7 @@ public class Importar extends AppCompatActivity {
 
     }
      public void conexionUnophp(String id) {
+        String Url = "http://"+etUrl.getText().toString()+"/Apr/modelo/descargarDatos.php";
         Toast.makeText(this, "Se importarán "+id+" registros de medidores", Toast.LENGTH_LONG).show();
 
         borrartabla();
@@ -67,7 +68,7 @@ public class Importar extends AppCompatActivity {
          //While repite el ciclo hasta el ultimo id de la tabla.
          while (num <= ide ){
 
-             StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://192.168.0.7/Apr/modelo/descargarDatos.php?var='"+num+"'", new Response.Listener<String>() {
+             StringRequest stringRequest = new StringRequest(Request.Method.POST, Url+"?var='"+num+"'", new Response.Listener<String>() {
 
                  @Override
                  public void onResponse(String response) {
