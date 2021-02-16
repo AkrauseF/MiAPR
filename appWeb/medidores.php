@@ -10,6 +10,7 @@ include "modelo/conexiondb.php";
   </title>
 </head>
 <body>
+
 <div id="contenedorCliente">
 <h1>Medidores registrados</h1>
 
