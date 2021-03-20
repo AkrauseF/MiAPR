@@ -35,7 +35,7 @@ public class RegistrarDatosMedidor extends AppCompatActivity {
         tvValidar= findViewById(R.id.tvValidacion);
         //tvQR = findViewById(R.id.tvQR);
 
-        selectMedidor();
+        //selectMedidor();
 
     }
 
@@ -84,7 +84,6 @@ public class RegistrarDatosMedidor extends AppCompatActivity {
         }
 
     }
-
     private boolean validadorLargoString(String str){ //comprueba que el largo del string sea no mas de 15 caractéres, para evitar denegación de servicio.
         if(str.length() > 15){
             return false;
@@ -105,7 +104,7 @@ public class RegistrarDatosMedidor extends AppCompatActivity {
         return flag;
     }
 
-    private void selectMedidor(){
+    /*private void selectMedidor(){
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
         databaseAccess.open();
 
@@ -116,5 +115,5 @@ public class RegistrarDatosMedidor extends AppCompatActivity {
 
         // Toast.makeText(this, numMedidor, Toast.LENGTH_LONG ).show();
 
-    }
+    }*/
 }
