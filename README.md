@@ -1,19 +1,17 @@
-# MiAPR v2.0.0
+# MiAPR v3.0.0
 Sistema que agiliza los procesos de registro de lectura y gestión de cobros del agua potable rural de Villa San Pedro, comuna de Pucón.
 
 ## Descripción
-Esta versión incluye el módulo de captura de códigos QR que permitirá al operador de la A.P.R identificar los medidores antes de registrar la lectura por medio de la app móvil  y el modulor de registro, edición y eliminación de medidores de la app web.
+Esta versión incluye el módulo de captura de códigos QR que permitirá al operador de la A.P.R identificar los medidores antes de registrar la lectura por medio de la app móvil y el módulo de registro, edición y eliminación de medidores de la app web. También permitirá importar los datos de medidores desde la aplicación web hacia la aplicación móvil y luego poder subir estos datos pero con la información de registros de lectura asociados a los medidores hacia la base de datos de la aplicación web. Esta versión no tiene implementado el módulo de registros de lectura, por lo que esos datos estas preestablecidos en la tabla de lecturas en la base de datos de la aplicación móvil.
 
 ## El producto resultante de esta iteración consta de las siguientes funcionalidades:
 
-### Funcionalidades de release`s anteriores
+### Funcionalidades deL release anterior
 •	Captura de código QR mediante cámara de dispositivo móvil.
 
 •	Interfaz de control de captura y visualización de códigos QR de la app móvil.
 
 •	Validador de códigos capturados por medio de la app móvil. Sólo se capturarán códigos que contengan números y con un largo máximo de 15 caracteres.
-
-### Funcionalidades de release`s actual
 
 •	Registro de medidores en app web.
 
@@ -21,19 +19,20 @@ Esta versión incluye el módulo de captura de códigos QR que permitirá al ope
 
 •	Eliminacíon de medidores en app web.
 
+### Funcionalidades añadidas del releas actual 
+
+•	Importación de datos de medidores registrados en app web hacia app móvil.
+
+•	Exportación de datos de las lecturas asociadas a los medidores hacia la app web. (Módulo de registro de lecturas no implementado. El registro de lecturas se encuentra en insertado previamente en la base de datos de la app móvil: https://github.com/AkrauseF/MiAPR/tree/main/app/src/main/assets/databases).
+
 ## Instrucciones de instalación de la app móvil
 1.- Descargue en el dispositivo móvil el instalador de la aplicación desde el repositorio de GitHub en el siguiente link:   https://github.com/AkrauseF/MiAPR/raw/main/app/entregable/release/MiAPR_1_0_0.apk 
 
-2.- Instale la aplicación aceptando los permisos solicitados.
+2.- Si tiene una versión anterior de esta aplicación, desintálela del dispositivo móvil.
 
-3.- Ejecute la aplicación.
+3.- Instale la aplicación aceptando los permisos solicitados.
 
-## Instrucciones de uso de la app móvil
-4.- Presione el botón “CAPTURAR QR”.
-
-5.- Apunte la cámara hacia el código QR que desea capturar.
-
-6.- Visualice en el dispositivo móvil el código capturado o el error en caso de que el código no sea válido.
+4.- Ejecute la aplicación.
 
 ## Instrucciones de instalación de la app web
 
@@ -45,6 +44,28 @@ Esta versión incluye el módulo de captura de códigos QR que permitirá al ope
 
 #### NOTA: 
     Los servicios utilizados para la ejecución del servidor fueron: Apache 2.4.46, PHP 7.2.33 y MariaDB 10.4.14. Todos contenidos en el paquete de software Xampp 7.2.33.
+
+## Instrucciones de uso de la app móvil
+
+### Importar medidores:
+1.- Presione el botón "IMPORTAR".
+
+3.- Presione el botón "IMPORTAR DATOS".
+
+5.- Resgrese al menú anterior y presione el botón "LISTA MEDIDORES" para verificar los datos de los medidores importados.
+
+### Capturar un número de medidor:
+1.- Presione el botón “CAPTURAR QR”.
+
+2.- Apunte la cámara hacia el código QR que desea capturar.
+
+3.- Visualice en el dispositivo móvil el código capturado o el error en caso de que el código no sea válido.
+
+### Exportar datos hacia la app web:
+1.- Presione el botón “EXPORTAR”.
+
+2.- Presione el botón "EXPORTAR DATOS".
+
 
 ## Instrucciones de uso de la app web
 
