@@ -4,9 +4,9 @@ $codigo = $_POST['codigo']; //recepcion de id a actualizar
 $marca = $_POST['marca'];
 $id = $_POST['id']; //recepcion de id a actualizar
 
-echo $codigo."\n";
+/*echo $codigo."\n";
 echo $marca."\n";
-echo $id."\n";
+echo $id."\n";*/
 
 $update = "UPDATE medidores SET numero=$codigo WHERE id_medidores=$id";
 $query = mysqli_query($conexion, $update);

@@ -2,13 +2,14 @@ package com.example.miapr;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
-import android.content.Intent;
-import android.view.View;
-import android.widget.AdapterView;
+import android.util.Log;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import static java.lang.Thread.sleep;
 
 public class ListaMedidores extends AppCompatActivity {
 
@@ -34,56 +35,121 @@ public class ListaMedidores extends AppCompatActivity {
         setContentView(R.layout.activity_lista_medidores);
 
         lista = findViewById(R.id.lvLista);
-
         crearListaMedidores();
-        lista.setAdapter(new Adaptador(this, crearListaMedidores()));
-
-
-
+        lista.setAdapter(new AdaptadorMedidores(this, crearListaMedidores()));
     }
 
-    private String selectMedidor(){
-        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
-        databaseAccess.open();
 
-        String ultimoId = databaseAccess.UltimoIdMedidores();
-
-        return ultimoId;
-
-
-    }
-
-    private String[][] crearListaMedidores(){
+    public String[][] crearListaMedidores(){
 
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
         databaseAccess.open();
 
-        String ultimoId = databaseAccess.UltimoIdMedidores();
-        int ulId = Integer.parseInt(ultimoId);
+        String sub = databaseAccess.getIdMedidores();
+        Log.i("subsidioChar", "prueba");
+       // Log.i("subsidio", String.valueOf(idDeMedidores.length));
+        Log.i("subsidioPrueba", sub);
 
-        String [][] datos = new String[ulId][2];
+        String[] respuesta = sub.split(",");
 
+        String [][] datos = new String[respuesta.length-1][3];
 
-        int contador= 1;
-        while (contador <= ulId){
-            String num = String.valueOf(contador);
-            String codigo = databaseAccess.getCodigoMedidor(num);
-            String marca = databaseAccess.getMarcaMedidor(num);
+        for(int i=1; i < respuesta.length; i++){
+           String id = respuesta[i];
+            //Log.i("subsidioID", id);
+            String codigo = databaseAccess.getCodigoMedidor(id);
+            String marca = databaseAccess.getMarcaMedidor(id);
 
-            //Toast.makeText(this, codigo, Toast.LENGTH_LONG).show();
+            String subsidio = databaseAccess.getSubsidioMedidor(id);
 
-           int posicion = contador;
-            int pos = posicion - 1;
+            int posicion = i;
+            int pos = posicion-1;
             datos[pos][0]=codigo;
             datos[pos][1]=marca;
+            datos[pos][2]=subsidio;
 
-            // Toast.makeText(this,datos[pos][0],Toast.LENGTH_LONG ).show();
-            //Toast.makeText(this,datos[pos][1],Toast.LENGTH_LONG ).show();
-            contador++;
 
         }
+
+           /* int contador= 1;
+            Log.i("Contador2::", ultimoId[0]);
+            while (contador <= ulId){
+                String num = String.valueOf(contador);
+                String codigo = databaseAccess.getCodigoMedidor(num);
+                String marca = databaseAccess.getMarcaMedidor(num);
+
+                String subsidio = databaseAccess.getSubsidioMedidor(num);
+
+                String prueba = databaseAccess.prueba2(codigo);
+
+
+                Log.i("subsidioCOd", codigo);
+                Log.i("subsidio", subsidio);
+                Log.i("subsidioPrueba", sub);
+                //Toast.makeText(this, codigo, Toast.LENGTH_LONG).show();
+
+                int posicion = contador;
+                int pos = posicion - 1;
+                datos[pos][0]=codigo;
+                datos[pos][1]=prueba;
+                datos[pos][2]=sub;
+
+
+                // Toast.makeText(this,datos[pos][0],Toast.LENGTH_LONG ).show();
+                //Toast.makeText(this,datos[pos][1],Toast.LENGTH_LONG ).show();
+                contador++;
+
+
+        }*/
+
+
+
+        //String [][] datos2 = new String[0][3];
         return datos;
 
 
     }
+
+    public void prueba(){
+        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
+        databaseAccess.open();
+        int num=1;
+        while (num <= 7) {
+            String[] registroLecturas = databaseAccess.pruebas(num);
+            Toast.makeText(this, registroLecturas[0]+"-"+registroLecturas[1]+"-"+registroLecturas[2]+"-"+registroLecturas[3]+"-"+registroLecturas[4]+"-"+registroLecturas[5]+"-"+registroLecturas[6], Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "medidor: "+registroLecturas[0]+"lectura ant:"+registroLecturas[1], Toast.LENGTH_SHORT).show();
+            num++;
+        }
+        databaseAccess.close();
+    }
+
+    /*public void testInsertarLectura(){
+        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
+        databaseAccess.open();
+
+        String [] lecturas= {"10","20","30","40","50","60","70","80","90","100"};
+        String [] medidores= {"1111","2222","3333","4444","5555","6666","7777","8888","9999","1000"};
+        String [] fecha= {"2021-03-23","2021-03-23","2021-03-23","2021-03-23","2021-03-23"
+                ,"2021-03-23","2021-03-23","2021-03-23","2021-03-23","2021-03-23"};
+        for(int i=0;i<lecturas.length; i++) {
+            Log.i("Tt Input medidor", medidores[i]);
+            Log.i("Tt Input lectura", lecturas[i]);
+            Log.i("Tt Input Fecha", fecha[i]);
+            databaseAccess.insertarLectura(lecturas[i], medidores[i]);
+            databaseAccess.insertarFecha(fecha[i], medidores[i]);
+
+            Log.i("Tt->", "**************************");
+        }
+        Log.i("Tt->", "#####################");
+        Log.i("Tt->", "#####################");
+        for(int i=1;i<=lecturas.length; i++) {
+            String[] codigo = databaseAccess.getRegistros(i);
+            Log.i("Tt Nº Medidor en BD: ", codigo[0]);
+            Log.i("Tt Lectura en BD: ", codigo[1]);
+            Log.i("Tt Fecha en BD: ", codigo[2]);
+            Log.i("Tt->", "**************************");
+
+        }
+
+    }*/
 }

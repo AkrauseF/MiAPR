@@ -12,7 +12,7 @@
         android:layout_height="52dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="28dp"
-        android:background="@drawable/boton"
+        android:background="@drawable/boton1"
         android:onClick="Registrar"
         android:text="Registrar Lectura"
         android:textColor="#fff"
@@ -26,7 +26,7 @@
         android:layout_height="52dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="44dp"
-        android:background="@drawable/boton"
+        android:background="@drawable/boton1"
         android:onClick="Importar"
         android:text="Importar"
         android:textColor="#fff"
@@ -41,7 +41,7 @@
         android:layout_height="52dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="44dp"
-        android:background="@drawable/boton"
+        android:background="@drawable/boton1"
         android:onClick="ListaMedidores"
         android:text="Lista Medidores"
         android:textColor="#fff"
@@ -51,18 +51,32 @@
         app:layout_constraintTop_toBottomOf="@+id/btImp" />
 
     <Button
-        android:id="@+id/btExp"
+        android:id="@+id/btLista2"
         android:layout_width="304dp"
         android:layout_height="52dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="44dp"
-        android:background="@drawable/boton"
-        android:onClick="Exportar"
-        android:text="Exportar"
+        android:background="@drawable/boton1"
+        android:onClick="ListaRegistros"
+        android:text="Lista Registros"
         android:textColor="#fff"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btLista" />
+
+    <Button
+        android:id="@+id/btExp"
+        android:layout_width="304dp"
+        android:layout_height="52dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="44dp"
+        android:background="@drawable/boton1"
+        android:onClick="Exportar"
+        android:text="Exportar"
+        android:textColor="#fff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btLista2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

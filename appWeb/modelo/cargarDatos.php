@@ -22,7 +22,7 @@ function insertarDatos(){
 	$insert="INSERT INTO registro_lectura (lectura, monto, fecha, metros_cubicos, num_medidor, pago)VALUES($lectura,$monto, '$fecha', $metros_cubicos, $num_medidor, 0)";
 
 		$query=mysqli_query($conexion, $insert);
-		echo "Lectrua de medidor ".$num_medidor." cargada";
+		echo "Lectura de medidor ".$num_medidor." cargada";
 
 	
 }

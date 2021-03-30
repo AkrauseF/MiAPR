@@ -10,7 +10,9 @@ include "modelo/conexiondb.php";
   </title>
 </head>
 <body>
-
+  <?php 
+include "menu.php";
+?>
 <div id="contenedorCliente">
 <h1>Medidores registrados</h1>
 
@@ -28,6 +30,10 @@ include "modelo/conexiondb.php";
        </tr>
 
     <?php 
+
+    $select="SELECT * FROM medidores";
+    $query=mysqli_query($conexion, $select);
+
     $select="SELECT * FROM medidores";
     $query=mysqli_query($conexion, $select);
     while($columna=mysqli_fetch_array($query)){ 
@@ -39,6 +45,7 @@ include "modelo/conexiondb.php";
         <td><?php echo $columna[0];?></td>
         <td><?php echo $columna[1];?></td>
         <td><?php echo $columna[2];?></td>
+
         <td><a href="editarMedidor.php?id=<?php echo $columna[0];?>"><button>Editar</button></a>
           <a href="modelo/eliminarMedidores.php?id=<?php echo $columna[0];?>"><button>Borrar</button></a></td>
 

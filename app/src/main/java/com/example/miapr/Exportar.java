@@ -1,7 +1,14 @@
 package com.example.miapr;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Handler;
+import android.os.Looper;
+import android.os.SystemClock;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,6 +30,8 @@ public class Exportar extends AppCompatActivity {
 
     Button btnExportar;
     EditText etUrl;
+    private ProgressDialog progress;
+
 
 
 
@@ -34,8 +43,16 @@ public class Exportar extends AppCompatActivity {
         btnExportar= findViewById(R.id.btExportar);
         etUrl = findViewById(R.id.etUri2);
 
+        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
+        databaseAccess.open();
+        if(databaseAccess.verificaSiEsNull()){
+            Toast.makeText(this, "No se han registado todas las lecturas", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Complete la totalidad de registros de lecturas", Toast.LENGTH_LONG).show();
 
 
+            Intent i = new Intent(this, ListaRegistros.class);
+            startActivity(i);
+        }
 
     }
 
@@ -43,36 +60,84 @@ public class Exportar extends AppCompatActivity {
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
         databaseAccess.open();
 
-        String ultimaLectura = databaseAccess.UltimoIdLectura();
-        Toast.makeText(this, "Se exportarán "+ultimaLectura+" Registros de lecturas", Toast.LENGTH_SHORT).show();
+        if(databaseAccess.verificaSiEsNull()){
+            Toast.makeText(this, "No se han registado todas las lecturas", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Complete la totalidad de registros de lecturas", Toast.LENGTH_LONG).show();
 
-        int ulIdLectura = Integer.parseInt(ultimaLectura);
 
-        String[] fecha = databaseAccess.getLecturas(ulIdLectura);
-        verificarFecha(fecha[2], ulIdLectura );
+            Intent i = new Intent(this, ListaRegistros.class);
+            startActivity(i);
+        }else {
+
+            String[] ultimaLectura = databaseAccess.UltimoIdLectura();
+            //Toast.makeText(this, "Se exportarán "+ultimaLectura[0]+" Registros de lecturas", Toast.LENGTH_LONG).show();
+
+            int ulIdLectura = Integer.parseInt(ultimaLectura[0]);
+
+            String[] fecha = databaseAccess.getLecturas(ulIdLectura);
+            verificarFecha(fecha[2], ulIdLectura );
+        }
+
+
+
+
 
 
 
     }
     //Obtine los registros de lecturas en base de datos app móvil
-    public void obtenerLecturas(int ulIdLectura){
-        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
+    public void obtenerLecturas(final int ulIdLectura){
+        final DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
         databaseAccess.open();
 
-        int num = 1;
+        String[] ultimaLectura = databaseAccess.UltimoIdLectura();
 
-         while (num <= ulIdLectura) {
+        progress=new ProgressDialog(this);
+        progress.setMessage("Exportando "+ultimaLectura[0]+" registros de lecturas...");
+        progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        //progress.setIndeterminate(true);
+        progress.setProgress(0);
+        progress.show();
 
-             String[] registroLecturas = databaseAccess.getLecturas(num);
-             ExportarDatos(registroLecturas[0], registroLecturas[1], registroLecturas[2], registroLecturas[3], registroLecturas[4]);
-             //Toast.makeText(this, registroLecturas[0]+"-"+registroLecturas[1]+"-"+registroLecturas[2]+"-"+registroLecturas[3]+"-"+registroLecturas[4], Toast.LENGTH_SHORT).show();
-             num++;
+        progress.setMax(ulIdLectura);
+        final Thread t = new Thread() {
+            @Override
+            public void run() {
 
-         }
+                int num = 1;
+                while (num <= ulIdLectura) {
+
+                    progress.setProgress(num);
+                    SystemClock.sleep(500);
+                    String[] registroLecturas = databaseAccess.getLecturas(num);
+                    ExportarDatos(registroLecturas[0], registroLecturas[1], registroLecturas[2], registroLecturas[3], registroLecturas[4]);
+                    //Toast.makeText(this, registroLecturas[0]+"-"+registroLecturas[1]+"-"+registroLecturas[2]+"-"+registroLecturas[3]+"-"+registroLecturas[4], Toast.LENGTH_SHORT).show();
+                    num++;
+
+                }
+                progress.dismiss();
+
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(), "Datos exportados exitosamente", Toast.LENGTH_LONG).show();
+
+
+                    }
+                });
+
+
+            }
+
+        };
+
+        t.start();
+
+
     }
     //verifca que la fecha del ultimo registo en el móvil no se encuntre en exportado. para no volve a exportar o duplicar datos en app web.
     public void verificarFecha(final String date, final int ulIdLectura){
-        String Url = "http://"+etUrl.getText().toString()+"/Apr/modelo/verificarFecha.php";
+        String Url = etUrl.getText().toString()+"/Apr/modelo/verificarFecha.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Url, new Response.Listener<String>() {
 
             @Override
@@ -107,14 +172,20 @@ public class Exportar extends AppCompatActivity {
 
     }
     public void ExportarDatos(final String codigo, final String lectura, final String fecha, final String monto, final String metrosc) {
+       /* Log.i("Exportación- Nº Medidor", codigo);
+        Log.i("Exportación- Lectura", lectura);
+        Log.i("Exportación- Fecha", fecha);
+        Log.i("Exportación- Monto", monto);
+        Log.i("Exportación- MetrosC", metrosc);
+        Log.i("Exportación-", "**************************");*/
 
-        String Url = "http://" + etUrl.getText().toString() + "/Apr/modelo/cargarDatos.php";
+        String Url = etUrl.getText().toString() + "/Apr/modelo/cargarDatos.php";
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Url, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
-                Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG).show();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -131,11 +202,14 @@ public class Exportar extends AppCompatActivity {
                 parametros.put("metros_cubicos", metrosc);
                 parametros.put("num_medidor", codigo);
 
+
                 return parametros;
             }
         };
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
 
+
     }
+
 }

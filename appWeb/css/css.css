@@ -9,6 +9,33 @@ h1{
   text-align: center;
   
 }
+#menu{
+  border: 1px solid black;
+  display: inline-block;
+  width: 100%;
+  background: #154360;
+  height: 30px;
+}
+#menu a{
+  text-decoration: none;
+  color: #fff;
+}
+
+#menu a:hover{
+  text-decoration: none;
+  color: red;
+}
+.botonMenuIz{
+  float: right;
+  color: #fff;
+  padding: 6px;
+  margin-right: 5px;
+}
+.botonMenuDe{
+  float: left;
+  padding: 6px;
+  color: #fff;
+}
 
 .tabla{
 	display: flex;
@@ -41,7 +68,7 @@ h1{
   color: white;
 }
 
-#regMedidores{
+#registros{
 	background: #fff;
 	margin: auto;
 	margin-top: 50px;

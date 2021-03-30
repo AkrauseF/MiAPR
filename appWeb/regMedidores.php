@@ -10,16 +10,19 @@
 </head>
 <body>
   <?php
-//include "menu.php";
+
+include "menu.php";
+include "modelo/conexiondb.php";
 ?>
 
-<div id="regMedidores">
+<div id="registros">
   <h1>Registro de Medidores</h1>
   <form action="modelo/regMedidorModel.php" method="post">
     <label>Código</label>
     <input type="number" name="codigo">
     <label>Marca</label>
     <input type="text" name="marca">
+
     <input type="submit" value="Enviar">
     
   </form>

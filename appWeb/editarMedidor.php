@@ -18,9 +18,11 @@ $marca = $columna[1];
   </title>
 </head>
 <body>
+  <?php 
+include "menu.php";
+?>
 
-
-<div id="regMedidores">
+<div id="registros">
   <h1>Edición de medidores</h1>
   <form action="modelo/editarMedidorModelo.php" method="post">
     <label>Código</label>
