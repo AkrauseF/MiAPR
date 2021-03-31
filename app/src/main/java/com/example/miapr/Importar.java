@@ -27,7 +27,6 @@ public class Importar extends AppCompatActivity {
     EditText etUrl;
     private ProgressDialog progress;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,9 +49,6 @@ public class Importar extends AppCompatActivity {
 
             }
         });*/
-
-
-
     }
 
     public void consulUltId() {
@@ -213,8 +209,6 @@ public class Importar extends AppCompatActivity {
          };
          t.start();
 
-
-
      }
 
      private void descargarDatosCobros(){
@@ -342,33 +336,21 @@ public class Importar extends AppCompatActivity {
      }
 
 
-
     private void borrartabla(){
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
         databaseAccess.open();
         databaseAccess.VaciarMedidores();
 
         databaseAccess.VaciarLecturas();
-
         databaseAccess.VaciarDatosCobros();
-
         databaseAccess.VaciarClientes();
-
-       // databaseAccess.close();
-        //databaseAccess.open();
-
-
-        //Toast.makeText(getApplicationContext(), "tabla borrada", Toast.LENGTH_LONG).show();
 
     }
     private void crearTabla(String numero, String marca, String id){
 
-        //Toast.makeText(this, numero, Toast.LENGTH_SHORT).show();
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
         databaseAccess.open();
         databaseAccess.insertarMedidoresM(numero,marca, id);
-        //databaseAccess.close();
-       // databaseAccess.open();
         databaseAccess.insertarMedidorL(numero);
 
     }

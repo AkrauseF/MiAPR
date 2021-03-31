@@ -32,9 +32,6 @@ public class Exportar extends AppCompatActivity {
     EditText etUrl;
     private ProgressDialog progress;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,12 +74,6 @@ public class Exportar extends AppCompatActivity {
             String[] fecha = databaseAccess.getLecturas(ulIdLectura);
             verificarFecha(fecha[2], ulIdLectura );
         }
-
-
-
-
-
-
 
     }
     //Obtine los registros de lecturas en base de datos app móvil
