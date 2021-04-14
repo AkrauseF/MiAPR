@@ -19,19 +19,14 @@ include "modelo/conexiondb.php";
     <input type="number" name="rut">
     <label>Nombre</label>
     <input type="text" name="nombre">
-    <label>Apellido</label>
-    <input type="text" name="apellido">
+    <label>Apellido Paterno</label>
+    <input type="text" name="apellidoP">
+    <label>Apellido Materno</label>
+    <input type="text" name="apellidoM">
     <label>Direccion</label>
-    <input type="text" name="direccion">
-    <label>Subsidio</label>
-    <select name="subsidio">
-        <option value="0">0</option>
-        <option value="50">50</option>
-        <option value="100">100</option>
-    </select>    
+    <input type="text" name="direccion">   
     <label>Nº Sitio</label>
-    <input type="text" name="numSitio">
-
+    <input type="number" name="numSitio">
     <label>Medidor</label>
     <select name="medidor">
         <option value="0">Seleccione:</option>
@@ -56,6 +51,30 @@ include "modelo/conexiondb.php";
           }
         ?>
     </select>
+    <label>Decreto</label>
+    <select name="decreto">
+      <option value="1">Sin decreto:</option>
+        <?php
+// Realizamos la consulta para extraer los datos
+          $select3="SELECT * FROM decretos";
+          $query3=mysqli_query($conexion, $select3);
+
+          while($columna3=mysqli_fetch_array($query3)){
+
+          $select4="SELECT id_decreto FROM clientes where id_decreto=$columna3[0]";
+          $query4=mysqli_query($conexion, $select4);
+          $columna4=mysqli_fetch_array($query4);
+          $vacio = "vacio";
+          if(empty($columna4[0])){
+            echo '<option value="'.$columna3[0].'">Número decreto: '.$columna3[1].' - tipo: '.$columna3[8].'</option>';
+
+          }else{
+            continue;          
+          }
+
+          }
+        ?>
+    </select> 
 
     <input type="submit" value="Enviar">
     

@@ -42,30 +42,40 @@ h1{
 	align-items: center;
 	justify-content: center;
 }
-.tabla table{
-	border-collapse: collapse;
-	border-bottom:1px solid black;
-	
-
-	
+table{
+  width: calc(100% - 40px);
+  border-collapse: collapse;
+  border-bottom:1px solid black;
 }
-.tabla th, td {
+
+ th, td {
 	text-align: center;
 	border-left: 1px solid black;
 	border-right: 1px solid black;
 	padding-left: 10px;
 	padding-right: 10px;
-
 	
 }
 
-.tabla tr:nth-child(even){background-color: #66B1D2;}
+tr:nth-child(even){background-color: #66B1D2;}
 
-.tabla tr:hover {background-color: #ddd;}
+tr:hover {background-color: #ddd;}
 
-.tabla th {
+th {
   background-color: #154360;
   color: white;
+}
+.tabla2{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.tabla2 table{
+  display: block;
+  overflow: scroll;
+  width: calc(100% - 40px);
+  border-collapse: collapse;
+  border-bottom:1px solid black;
 }
 
 #registros{

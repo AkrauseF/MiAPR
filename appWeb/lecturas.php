@@ -23,9 +23,9 @@ include "menu.php";
         <tr>
          <th>Nº </th>
         <th>Lectura </th> 
-         <!-- <th>Monto</th>-->
+        <th>Monto</th>
          <th>Fecha</th>
-        <!-- <th>Metros Cubicos</th>-->
+        <th>Metros Cubicos</th>
          <th>Medidor</th>
         <!-- <th>Pago</th>-->
 
@@ -48,14 +48,14 @@ include "menu.php";
        <tr>
         <td><?php echo $columna[0];?></td>
        <td><?php echo $columna[1];?></td>
-        <!--<td><?php echo $columna[2];?></td>-->
+      <td><?php echo $columna[2];?></td>
         <td><?php echo $columna[3];?></td>
-      <!-- <td><?php echo $columna[4];?></td>-->
+      <td><?php echo $columna[4];?></td>
         <td><?php echo $columna[5];?></td>
-       <!-- <td><?php //echo $columna[6];?></td>-->
+       <!-- <td><?php //echo $columna[6];?></td>
         
         <td><a href="editarLectura.php?id=<?php echo $columna[0];?>"><button>Editar</button></a>
-        <a href="modelo/eliminarLecturas.php?id=<?php echo $columna[0];?>"><button>Borrar</button></a></td>
+        <a href="modelo/eliminarLecturas.php?id=<?php echo $columna[0];?>"><button>Borrar</button></a></td> -->
 
       </tr>
     <?php } ?>
