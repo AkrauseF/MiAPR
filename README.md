@@ -1,8 +1,8 @@
-# MiAPR v4.0.0
+# MiAPR v5.0.0
 Sistema que agiliza los procesos de registro de lectura y gestión de cobros del agua potable rural de Villa San Pedro, comuna de Pucón.
 
 ## Descripción
-Esta versión incluye los módulos de registro de medidores y registro de clientes de la app web, donde en este último módulo se podrá asociar a los clientes con los medidores.
+Esta versión incluye los módulos de registro y edición de medidores, registro y edición de clientes y generación de informes de datos de subsidiarios de la app web.
 Por otro lado en la app móvil vienen incluidos los módulos de importación y exportación de datos entre la app web y la app móvil lo que permitirá poder ejecutar el módulo de identificación de medidores por medio de la captura de código QR y registrar el número de lectura de este que representa los metros cúbicos consumidos por el cliente que tiene asociado dicho medidor.
 
 ## El producto resultante de esta iteración consta de las siguientes funcionalidades:
@@ -24,12 +24,15 @@ Por otro lado en la app móvil vienen incluidos los módulos de importación y e
 
 •	Exportación de datos de las lecturas asociadas a los medidores hacia la app web.
 
-### Funcionalidades añadidas del releas actual 
-
 •	Registro de lecturas asociadas a un medidor en la app móvil.
 
 •	Registro de clientes en aplicación web.
 
+### Funcionalidades añadidas del releas actual 
+
+•	Edición y eliminación de clientes en la app web.
+
+•	Generación de informes de clientes con subsidio  la app web.
 
 ## Instrucciones de instalación de la app móvil
 1.- Descargue en el dispositivo móvil el instalador de la aplicación desde el repositorio de GitHub en el siguiente link:   https://github.com/AkrauseF/MiAPR/raw/main/app/entregable/release/MiAPR_4_0_0.apk 
@@ -42,9 +45,9 @@ Por otro lado en la app móvil vienen incluidos los módulos de importación y e
 
 ## Instrucciones de instalación de la app web
 
-1.- Descargue los archivos comprimidos desde el siguinte link: https://github.com/AkrauseF/MiAPR/archive/v4.0.0.zip
+1.- Descargue los archivos comprimidos desde el siguinte link: https://github.com/AkrauseF/MiAPR/archive/v5.0.0.zip
 
-2.- Descomprima el archivo v2.0.0.zip y monte los archivos y directorios contenidos en la carpeta "appWeb" en su servidor web.
+2.- Descomprima el archivo v5.0.0.zip y monte los archivos y directorios contenidos en la carpeta "appWeb" en su servidor web.
 
 3.- En el directorio "modelo", dentro del directorio "appWeb", se encontrará un archivo llamado "conexiondb.php" en el cual debe reemplazar los datos de acceso a su servicio de base de datos mysql. 
 
@@ -63,13 +66,14 @@ Por otro lado en la app móvil vienen incluidos los módulos de importación y e
 
 2.- Apunte la cámara hacia el código QR que desea capturar.
 
-3.- Visualice en el dispositivo móvil el código capturado o el error en caso de que el código no sea válido.
+3.- Visualice en el dispositivo móvil el código capturado, el error en caso de que el código no sea válido y el número de lectura del mes anterior asociado al medidor en cuestión.
+
+4.- Ingrese una lectura que sea mayor o igual anterior.
 
 ### Exportar datos hacia la app web:
 1.- Una vez registrado la totalidad de lecturas correspondiente a los medidores importados, conecte el dispositivo móvil a la red donde se encuentra el equipo que contiene la app web.
 
 2.Presione el botón “EXPORTAR” y espere la confirmación de que los tados fueron exportados correctamente.
-
 
 ## Instrucciones de uso de la app web
 
@@ -85,9 +89,24 @@ Por otro lado en la app móvil vienen incluidos los módulos de importación y e
 5.- Si presiona el botón editar, la página redireccionará hacia el formulario de edición de medidores, donde podrá modificar los datos del medidor seleccionado. Al presionar el botón editar se redireccionará hacia la página de medidores registrados, donde podrá observar los cambios realizados.
 
 ### Registro de clientes:
-1.- Ingrese a su navegador web y escriba la raíz de la dirección donde se encuentra montado el sitio web y agregue /regCliente.php.
+1.- Ingrese a su navegador web y escriba la raíz de la dirección donde se encuentra montado el sitio web.
 
-2.- Ingrese los datos del cliente en el formulario y en el campo de "Medidor" seleccione un medidor de la lista de medidores disponibles, luego presione enviar, esto redireccionará hacia la página de clientes registrados.
+2.- Presione el botón "Clientes" del menú en la parte superior y luego en el botón "registrar" en la parte superior izquierda de la tabla. 
 
-3.- Para volver a registrar otro cliente presione el botón "Registrar".
+3.- Ingrese los datos del cliente en el formulario, en el campo de "Medidor" seleccione un medidor de la lista de medidores disponibles y en el campo "Decreto" seleccione un decreto si es que corresponde, luego presione enviar, esto redireccionará hacia la página de clientes registrados.
+
+4.- Para volver a registrar otro cliente presione el botón "Registrar".
+
+5.- Si presiona el botón eliminar se borrará el registro del medidor seleccionado.
+
+6.- Si presiona el botón editar, la página redireccionará hacia el formulario de edición de medidores, donde podrá modificar los datos del medidor seleccionado. Al presionar el botón editar se redireccionará hacia la página de medidores registrados, donde podrá observar los cambios realizados.
+
+### Generación de informe de subsidiarios.
+1.- Ingrese a su navegador web y escriba la raíz de la dirección donde se encuentra montado el sitio web.
+
+2.- Presione el botón "informe subsidiario" del menú en la parte superior.
+
+3.- Presiones el botón generar informe en la parte inferior de la tabla.
+
+
 
