@@ -253,12 +253,15 @@ public class RegistrarDatosMedidor extends AppCompatActivity {
 
             String cargoFijo= datosCobros[0];
             String metrosSubsidio= datosCobros[1];
+            String valorMetro= datosCobros[2];
 
             int cargo_fijo = Integer.parseInt(cargoFijo);
             int metros_sub = Integer.parseInt(metrosSubsidio);
+            int valor_metro = Integer.parseInt(valorMetro);
+
 
             int subsidioMayor = cargo_fijo +  (metros_sub * 400); //8500
-            int subsidioMenor = subsidioMayor / 2;
+            int subsidioMenor = subsidioMayor / 2;//4250
 
 
             Date c = Calendar.getInstance().getTime();
@@ -292,14 +295,25 @@ public class RegistrarDatosMedidor extends AppCompatActivity {
                     tvValidar.setTypeface(tvValidar.getTypeface(), Typeface.BOLD);
                     tvValidar.setTextColor(Color.RED);
 
-                } else if(subsidioD == 50){
+                } else if(subsidioD == 10){
+                    if(metrosCubicos<=metros_sub){
+                        int cobro = (metrosCubicos * valor_metro + cargo_fijo)/2;
+                        if(cobro < 0){
+                            databaseAccess.insertarCobro(0, NumMedidor);
+                        }else{
+                            databaseAccess.insertarCobro(cobro, NumMedidor);
+                        }
+                    }else {
+                        int cobro = (metrosCubicos * valor_metro + cargo_fijo)-subsidioMenor;
+                        if(cobro < 0){
+                            databaseAccess.insertarCobro(0, NumMedidor);
+                        }else{
+                            databaseAccess.insertarCobro(cobro, NumMedidor);
+                        }
 
-                    int cobro = (metrosCubicos * 400 + cargo_fijo) - subsidioMenor;
-                    if(cobro < 0){
-                        databaseAccess.insertarCobro(0, NumMedidor);
-                    }else{
-                        databaseAccess.insertarCobro(cobro, NumMedidor);
                     }
+
+
                     etNumLectura.setText("");
                     etNumMedidor.setText("");
                     tvValidar.setText("");
@@ -309,9 +323,9 @@ public class RegistrarDatosMedidor extends AppCompatActivity {
                     //Intent i = new Intent(this, ListaRegistros.class);
                     //startActivity(i);
 
-                }else if(subsidioD == 100){
+                }else if(subsidioD == 20){
 
-                    int cobro = (metrosCubicos * 400 + cargo_fijo) - subsidioMayor;
+                    int cobro = (metrosCubicos * valor_metro + cargo_fijo) - subsidioMayor;
 
                     if(cobro < 0){
                         databaseAccess.insertarCobro(0, NumMedidor);
@@ -327,7 +341,7 @@ public class RegistrarDatosMedidor extends AppCompatActivity {
                     //Intent i = new Intent(this, ListaRegistros.class);
                     //startActivity(i);
                 }else{
-                    int cobro = metrosCubicos * 400 + cargo_fijo;
+                    int cobro = metrosCubicos * valor_metro + cargo_fijo;
 
                     databaseAccess.insertarCobro(cobro, NumMedidor);
                     etNumLectura.setText("");

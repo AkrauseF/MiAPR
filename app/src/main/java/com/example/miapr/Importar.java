@@ -223,11 +223,12 @@ public class Importar extends AppCompatActivity {
 
                  String cargoFijo =respuesta[0];
                  String metrosSubsidio =respuesta[1];
+                 String valorMetro =respuesta[2];
 
                  DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
                  databaseAccess.open();
 
-                 databaseAccess.insertarDatosCobros(cargoFijo, metrosSubsidio);
+                 databaseAccess.insertarDatosCobros(cargoFijo, metrosSubsidio, valorMetro);
 
              }
          }, new Response.ErrorListener() {

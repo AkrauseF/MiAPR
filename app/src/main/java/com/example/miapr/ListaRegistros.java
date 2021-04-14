@@ -51,7 +51,7 @@ public class ListaRegistros extends AppCompatActivity {
         databaseAccess.open();
         String sub = databaseAccess.getIdMedidores();
         String[] respuesta = sub.split(",");
-        String [][] datos = new String[respuesta.length-1][5];
+        String [][] datos = new String[respuesta.length-1][7];
 
         for(int i=1; i < respuesta.length; i++){
             String[] codigo = databaseAccess.getRegistros(i);
@@ -60,17 +60,17 @@ public class ListaRegistros extends AppCompatActivity {
             Log.i("Visual Q Fecha: ", codigo[2]);
             Log.i("Visual Q LecAnt: ", codigo[5]);*/
             String subsidio = databaseAccess.getSubsidioLecturas(codigo[0]);
-            Log.i("Visual->", codigo[0]);
-            Log.i("Visual->", subsidio);
+           // Log.i("Visual->", codigo[3]);
+            //Log.i("Visual->", subsidio);
             int posicion = i;
             int pos = posicion-1;
             datos[pos][0]=codigo[0];
             datos[pos][1]=codigo[1];
             datos[pos][2]=codigo[2];
-            //datos[pos][3]=codigo[3];
-           // datos[pos][4]=codigo[4];
-            datos[pos][3]=codigo[5];
-           datos[pos][4]=subsidio;
+            datos[pos][3]=codigo[3];
+            datos[pos][4]=codigo[4];
+            datos[pos][5]=codigo[5];
+            datos[pos][6]=subsidio;
         }
         return datos;
     }

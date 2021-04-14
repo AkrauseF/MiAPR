@@ -194,21 +194,24 @@ public class DatabaseAccess {
     }
 
     public String[]  getDatosCobros(){
-        String[] registros= new String[2];
+        String[] registros= new String[3];
         String cargoFijo=null;
         String metrosSub=null ;
+        String valorMetro= null;
 
-        c = db.rawQuery("select cargo_fijo, metros_subsidio from datosCobros where id_datos = '1'", new String[]{});
+        c = db.rawQuery("select cargo_fijo, metros_subsidio, valor_metro from datosCobros where id_datos = '1'", new String[]{});
         StringBuffer buffer = new StringBuffer();
 
         while (c.moveToNext()) {
             cargoFijo = c.getString(0);
             metrosSub = c.getString(1);
+            valorMetro = c.getString(2);
 
         }
 
         registros[0]=cargoFijo;
         registros[1]=metrosSub;
+        registros[2]=valorMetro;
 
 
 
@@ -318,8 +321,8 @@ public class DatabaseAccess {
         db.execSQL("update lecturas set lectura_ant="+lecturaAnt+" where id_medidor ="+numMedidor);
     }
 
-    public void insertarDatosCobros(String cargoFijo, String metrosSub){
-        db.execSQL("insert into datosCobros (cargo_fijo, metros_subsidio) " + "values ('"+cargoFijo+"','"+metrosSub+"')");
+    public void insertarDatosCobros(String cargoFijo, String metrosSub, String valorMetro){
+        db.execSQL("insert into datosCobros (cargo_fijo, metros_subsidio, valor_metro) " + "values ('"+cargoFijo+"','"+metrosSub+"','"+valorMetro+"')");
 
     }
 

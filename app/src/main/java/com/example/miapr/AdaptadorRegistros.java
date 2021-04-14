@@ -35,8 +35,8 @@ public class AdaptadorRegistros extends BaseAdapter {
        TextView subsidio = (TextView) vista.findViewById(R.id.tvSubsidio);
         TextView lectura = (TextView) vista.findViewById(R.id.tvlectura);
         TextView fecha = (TextView) vista.findViewById(R.id.tvfecha);
-       // TextView monto = (TextView) vista.findViewById(R.id.tvmonto);
-       // TextView metroc = (TextView) vista.findViewById(R.id.tvcubos);
+       TextView monto = (TextView) vista.findViewById(R.id.tvmonto);
+       TextView metroc = (TextView) vista.findViewById(R.id.tvcubos);
         TextView lecturaAnt = (TextView) vista.findViewById(R.id.tvLecturaAnt);
 
         medidor.setText("Medidor: "+datos[i][0]);
@@ -49,10 +49,10 @@ public class AdaptadorRegistros extends BaseAdapter {
         }
         //lectura.setText("Lectura: "+datos[i][1]);
         fecha.setText("Fecha: "+datos[i][2]);
-       // monto.setText("Monto: "+datos[i][3]);
-       // metroc.setText("Metros C: "+datos[i][4]);
-        lecturaAnt.setText("Lectura Ant: "+datos[i][3]);
-       subsidio.setText("Subsidio: "+datos[i][4]);
+       monto.setText("Monto: "+datos[i][3]);
+       metroc.setText("Metros C: "+datos[i][4]);
+        lecturaAnt.setText("Lectura Ant: "+datos[i][5]);
+       subsidio.setText("Subsidio: "+datos[i][6]);
 
         //codigo.setText("Hola");
         //marca.setText("Mundo");

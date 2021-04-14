@@ -55,7 +55,7 @@
                tools:text="hola">
 
            </TextView>
-           <!-- <TextView
+           <TextView
                 android:id="@+id/tvmonto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -78,7 +78,7 @@
                 tools:layout_editor_absoluteX="0dp"
                 tools:text="hola">
 
-            </TextView> -->
+            </TextView>
          <TextView
              android:id="@+id/tvLecturaAnt"
              android:layout_width="match_parent"
