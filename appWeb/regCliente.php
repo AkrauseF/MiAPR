@@ -65,12 +65,12 @@ include "modelo/conexiondb.php";
           $query4=mysqli_query($conexion, $select4);
           $columna4=mysqli_fetch_array($query4);
           $vacio = "vacio";
-          if(empty($columna4[0])){
+          //if(empty($columna4[0])){
             echo '<option value="'.$columna3[0].'">Número decreto: '.$columna3[1].' - tipo: '.$columna3[8].'</option>';
 
-          }else{
-            continue;          
-          }
+          //}else{
+           // continue;          
+          //}
 
           }
         ?>
