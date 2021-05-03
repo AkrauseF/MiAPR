@@ -39,7 +39,7 @@ Por otro lado en la app móvil vienen incluidos los módulos de importación y e
 •	Impresión de boleta de cobro en terreno.
 
 ## Instrucciones de instalación de la app móvil
-1.- Descargue en el dispositivo móvil el instalador de la aplicación desde el repositorio de GitHub en el siguiente link:   https://github.com/AkrauseF/MiAPR/raw/main/app/entregable/release/MiAPR_4_0_0.apk 
+1.- Descargue en el dispositivo móvil el instalador de la aplicación desde el repositorio de GitHub en el siguiente link:   https://github.com/AkrauseF/MiAPR/raw/main/app/entregable/release/MiAPR_6_0_0.apk 
 
 2.- Si tiene una versión anterior de esta aplicación, desintálela del dispositivo móvil.
 
