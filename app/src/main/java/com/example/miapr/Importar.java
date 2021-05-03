@@ -97,7 +97,7 @@ public class Importar extends AppCompatActivity {
                  Integer num = 1;
                  while (num <= ide ){
                      progress.setProgress(num);
-                     SystemClock.sleep(100);
+                     SystemClock.sleep(500);
                      StringRequest stringRequest = new StringRequest(Request.Method.POST, Url+"?var='"+num+"'", new Response.Listener<String>() { //envia el id de la tabla de medidores.
 
                          @Override
@@ -108,6 +108,8 @@ public class Importar extends AppCompatActivity {
                              String marca =respuesta[1];
                              String id =respuesta[2];
                              crearTabla(numero,marca, id);
+
+
 
                          }
                      }, new Response.ErrorListener() {
@@ -132,7 +134,21 @@ public class Importar extends AppCompatActivity {
          t.start();
 
      }
-
+    public boolean verificarImportaciónMedidores(String id, String numero, String marca){
+        //Consulta en bbdd interna existencia de datos exportados.
+        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
+        databaseAccess.open();
+        String [] datos = databaseAccess.getDatosMedidores(id);
+        //compara datos obtenidos de la consulta con los obtenido de la bbdd externa.
+        if(!datos[0].equals(id) && !datos[1].equals(numero) && !datos[2].equals(marca)){
+            return false;
+        }else{
+            return true;
+        }
+        //si son iguales, conitunar con el bucle.
+        //si son distintos terminar con el bucle y borrar vaciar la tablas correspondientes.
+        //emitir error de inportación de medidores de datos,
+    }
 
      public void descargaLecturasAnteriores(){
          btImportar2.setEnabled(false);
@@ -160,7 +176,7 @@ public class Importar extends AppCompatActivity {
                  for(int cont=1; cont < ListaidMed.length; cont++){
 
                      progress.setProgress(cont);
-                     SystemClock.sleep(100);
+                     SystemClock.sleep(500);
 
                      //String num= Integer.toString(cont);
                      final String numeroMedidor= databaseAccess.getCodigoMedidor(ListaidMed[cont]);
@@ -178,6 +194,11 @@ public class Importar extends AppCompatActivity {
                                  DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
                                  databaseAccess.open();
                                  databaseAccess.insertarRegistros(lectura, medidor);
+                                 //Consulta en bbdd interna existencia de datos exportados.
+                                 //compara datos obtenidos de la consulta con los obtenido de la bbdd externa.
+                                 //si son iguales, conitunar con el bucle.
+                                 //si son distintos terminar con el bucle y borrar vaciar la tablas correspondientes.
+                                 //emitir error de inportación de medidores de datos,
                              }else{
                                  String[] respuesta = response.split(",");
                                  String lectura =respuesta[0];
@@ -185,6 +206,11 @@ public class Importar extends AppCompatActivity {
                                  DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
                                  databaseAccess.open();
                                  databaseAccess.insertarRegistros(lectura, medidor);
+                                 //Consulta en bbdd interna existencia de datos exportados.
+                                 //compara datos obtenidos de la consulta con los obtenido de la bbdd externa.
+                                 //si son iguales, conitunar con el bucle.
+                                 //si son distintos terminar con el bucle y borrar vaciar la tablas correspondientes.
+                                 //emitir error de inportación de lecturas de datos,
                              }
 
                          }
@@ -259,7 +285,7 @@ public class Importar extends AppCompatActivity {
                  int contador = 1;
                  while (contador <= ultimoId){
                      progress.setProgress(contador);
-                     SystemClock.sleep(100);
+                     SystemClock.sleep(500);
 
                      String var= String.valueOf(contador);
                      StringRequest stringRequest = new StringRequest(Request.Method.POST, Url+"?var='"+var+"'", new Response.Listener<String>() {
@@ -284,6 +310,11 @@ public class Importar extends AppCompatActivity {
                              databaseAccess.open();
                              databaseAccess.insertarClientes(rut, nombre, apellido, direccion, subsidio, numSitio, idMedidor);
 
+                             //Consulta en bbdd interna existencia de datos exportados.
+                             //compara datos obtenidos de la consulta con los obtenido de la bbdd externa.
+                             //si son iguales, conitunar con el bucle.
+                             //si son distintos terminar con el bucle y borrar vaciar la tablas correspondientes.
+                             //emitir error de inportación de clientes de datos,
                          }
                      }, new Response.ErrorListener() {
                          @Override
@@ -343,7 +374,6 @@ public class Importar extends AppCompatActivity {
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
         databaseAccess.open();
         databaseAccess.VaciarMedidores();
-
         databaseAccess.VaciarLecturas();
         databaseAccess.VaciarDatosCobros();
         databaseAccess.VaciarClientes();

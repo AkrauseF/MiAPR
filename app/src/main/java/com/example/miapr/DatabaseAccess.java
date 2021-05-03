@@ -245,6 +245,32 @@ public class DatabaseAccess {
         return registros;
     }
 
+    public String[]  getDatosMedidores(String id){
+        String[] registros= new String[3];
+        String idMedidor=null;
+        String numero=null ;
+        String marca= null;
+
+        c = db.rawQuery("select * from medidores where id_medidor = '"+id+"'", new String[]{});
+        StringBuffer buffer = new StringBuffer();
+
+        while (c.moveToNext()) {
+            idMedidor = c.getString(0);
+            numero = c.getString(1);
+            marca = c.getString(2);
+
+        }
+
+        registros[0]=idMedidor;
+        registros[1]=numero;
+        registros[2]=marca;
+
+
+
+
+        return registros;
+    }
+
     public String[] UltimoIdMedidores() {
         String[] registros= new String[5];
         String ultimo=null;
