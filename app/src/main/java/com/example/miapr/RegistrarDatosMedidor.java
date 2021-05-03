@@ -113,7 +113,7 @@ public class RegistrarDatosMedidor extends AppCompatActivity {
         });
 
         //test();
-        testInsertarCobro();
+        //testInsertarCobro();
 
     }
 
