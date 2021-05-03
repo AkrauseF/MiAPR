@@ -76,7 +76,7 @@ public class DatabaseAccess {
     }
 
     public String getSubsidioMedidor(String num) {
-        c = db.rawQuery("SELECT subsidio FROM clientes INNER JOIN medidores ON medidores.id_medidor=clientes.id_medidor WHERE medidores.id_medidor="+num, new String[]{});
+        c = db.rawQuery("SELECT subsidio FROM clientes WHERE id_medidor="+num, new String[]{});
         StringBuffer buffer = new StringBuffer();
         while (c.moveToNext()) {
             String codigo = c.getString(0);
@@ -95,6 +95,32 @@ public class DatabaseAccess {
             buffer.append(codigo);
         }
         return buffer.toString();
+    }
+
+    public String[] getDatosClientes(String num) {
+
+        String[] registros= new String[4];
+        String Nombre=null;
+        String Apellido=null;
+        String Direccion=null ;
+        String NumSitio=null;
+
+
+        c = db.rawQuery("SELECT clientes.nombre, clientes.apellido, clientes.direccion, clientes.num_sitio  FROM clientes INNER JOIN medidores ON medidores.id_medidor=clientes.id_medidor WHERE medidores.numero="+num, new String[]{});
+        StringBuffer buffer = new StringBuffer();
+        while (c.moveToNext()) {
+            Nombre = c.getString(0);
+            Apellido = c.getString(1);
+            Direccion = c.getString(2);
+            NumSitio = c.getString(3);
+
+        }
+        registros[0]=Nombre;
+        registros[1]=Apellido;
+        registros[2]=Direccion;
+        registros[3]=NumSitio;
+
+        return registros;
     }
 
     public String getLecturaAnterior(String medidor) {
@@ -398,7 +424,7 @@ public class DatabaseAccess {
         return registros;
     }
     public String prueba2(String num) {
-        c = db.rawQuery("SELECT id_medidor FROM medidores WHERE numero='"+num+"'", new String[]{});
+        c = db.rawQuery("SELECT * FROM clientes", new String[]{});
         StringBuffer buffer = new StringBuffer();
         while (c.moveToNext()) {
             String codigo = c.getString(0);

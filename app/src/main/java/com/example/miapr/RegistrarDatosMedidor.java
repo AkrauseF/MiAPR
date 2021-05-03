@@ -111,6 +111,10 @@ public class RegistrarDatosMedidor extends AppCompatActivity {
                 }
             }
         });
+
+        //test();
+        testInsertarCobro();
+
     }
 
     public void escanearNumeroMedidor(View view){
@@ -289,6 +293,7 @@ public class RegistrarDatosMedidor extends AppCompatActivity {
                 String metrosC = String.valueOf(metrosCubicos);
                 databaseAccess.insertarMetrosC(metrosCubicos, NumMedidor);
 
+                Intent i = new Intent(this, Imprimir.class);
 
                 if(validadorLectura(lecturaActual, lecAnt )){
                     tvValidar.setText("Lectura anteriror es mayor que la actual");
@@ -299,59 +304,83 @@ public class RegistrarDatosMedidor extends AppCompatActivity {
                     if(metrosCubicos<=metros_sub){
                         int cobro = (metrosCubicos * valor_metro + cargo_fijo)/2;
                         if(cobro < 0){
-                            databaseAccess.insertarCobro(0, NumMedidor);
+                            cobro =0;
+                            i.putExtra("cobro", cobro);
+                            databaseAccess.insertarCobro(cobro, NumMedidor);
                         }else{
                             databaseAccess.insertarCobro(cobro, NumMedidor);
+                            i.putExtra("cobro", String.valueOf(cobro));
                         }
                     }else {
                         int cobro = (metrosCubicos * valor_metro + cargo_fijo)-subsidioMenor;
                         if(cobro < 0){
-                            databaseAccess.insertarCobro(0, NumMedidor);
+                            cobro =0;
+                            databaseAccess.insertarCobro(cobro, NumMedidor);
+                            i.putExtra("cobro", String.valueOf(cobro));
                         }else{
                             databaseAccess.insertarCobro(cobro, NumMedidor);
+                            i.putExtra("cobro", String.valueOf(cobro));
                         }
 
                     }
 
+                    // etNumLectura.setText("");
+                    //etNumMedidor.setText("");
+                    //tvValidar.setText("");
+                    //tvLectAnt.setText("");
+                    Toast.makeText(this, "Registro de lectura exitoso 1", Toast.LENGTH_LONG).show();
 
-                    etNumLectura.setText("");
-                    etNumMedidor.setText("");
-                    tvValidar.setText("");
-                    tvLectAnt.setText("");
-                    Toast.makeText(this, "Registro de lectura exitoso", Toast.LENGTH_LONG).show();
 
-                    //Intent i = new Intent(this, ListaRegistros.class);
-                    //startActivity(i);
+                    i.putExtra("medidor", NumMedidor);
+                    i.putExtra("lectura", NumLectura);
+                    i.putExtra("metrosC", metrosC);
+                    i.putExtra("subsidio", subsidio);
+                    i.putExtra("fecha", formattedDate);
+                    startActivity(i);
 
                 }else if(subsidioD == 20){
 
                     int cobro = (metrosCubicos * valor_metro + cargo_fijo) - subsidioMayor;
 
                     if(cobro < 0){
-                        databaseAccess.insertarCobro(0, NumMedidor);
+                        cobro =0;
+                        databaseAccess.insertarCobro(cobro, NumMedidor);
+                        i.putExtra("cobro", String.valueOf(cobro));
                     }else {
                         databaseAccess.insertarCobro(cobro, NumMedidor);
-                    }
-                    etNumLectura.setText("");
-                    etNumMedidor.setText("");
-                    tvValidar.setText("");
-                    tvLectAnt.setText("");
-                    Toast.makeText(this, "Registro de lectura exitoso", Toast.LENGTH_LONG).show();
+                        i.putExtra("cobro", String.valueOf(cobro));
 
-                    //Intent i = new Intent(this, ListaRegistros.class);
-                    //startActivity(i);
+                    }
+                    // etNumLectura.setText("");
+                    //etNumMedidor.setText("");
+                    //tvValidar.setText("");
+                    //tvLectAnt.setText("");
+                    Toast.makeText(this, "Registro de lectura exitoso 2", Toast.LENGTH_LONG).show();
+
+                    i.putExtra("medidor", NumMedidor);
+                    i.putExtra("lectura", NumLectura);
+                    i.putExtra("metrosC", metrosC);
+                    i.putExtra("subsidio", subsidio);
+                    i.putExtra("fecha", formattedDate);
+                    startActivity(i);
                 }else{
                     int cobro = metrosCubicos * valor_metro + cargo_fijo;
 
                     databaseAccess.insertarCobro(cobro, NumMedidor);
-                    etNumLectura.setText("");
-                    etNumMedidor.setText("");
-                    tvValidar.setText("");
-                    tvLectAnt.setText("");
-                    Toast.makeText(this, "Registro de lectura exitoso", Toast.LENGTH_LONG).show();
+                   // etNumLectura.setText("");
+                    //etNumMedidor.setText("");
+                    //tvValidar.setText("");
+                    //tvLectAnt.setText("");
+                    Toast.makeText(this, "Registro de lectura exitoso 3", Toast.LENGTH_LONG).show();
 
-                    //Intent i = new Intent(this, ListaRegistros.class);
-                    //startActivity(i);
+                    i.putExtra("medidor", NumMedidor);
+                    i.putExtra("lectura", NumLectura);
+                    i.putExtra("metrosC", metrosC);
+                    i.putExtra("cobro", String.valueOf(cobro));
+                    i.putExtra("subsidio", subsidio);
+                    i.putExtra("fecha", formattedDate);
+
+                    startActivity(i);
                 }
 
             }else {
@@ -386,74 +415,88 @@ public class RegistrarDatosMedidor extends AppCompatActivity {
         databaseAccess.close();
     }
 
-   /* public void testIngresoLecturaEnFormulario(){
-        String [] lecturas= {"10","20","30","40","50","60","70","80","90","100"};
-        for(int i=0;i<=lecturas.length; i++){
-            Log.i("Input- formulario", lecturas[i]);
-            etNumLectura.setText(lecturas[i]);
-            String lectura = etNumLectura.getText().toString();
-            Log.i("Input- insert lectura", lectura);
-            Log.i("Input-", "***************");
+    /*public void test(){
+
+        int [] subsidios = {10, 20, 0};
+        int [] M3 = {15, 19};
+        for(int i=0; i < subsidios.length; i++){
+            for(int e=0; e < M3.length; e++){
+                testCalculoCobro(M3[e], subsidios[i], 400, 2500);
+            }
         }
+    }
 
-
-    }*/
-
-  /*  public void testValidadorLecura(){
+   public void testCalculoCobro(int metrosCubicos, int subsidioD, int valor_metro, int cargo_fijo ){
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
         databaseAccess.open();
-        String[] medidores={"1111","2222","3333","4444","5555","6666","7777","8888","9999","1000"};
-        String[] lecturas={"2","11","13","11","51","16","10","19","9","10"};
 
-        for(int i=0; i <= medidores.length; i++){
-            String lecturaAnterior = databaseAccess.getLecturaAnterior(medidores[i]);
-            int lecAnt=Integer.parseInt(lecturaAnterior);
-            int lecturaActual = Integer.parseInt(lecturas[i]);
-            Log.i("Test LectACTUAL: ",lecturas[i] );
-            Log.i("Test LectANTERIOR: ",lecturaAnterior );
-            if(validadorLectura(lecturaActual, lecAnt )){
-                tvValidar.setText("Lectura anteriror es mayor que la actual");
-                tvValidar.setTypeface(tvValidar.getTypeface(), Typeface.BOLD);
-                tvValidar.setTextColor(Color.RED);
-                Log.i("Test MSJ Visualizador: ", tvValidar.getText().toString());
+        Log.i("cal-M3: ",String.valueOf(metrosCubicos));
+        Log.i("cal-Subsidio: ",String.valueOf(subsidioD));
+
+        int subsidioMayor = cargo_fijo +  (15 * 400); //8500
+        int subsidioMenor = subsidioMayor / 2;//4250
+
+        if(subsidioD == 10) {
+            if (metrosCubicos <= 15) {
+                int cobro = (metrosCubicos * valor_metro + cargo_fijo) / 2;
+                Log.i("cal-Resultado Calculo: ", String.valueOf(cobro));
+                Log.i("cal- ", "**********************");
+                if (cobro < 0) {
+                    cobro = 0;
+                    Log.i("cal-Resultado Calculo: ", String.valueOf(cobro));
+                    Log.i("cal- ", "**********************");
+                }
+            } else {
+                int cobro = (metrosCubicos * valor_metro + cargo_fijo) - subsidioMenor;
+                if (cobro < 0) {
+                    cobro = 0;
+                    Log.i("cal-Resultado Calculo: ", String.valueOf(cobro));
+                    Log.i("cal- ", "**********************");
+
+                } else {
+                    Log.i("cal-Resultado Calculo: ", String.valueOf(cobro));
+                    Log.i("cal- ", "**********************");
+                }
+            }
+        }else if(subsidioD == 20){
+            int cobro = (metrosCubicos * valor_metro + cargo_fijo) - subsidioMayor;
+            if(cobro < 0){
+                cobro =0;
+                Log.i("cal-Resultado Calculo: ", String.valueOf(cobro));
+                Log.i("cal- ", "**********************");
             }else {
-                Log.i("Test LectACTUAL: ", "Es MAYOR que la Anterior");
-                Log.i("Test LectACTUAL: ", "Lectura lista para inserción en DB");
+                Log.i("cal-Resultado Calculo: ", String.valueOf(cobro));
+                Log.i("cal- ", "**********************");
             }
+        }else{
+            int cobro = metrosCubicos * valor_metro + cargo_fijo;
+            Log.i("cal-Resultado Calculo: ", String.valueOf(cobro));
+            Log.i("cal- ", "**********************");
         }
-
-        //Toast.makeText(this, "Lectura anterior:::"+lecturaAnterior, Toast.LENGTH_SHORT).show();
-
-
-
     }*/
 
-   /*public void testValidadorMedidoresDB(){
+    public void testInsertarCobro(){
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
         databaseAccess.open();
 
-        String[] medidores={"1111","2332","3333","2334","5555","6666","1278","333212","99873","1000"};
+        int[] cobros= {4000,4250,5000,0,3000,1000,2370,4500,8500,7000};
+        String[] mdidores= {"1111", "2222","3333","4444","5555","6666","7777","8888","9999","1000"};
 
-        for(int i=0; i <= medidores.length; i++){
-            Log.i("Test medidor: ", medidores[i]);
-            if(validadorExistenciaMedidor(medidores[i])){
-                etNumMedidor.setText(medidores[i]);
-                tvValidar.setText("Código correcto");
-                tvValidar.setTypeface(tvValidar.getTypeface(), Typeface.BOLD);
-                tvValidar.setTextColor(Color.BLUE);
-                Log.i("Test MSJ Visualizador: ", tvValidar.getText().toString());
+        int cont=1;
+        for(int i=0; i < cobros.length; i++ ){
+            Log.i("Ins- Cobro: ", String.valueOf(cobros[i]));
+            Log.i("Ins- Medidor: ", mdidores[i]);
+            //Inserción de cobro en base de datos
+            databaseAccess.insertarCobro(cobros[i], mdidores[i]);
 
+            //Verificación de cobro insertado
+            String [] datos = databaseAccess.getRegistros(cont);
+            Log.i("Ins- Cobro en BBDD: ", datos[3]);
+            Log.i("Ins-", "*********************");
 
-           }else {
-                etNumMedidor.setText("Error");
-                tvValidar.setText("No existe en base de datos");
-                tvValidar.setTypeface(tvValidar.getTypeface(), Typeface.BOLD);
-                tvValidar.setTextColor(Color.RED);
-                Log.i("Test MSJ Visualizador: ", tvValidar.getText().toString());
-
-            }
+            cont++;
         }
-    }*/
+    }
 
 
 

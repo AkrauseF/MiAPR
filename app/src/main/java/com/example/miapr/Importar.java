@@ -97,7 +97,7 @@ public class Importar extends AppCompatActivity {
                  Integer num = 1;
                  while (num <= ide ){
                      progress.setProgress(num);
-                     SystemClock.sleep(500);
+                     SystemClock.sleep(100);
                      StringRequest stringRequest = new StringRequest(Request.Method.POST, Url+"?var='"+num+"'", new Response.Listener<String>() { //envia el id de la tabla de medidores.
 
                          @Override
@@ -160,7 +160,7 @@ public class Importar extends AppCompatActivity {
                  for(int cont=1; cont < ListaidMed.length; cont++){
 
                      progress.setProgress(cont);
-                     SystemClock.sleep(500);
+                     SystemClock.sleep(100);
 
                      //String num= Integer.toString(cont);
                      final String numeroMedidor= databaseAccess.getCodigoMedidor(ListaidMed[cont]);
@@ -259,7 +259,7 @@ public class Importar extends AppCompatActivity {
                  int contador = 1;
                  while (contador <= ultimoId){
                      progress.setProgress(contador);
-                     SystemClock.sleep(500);
+                     SystemClock.sleep(100);
 
                      String var= String.valueOf(contador);
                      StringRequest stringRequest = new StringRequest(Request.Method.POST, Url+"?var='"+var+"'", new Response.Listener<String>() {
@@ -267,14 +267,16 @@ public class Importar extends AppCompatActivity {
                          @Override
                          public void onResponse(String response) {
                              // Toast.makeText(getApplicationContext(), "respuesta: "+response, Toast.LENGTH_SHORT ).show();
-
+                             Log.i("kra-rut", "prueba");
                              String[] respuesta = response.split(",");
-
                              String rut =respuesta[0];
                              String nombre =respuesta[1];
                              String apellido =respuesta[2];
                              String direccion =respuesta[3];
                              String subsidio =respuesta[4];
+                             Log.i("kra-rut", rut);
+                             Log.i("kra-subsidio", subsidio);
+
                              String numSitio =respuesta[5];
                              String idMedidor =respuesta[6];
 

@@ -37,6 +37,8 @@ public class ListaMedidores extends AppCompatActivity {
         lista = findViewById(R.id.lvLista);
         crearListaMedidores();
         lista.setAdapter(new AdaptadorMedidores(this, crearListaMedidores()));
+
+        //prueba();
     }
 
 
@@ -114,7 +116,7 @@ public class ListaMedidores extends AppCompatActivity {
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
         databaseAccess.open();
         int num=1;
-        while (num <= 7) {
+        while (num <= 20) {
             String[] registroLecturas = databaseAccess.pruebas(num);
             Toast.makeText(this, registroLecturas[0]+"-"+registroLecturas[1]+"-"+registroLecturas[2]+"-"+registroLecturas[3]+"-"+registroLecturas[4]+"-"+registroLecturas[5]+"-"+registroLecturas[6], Toast.LENGTH_SHORT).show();
             //Toast.makeText(this, "medidor: "+registroLecturas[0]+"lectura ant:"+registroLecturas[1], Toast.LENGTH_SHORT).show();

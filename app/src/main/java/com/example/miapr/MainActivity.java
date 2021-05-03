@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button registrar, importar, lista, lista2, exportar;
+    Button registrar, importar, lista, lista2, exportar, imprimir;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
         lista = findViewById(R.id.btLista);
         lista2 = findViewById(R.id.btLista2);
         exportar = findViewById(R.id.btExp);
+        //imprimir = findViewById(R.id.btnImprime);
     }
 
     public void Registrar(View view){
@@ -62,6 +63,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void Exportar(View view){
         Intent i = new Intent(this, Exportar.class);
+        startActivity(i);
+    }
+
+    public void Imprimir(View view){
+        Intent i = new Intent(this, Imprimir.class);
         startActivity(i);
     }
 }

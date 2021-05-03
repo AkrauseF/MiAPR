@@ -49,6 +49,7 @@ public class ListaRegistros extends AppCompatActivity {
 
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
         databaseAccess.open();
+
         String sub = databaseAccess.getIdMedidores();
         String[] respuesta = sub.split(",");
         String [][] datos = new String[respuesta.length-1][7];

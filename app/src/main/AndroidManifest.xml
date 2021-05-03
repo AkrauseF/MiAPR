@@ -2,8 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.miapr">
 
+    <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.BLUETOOTH"></uses-permission>
+
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -17,7 +20,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ListaRegistros"></activity>
+        <activity android:name=".Imprimir"></activity>
+        <activity android:name=".ListaRegistros" />
         <activity android:name=".Exportar" />
         <activity android:name=".RegistrarDatosMedidor" />
         <activity android:name=".ListaMedidores" />
