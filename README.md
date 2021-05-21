@@ -2,7 +2,7 @@
 Sistema que agiliza los procesos de registro de lectura y gestión de cobros del agua potable rural de Villa San Pedro, comuna de Pucón.
 
 ## Descripción
-Esta versión incluye los módulos de registro y edición de medidores, registro y edición de clientes y generación de informes de datos de subsidiarios de la app web.
+Esta versión incluye los módulos de registro y edición de medidores, registro y edición de clientes, generación de informes de datos de subsidiarios, registro de pagos y dashboard con alerta de orden de corte de servicios para clientes con 3 o mas meses de deudas, todo esto correpondiente a app web.
 Por otro lado en la app móvil vienen incluidos los módulos de importación y exportación de datos entre la app web y la app móvil lo que permitirá poder ejecutar el módulo de identificación de medidores por medio de la captura de código QR y registrar el número de lectura de este que representa los metros cúbicos consumidos por el cliente que tiene asociado dicho medidor. Finalmente estan implementados los módulos de cálculo de cobro en terreno e impresión de bloleta de cobro en terreno.
 
 ## El producto resultante de esta iteración consta de las siguientes funcionalidades:
