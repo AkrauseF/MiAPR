@@ -1,4 +1,4 @@
-# MiAPR v6.0.0
+# MiAPR v7.0.0
 Sistema que agiliza los procesos de registro de lectura y gestión de cobros del agua potable rural de Villa San Pedro, comuna de Pucón.
 
 ## Descripción
@@ -32,11 +32,16 @@ Por otro lado en la app móvil vienen incluidos los módulos de importación y e
 
 •	Generación de informes de clientes con subsidio  la app web.
 
-### Funcionalidades añadidas del releas actual 
-
 •	Cálculo de cobros por metros cubicos consumidos en terreno.
 
 •	Impresión de boleta de cobro en terreno.
+
+### Funcionalidades añadidas del releas actual 
+
+•	Registro de pagos por consumo de agua potable en app web.
+
+•	Visualizacion de clientes con orden de corte de servicio mediante dashboard.
+
 
 ## Instrucciones de instalación de la app móvil
 1.- Descargue en el dispositivo móvil el instalador de la aplicación desde el repositorio de GitHub en el siguiente link:   https://github.com/AkrauseF/MiAPR/raw/main/app/entregable/release/MiAPR_6_0_0.apk 
@@ -117,6 +122,17 @@ Por otro lado en la app móvil vienen incluidos los módulos de importación y e
 2.- Presione el botón "informe subsidiario" del menú en la parte superior.
 
 3.- Presiones el botón generar informe en la parte inferior de la tabla.
+
+### Registro de pago por consumo de agua potable.
+1.- Presione el botón "Pagos" del menu en la parte superior.
+
+2.- Ingrese en el campo "Rut" el rut del cliente para el cual se quiere ingresar un pago.
+
+3.- En el campo "Monto a Pagar" ingrese el monto que se desea pagar y presione el botón "Pagar".
+
+### Visualizador de clientes con orden de corte de servicio.
+1.- Para visualizar el dasboard presione el botón "Inicio" del menu en la parte superior.
+
 
 
 
