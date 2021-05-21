@@ -6,7 +6,7 @@ $idMedidor = $_GET['id']; //recepcion de id a eliminar
 
 function obtenerUltimoReg(){
 	global $conexion;
-	$ultimoId = "SELECT MAX(id_registro) FROM registro_medidores";// obtener ultimo id
+	$ultimoId = "SELECT MAX(id_medidores) FROM medidores";// obtener ultimo id
 	$query = mysqli_query($conexion, $ultimoId);
 	$columna=mysqli_fetch_array($query);
 	//echo 'Ultimo id: '.$columna[0];

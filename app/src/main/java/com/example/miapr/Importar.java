@@ -62,7 +62,7 @@ public class Importar extends AppCompatActivity {
 
             @Override
             public void onResponse(String response) {
-                conexionUnophp(response);//obtiene los medidores de appweb y los inserta en la appmovil
+                conexionUnophp(response,"0");//obtiene los medidores de appweb y los inserta en la appmovil
             }
         }, new Response.ErrorListener() {
             @Override
@@ -75,7 +75,8 @@ public class Importar extends AppCompatActivity {
 
 
     }
-     public void conexionUnophp(final String id) {
+     public void conexionUnophp(final String id, String str) {
+
         final String Url = etUrl.getText().toString()+"/Apr/modelo/descargarDatos.php";
         //Toast.makeText(this, "Se importarán "+id+" registros de medidores", Toast.LENGTH_LONG).show();
 
@@ -89,16 +90,18 @@ public class Importar extends AppCompatActivity {
          progress.setProgress(0);
          progress.show();
          progress.setMax(ide);
+
          final Thread t = new Thread() {
              @Override
              public void run() {
 
 
                  Integer num = 1;
+
                  while (num <= ide ){
                      progress.setProgress(num);
                      SystemClock.sleep(500);
-                     StringRequest stringRequest = new StringRequest(Request.Method.POST, Url+"?var='"+num+"'", new Response.Listener<String>() { //envia el id de la tabla de medidores.
+                     final StringRequest stringRequest = new StringRequest(Request.Method.POST, Url+"?var='"+num+"'", new Response.Listener<String>() { //envia el id de la tabla de medidores.
 
                          @Override
                          public void onResponse(String response) {
@@ -108,22 +111,22 @@ public class Importar extends AppCompatActivity {
                              String marca =respuesta[1];
                              String id =respuesta[2];
                              crearTabla(numero,marca, id);
-
-
-
                          }
                      }, new Response.ErrorListener() {
                          @Override
                          public void onErrorResponse(VolleyError error) {
-                             Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
+                             //Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
+                             Toast.makeText(getApplicationContext(), "Error de conexión", Toast.LENGTH_LONG).show();
+
                          }
                      });
                      RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
                      requestQueue.add(stringRequest);
+                     
 
+                     //Toast.makeText(getApplicationContext(), stringRequest.toString(), Toast.LENGTH_LONG).show();
                      num = num + 1;
                  }
-
 
                  progress.dismiss();
                  descargarDatosCobros();
@@ -134,21 +137,7 @@ public class Importar extends AppCompatActivity {
          t.start();
 
      }
-    public boolean verificarImportaciónMedidores(String id, String numero, String marca){
-        //Consulta en bbdd interna existencia de datos exportados.
-        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
-        databaseAccess.open();
-        String [] datos = databaseAccess.getDatosMedidores(id);
-        //compara datos obtenidos de la consulta con los obtenido de la bbdd externa.
-        if(!datos[0].equals(id) && !datos[1].equals(numero) && !datos[2].equals(marca)){
-            return false;
-        }else{
-            return true;
-        }
-        //si son iguales, conitunar con el bucle.
-        //si son distintos terminar con el bucle y borrar vaciar la tablas correspondientes.
-        //emitir error de inportación de medidores de datos,
-    }
+
 
      public void descargaLecturasAnteriores(){
          btImportar2.setEnabled(false);

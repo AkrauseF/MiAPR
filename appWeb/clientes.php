@@ -41,7 +41,7 @@ include "menu.php";
     $query=mysqli_query($conexion, $select);
     while($columna=mysqli_fetch_array($query)){ 
 
-    $select1="SELECT numero FROM medidores WHERE id_medidores=$columna[8]";
+    $select1="SELECT numero FROM medidores WHERE id_medidores=$columna[7]";
     $query2=mysqli_query($conexion, $select1);
     $columna2=mysqli_fetch_array($query2);
 
@@ -58,7 +58,7 @@ include "menu.php";
         <td><?php echo $columna[5];?></td>
         <td><?php echo $columna3[0];?></td>
         <td><?php echo $columna2[0];?></td>
-        <td><?php echo $columna[7];?></td>
+        <td><?php echo $columna[6];?></td>
 
        <td><a href="editarCliente.php?id=<?php echo $columna[0];?>"><button>Editar</button></a>
           <a href="modelo/eliminarClientes.php?id=<?php echo $columna[0];?>"><button>Borrar</button></a></td>
