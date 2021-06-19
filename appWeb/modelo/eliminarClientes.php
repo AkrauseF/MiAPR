@@ -1,23 +1,25 @@
 <?php 
 include 'conexiondb.php';
 $idCliente = $_GET['id']; //recepcion de id a eliminar
-/*echo 'recepcion: '.$idCliente;
-echo "";*/
+echo 'recepcion: '.$idCliente;
+echo "";
 
 function obtenerUltimoReg(){
 	global $conexion;
 	$ultimoId = "SELECT MAX(id_cliente) FROM clientes";// obtener ultimo id
 	$query = mysqli_query($conexion, $ultimoId);
 	$columna=mysqli_fetch_array($query);
-	//echo 'Ultimo id: '.$columna[0];
-	//echo "";
+	echo 'Ultimo id: '.$columna[0];
+	echo "";
 	return $columna[0];
 }
 
-function eliminarMediores($idCliente){
+function eliminarClientes($idCliente){
+	echo "se elimino supouestamente";
 	global $conexion;
 	$delete = "DELETE FROM clientes WHERE id_cliente = $idCliente"; //se borra fila
 	$query2 = mysqli_query( $conexion, $delete) or die;
+	echo "se elimino supouestamente";
 }
 
 function actualizarIdRegistros($idCliente, $ultimoReg ){
@@ -48,12 +50,8 @@ function actualizarAutoIncrement($ultimoReg){
 }
 
 $ultimoReg = obtenerUltimoReg($conexion);
-eliminarMediores($idCliente);
+eliminarClientes($idCliente);
 actualizarIdRegistros($idCliente, $ultimoReg);
 actualizarAutoIncrement($ultimoReg);
-
-
-
-
 ?>
 <script>window.location.href = "../clientes.php";</script>

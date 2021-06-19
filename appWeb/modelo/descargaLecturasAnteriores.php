@@ -12,11 +12,15 @@ function descargarLecturaAnterior(){
 	//$fechaAnt= date("Y-m-d",strtotime($fechasAct."- 31 days"));
 	$mesAct = substr($fechasAct, -5, 2);
 	$mesAtn = (int)$mesAct - 1;
+	//echo "mes anterior=".$mesAtn;
+	
 	$anoAct= substr($fechasAct, 0, 4);
 	$anoAnt= (int)$anoAct -1;
 	//echo $fechasAct.("--");
 	//echo $mesAct.("--");
 	//echo $mesAtn;
+	//echo "añor actual=".$anoAct;
+
 
 	if($mesAct=="01"){
 

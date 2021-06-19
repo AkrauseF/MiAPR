@@ -32,7 +32,7 @@ $columnaz=mysqli_fetch_array($queryz);
 			<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td colspan="2">Valor Variable Agua Potable</td><td>-</td>
 		</tr>
 		<tr>
-			<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td ></td><td colspan="2">FECHA DE INFORME</td><td ></td><td>12-12-2021</td><td></td><td></td><td></td><td></td><td colspan="2">Valor Variable Alcantarillado</td><td>-</td>
+			<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td ></td><td colspan="2">FECHA DE INFORME</td><td ></td><td>22-04-2021</td><td></td><td></td><td></td><td></td><td colspan="2">Valor Variable Alcantarillado</td><td>-</td>
 		</tr>
 		<tr>
 			<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td colspan="2">Valor M3</td><td><?php echo $columnaz[3];?></td>

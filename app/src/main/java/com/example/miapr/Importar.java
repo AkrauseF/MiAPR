@@ -3,6 +3,7 @@ package com.example.miapr;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -43,40 +44,51 @@ public class Importar extends AppCompatActivity {
 
             }
         });
+
+
+
         /*btImportar2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 descargaLecturasAnteriores();
 
             }
         });*/
+
+
     }
+
+
 
     public void consulUltId() {
         btImportar.setEnabled(false);
 
         //Toast.makeText(this,"Importando datos desde el servidor",Toast.LENGTH_LONG).show();
+        VerificaConexion verificaConexion = new VerificaConexion(etUrl.getText().toString());
+        if (!verificaConexion.executeCommand()) {
+            Toast.makeText(this, "Error de conexión con el Servidor", Toast.LENGTH_LONG).show();
 
+        }else {
+            String Url = "http://"+etUrl.getText().toString() + "/Apr/modelo/consultaID.php"; //obtiene el la cantidad de registros de medidores en appweb.
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, Url, new Response.Listener<String>() {
 
-        String Url = etUrl.getText().toString()+"/Apr/modelo/consultaID.php"; //obtiene el la cantidad de registros de medidores en appweb.
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Url, new Response.Listener<String>() {
-
-            @Override
-            public void onResponse(String response) {
-                conexionUnophp(response);//obtiene los medidores de appweb y los inserta en la appmovil
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
-            }
-        });
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
-
+                @Override
+                public void onResponse(String response) {
+                    conexionUnophp(response, "0");//obtiene los medidores de appweb y los inserta en la appmovil
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
+                }
+            });
+            RequestQueue requestQueue = Volley.newRequestQueue(this);
+            requestQueue.add(stringRequest);
+        }
 
     }
-     public void conexionUnophp(final String id) {
-        final String Url = etUrl.getText().toString()+"/Apr/modelo/descargarDatos.php";
+     public void conexionUnophp(final String id, String str) {
+
+        final String Url = "http://"+etUrl.getText().toString()+"/Apr/modelo/descargarDatos.php";
         //Toast.makeText(this, "Se importarán "+id+" registros de medidores", Toast.LENGTH_LONG).show();
 
         borrartabla();//borra la tabla de medidores de app movil antes de insertar los nuevos medidores exportados
@@ -89,16 +101,22 @@ public class Importar extends AppCompatActivity {
          progress.setProgress(0);
          progress.show();
          progress.setMax(ide);
+
          final Thread t = new Thread() {
              @Override
              public void run() {
 
 
                  Integer num = 1;
+
                  while (num <= ide ){
+                     VerificaConexion verificaConexion = new VerificaConexion(etUrl.getText().toString());
+                     if(!verificaConexion.executeCommand()){
+                         break;
+                     }else{
                      progress.setProgress(num);
                      SystemClock.sleep(500);
-                     StringRequest stringRequest = new StringRequest(Request.Method.POST, Url+"?var='"+num+"'", new Response.Listener<String>() { //envia el id de la tabla de medidores.
+                     final StringRequest stringRequest = new StringRequest(Request.Method.POST, Url+"?var='"+num+"'", new Response.Listener<String>() { //envia el id de la tabla de medidores.
 
                          @Override
                          public void onResponse(String response) {
@@ -108,22 +126,22 @@ public class Importar extends AppCompatActivity {
                              String marca =respuesta[1];
                              String id =respuesta[2];
                              crearTabla(numero,marca, id);
-
-
-
                          }
                      }, new Response.ErrorListener() {
                          @Override
                          public void onErrorResponse(VolleyError error) {
-                             Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
+                             //Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
+                             Toast.makeText(getApplicationContext(), "Error en la tranferencia de medidores", Toast.LENGTH_LONG).show();
+
                          }
                      });
                      RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
                      requestQueue.add(stringRequest);
 
-                     num = num + 1;
-                 }
 
+                     //Toast.makeText(getApplicationContext(), stringRequest.toString(), Toast.LENGTH_LONG).show();
+                     num = num + 1;
+                 }}
 
                  progress.dismiss();
                  descargarDatosCobros();
@@ -134,21 +152,7 @@ public class Importar extends AppCompatActivity {
          t.start();
 
      }
-    public boolean verificarImportaciónMedidores(String id, String numero, String marca){
-        //Consulta en bbdd interna existencia de datos exportados.
-        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
-        databaseAccess.open();
-        String [] datos = databaseAccess.getDatosMedidores(id);
-        //compara datos obtenidos de la consulta con los obtenido de la bbdd externa.
-        if(!datos[0].equals(id) && !datos[1].equals(numero) && !datos[2].equals(marca)){
-            return false;
-        }else{
-            return true;
-        }
-        //si son iguales, conitunar con el bucle.
-        //si son distintos terminar con el bucle y borrar vaciar la tablas correspondientes.
-        //emitir error de inportación de medidores de datos,
-    }
+
 
      public void descargaLecturasAnteriores(){
          btImportar2.setEnabled(false);
@@ -159,7 +163,7 @@ public class Importar extends AppCompatActivity {
          String idMedidores = databaseAccess.getIdMedidores();
          final String[] ListaidMed = idMedidores.split(",");
          Log.i("KRA2::","prueba1");
-         final String Url = etUrl.getText().toString()+"/Apr/modelo/descargaLecturasAnteriores.php";
+         final String Url = "http://"+etUrl.getText().toString()+"/Apr/modelo/descargaLecturasAnteriores.php";
 
          progress=new ProgressDialog(this);
          progress.setMessage("Importando lecturas del mes anterior...");
@@ -173,23 +177,26 @@ public class Importar extends AppCompatActivity {
              @Override
              public void run() {
 
-                 for(int cont=1; cont < ListaidMed.length; cont++){
-
+                 for (int cont = 1; cont < ListaidMed.length; cont++) {
+                     VerificaConexion verificaConexion = new VerificaConexion(etUrl.getText().toString());
+                     if (!verificaConexion.executeCommand()) {
+                         break;
+                     }else{
                      progress.setProgress(cont);
                      SystemClock.sleep(500);
 
                      //String num= Integer.toString(cont);
-                     final String numeroMedidor= databaseAccess.getCodigoMedidor(ListaidMed[cont]);
-                     StringRequest stringRequest = new StringRequest(Request.Method.POST, Url+"?var='"+numeroMedidor+"'", new Response.Listener<String>(){
+                     final String numeroMedidor = databaseAccess.getCodigoMedidor(ListaidMed[cont]);
+                     StringRequest stringRequest = new StringRequest(Request.Method.POST, Url + "?var='" + numeroMedidor + "'", new Response.Listener<String>() {
                          @Override
                          public void onResponse(String response) {
-                             Log.i("KRA2::",response);
-                             Log.i("KRA::","prueba2");
+                             Log.i("KRA2::", response);
+                             Log.i("KRA::", "prueba2");
 
 
-                             if(response.equals("")){
-                                 String lectura ="0";
-                                 String medidor =numeroMedidor;
+                             if (response.equals("")) {
+                                 String lectura = "0";
+                                 String medidor = numeroMedidor;
                                  Log.i("KRA-??:", "si");
                                  DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
                                  databaseAccess.open();
@@ -199,10 +206,10 @@ public class Importar extends AppCompatActivity {
                                  //si son iguales, conitunar con el bucle.
                                  //si son distintos terminar con el bucle y borrar vaciar la tablas correspondientes.
                                  //emitir error de inportación de medidores de datos,
-                             }else{
+                             } else {
                                  String[] respuesta = response.split(",");
-                                 String lectura =respuesta[0];
-                                 String medidor =respuesta[1];
+                                 String lectura = respuesta[0];
+                                 String medidor = respuesta[1];
                                  DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
                                  databaseAccess.open();
                                  databaseAccess.insertarRegistros(lectura, medidor);
@@ -217,58 +224,72 @@ public class Importar extends AppCompatActivity {
                      }, new Response.ErrorListener() {
                          @Override
                          public void onErrorResponse(VolleyError error) {
-                             Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
+                             //Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
+                             Toast.makeText(getApplicationContext(), "Error en la transferencia de lecturas", Toast.LENGTH_LONG).show();
                          }
                      });
                      RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
                      requestQueue.add(stringRequest);
-                 }
+                 }}
                  progress.dismiss();
                  new Handler(Looper.getMainLooper()).post(new Runnable() {
                      @Override
                      public void run() {
-                         Toast.makeText(getApplicationContext(), "Se importaron "+(ListaidMed.length-1)+" clientes juntos con sus medidores asociados.", Toast.LENGTH_LONG).show();
+                         Toast.makeText(getApplicationContext(), "Se importaron " + (ListaidMed.length - 1) + " clientes juntos con sus medidores asociados.", Toast.LENGTH_LONG).show();
 
+                         VerificadorTransferencia verificadorTransferencia = new VerificadorTransferencia(etUrl.getText().toString(), getApplicationContext());
+
+                         verificadorTransferencia.verificarMedidores();
+                         verificadorTransferencia.verificarClientes();
+                         verificadorTransferencia.verificarDatosCobros();
+                         verificadorTransferencia.verificarLecturas();
                      }
                  });
              }
+
          };
          t.start();
 
      }
 
      private void descargarDatosCobros(){
-         String Url = etUrl.getText().toString()+"/Apr/modelo/descargarDatosCobros.php";
-         StringRequest stringRequest = new StringRequest(Request.Method.POST, Url, new Response.Listener<String>(){
-             @Override
-             public void onResponse(String response) {
+         VerificaConexion verificaConexion = new VerificaConexion(etUrl.getText().toString());
+         if (!verificaConexion.executeCommand()) {
+             Toast.makeText(this, "Error en la transferencia de Datos de cobros", Toast.LENGTH_LONG).show();
 
-                 //Toast.makeText(getApplicationContext(), "Respuesta datos cobros::-"+response, Toast.LENGTH_SHORT).show();
+         }else {
+             String Url = "http://"+etUrl.getText().toString() + "/Apr/modelo/descargarDatosCobros.php";
+             StringRequest stringRequest = new StringRequest(Request.Method.POST, Url, new Response.Listener<String>() {
+                 @Override
+                 public void onResponse(String response) {
 
-                 String[] respuesta = response.split(",");
+                     //Toast.makeText(getApplicationContext(), "Respuesta datos cobros::-"+response, Toast.LENGTH_SHORT).show();
 
-                 String cargoFijo =respuesta[0];
-                 String metrosSubsidio =respuesta[1];
-                 String valorMetro =respuesta[2];
+                     String[] respuesta = response.split(",");
 
-                 DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
-                 databaseAccess.open();
+                     String cargoFijo = respuesta[0];
+                     String metrosSubsidio = respuesta[1];
+                     String valorMetro = respuesta[2];
 
-                 databaseAccess.insertarDatosCobros(cargoFijo, metrosSubsidio, valorMetro);
+                     DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
+                     databaseAccess.open();
 
-             }
-         }, new Response.ErrorListener() {
-             @Override
-             public void onErrorResponse(VolleyError error) {
-                 Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
-             }
-         });
-         RequestQueue requestQueue = Volley.newRequestQueue(this);
-         requestQueue.add(stringRequest);
+                     databaseAccess.insertarDatosCobros(cargoFijo, metrosSubsidio, valorMetro);
+
+                 }
+             }, new Response.ErrorListener() {
+                 @Override
+                 public void onErrorResponse(VolleyError error) {
+                     Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
+                 }
+             });
+             RequestQueue requestQueue = Volley.newRequestQueue(this);
+             requestQueue.add(stringRequest);
+         }
      }
      private void descargarCliente(final int ultimoId){
 
-        final String Url = etUrl.getText().toString()+"/Apr/modelo/descargaClientes.php";
+        final String Url = "http://"+etUrl.getText().toString()+"/Apr/modelo/descargaClientes.php";
 
          progress=new ProgressDialog(this);
          progress.setMessage("Importando Clientes...");
@@ -284,6 +305,10 @@ public class Importar extends AppCompatActivity {
 
                  int contador = 1;
                  while (contador <= ultimoId){
+                     VerificaConexion verificaConexion = new VerificaConexion(etUrl.getText().toString());
+                     if (!verificaConexion.executeCommand()) {
+                        break;
+                     }else{
                      progress.setProgress(contador);
                      SystemClock.sleep(500);
 
@@ -319,14 +344,16 @@ public class Importar extends AppCompatActivity {
                      }, new Response.ErrorListener() {
                          @Override
                          public void onErrorResponse(VolleyError error) {
-                             Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
+                             //Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
+                             Toast.makeText(getApplicationContext(), "Error en la transferencia de Clientes", Toast.LENGTH_LONG).show();
+
                          }
                      });
                      RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
                      requestQueue.add(stringRequest);
 
                      contador++;
-                 }
+                 }}
                  progress.dismiss();
 
                  new Handler(Looper.getMainLooper()).post(new Runnable() {
@@ -348,25 +375,31 @@ public class Importar extends AppCompatActivity {
      }
 
      private void consultaIdCliente(){
-         String Url = etUrl.getText().toString()+"/Apr/modelo/consultaIdClientes.php"; //obtiene el la cantidad de registros de medidores en appweb.
-         StringRequest stringRequest = new StringRequest(Request.Method.POST, Url, new Response.Listener<String>() {
+         VerificaConexion verificaConexion = new VerificaConexion(etUrl.getText().toString());
+         if (!verificaConexion.executeCommand()) {
+             Toast.makeText(this, "Error en la transferencia de Clientes*", Toast.LENGTH_LONG).show();
 
-             @Override
-             public void onResponse(String response) {
-                // Toast.makeText(getApplicationContext(), "respuesta cliente id+++++:::"+response, Toast.LENGTH_SHORT ).show();
+         }else {
+             String Url = "http://"+etUrl.getText().toString() + "/Apr/modelo/consultaIdClientes.php"; //obtiene el la cantidad de registros de medidores en appweb.
+             StringRequest stringRequest = new StringRequest(Request.Method.POST, Url, new Response.Listener<String>() {
 
-                 int ultimoId = Integer.parseInt(response);
-                 descargarCliente(ultimoId);
+                 @Override
+                 public void onResponse(String response) {
+                     // Toast.makeText(getApplicationContext(), "respuesta cliente id+++++:::"+response, Toast.LENGTH_SHORT ).show();
 
-             }
-         }, new Response.ErrorListener() {
-             @Override
-             public void onErrorResponse(VolleyError error) {
-                 Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
-             }
-         });
-         RequestQueue requestQueue = Volley.newRequestQueue(this);
-         requestQueue.add(stringRequest);
+                     int ultimoId = Integer.parseInt(response);
+                     descargarCliente(ultimoId);
+
+                 }
+             }, new Response.ErrorListener() {
+                 @Override
+                 public void onErrorResponse(VolleyError error) {
+                     Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
+                 }
+             });
+             RequestQueue requestQueue = Volley.newRequestQueue(this);
+             requestQueue.add(stringRequest);
+         }
      }
 
 

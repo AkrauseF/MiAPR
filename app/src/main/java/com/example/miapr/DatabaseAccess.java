@@ -39,6 +39,31 @@ public class DatabaseAccess {
         }
     }
 
+    public String[] UltimoIdDatosCobros() {
+        String[] registros= new String[5];
+        String ultimo=null;
+        c = db.rawQuery("SELECT * FROM datosCobros ORDER BY id_datos DESC LIMIT 1; ", new String[]{});
+        while (c.moveToNext()) {
+            ultimo = c.getString(0);
+
+        }
+        registros[0]=ultimo;
+        return registros;
+    }
+
+    public String[] UltimoIdCliente() {
+        String[] registros= new String[5];
+        String ultimo=null;
+        c = db.rawQuery("SELECT * FROM clientes ORDER BY id_medidor DESC LIMIT 1; ", new String[]{});
+        while (c.moveToNext()) {
+            ultimo = c.getString(0);
+
+        }
+        registros[0]=ultimo;
+        return registros;
+    }
+
+
 
     public String getCodigoMedidor(String num) {
         c = db.rawQuery("select numero from medidores where id_medidor = '"+num+"'", new String[]{});

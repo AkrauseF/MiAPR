@@ -44,7 +44,7 @@
         android:layout_marginTop="40dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="http://192.168.0.6"
+        android:text="192.168.0.6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"

@@ -1,9 +1,9 @@
-# MiAPR v5.0.0
+# MiAPR v7.0.0
 Sistema que agiliza los procesos de registro de lectura y gestión de cobros del agua potable rural de Villa San Pedro, comuna de Pucón.
 
 ## Descripción
-Esta versión incluye los módulos de registro y edición de medidores, registro y edición de clientes y generación de informes de datos de subsidiarios de la app web.
-Por otro lado en la app móvil vienen incluidos los módulos de importación y exportación de datos entre la app web y la app móvil lo que permitirá poder ejecutar el módulo de identificación de medidores por medio de la captura de código QR y registrar el número de lectura de este que representa los metros cúbicos consumidos por el cliente que tiene asociado dicho medidor.
+Esta versión incluye los módulos de registro y edición de medidores, registro y edición de clientes, generación de informes de datos de subsidiarios, registro de pagos y dashboard con alerta de orden de corte de servicios para clientes con 3 o mas meses de deudas, todo esto correpondiente a app web.
+Por otro lado en la app móvil vienen incluidos los módulos de importación y exportación de datos entre la app web y la app móvil lo que permitirá poder ejecutar el módulo de identificación de medidores por medio de la captura de código QR y registrar el número de lectura de este que representa los metros cúbicos consumidos por el cliente que tiene asociado dicho medidor. Finalmente estan implementados los módulos de cálculo de cobro en terreno e impresión de bloleta de cobro en terreno.
 
 ## El producto resultante de esta iteración consta de las siguientes funcionalidades:
 
@@ -28,14 +28,23 @@ Por otro lado en la app móvil vienen incluidos los módulos de importación y e
 
 •	Registro de clientes en aplicación web.
 
-### Funcionalidades añadidas del releas actual 
-
 •	Edición y eliminación de clientes en la app web.
 
 •	Generación de informes de clientes con subsidio  la app web.
 
+•	Cálculo de cobros por metros cubicos consumidos en terreno.
+
+•	Impresión de boleta de cobro en terreno.
+
+### Funcionalidades añadidas del releas actual 
+
+•	Registro de pagos por consumo de agua potable en app web.
+
+•	Visualizacion de clientes con orden de corte de servicio mediante dashboard.
+
+
 ## Instrucciones de instalación de la app móvil
-1.- Descargue en el dispositivo móvil el instalador de la aplicación desde el repositorio de GitHub en el siguiente link:   https://github.com/AkrauseF/MiAPR/raw/main/app/entregable/release/MiAPR_4_0_0.apk 
+1.- Descargue en el dispositivo móvil el instalador de la aplicación desde el repositorio de GitHub en el siguiente link:   https://github.com/AkrauseF/MiAPR/raw/main/app/entregable/release/MiAPR_6_0_0.apk 
 
 2.- Si tiene una versión anterior de esta aplicación, desintálela del dispositivo móvil.
 
@@ -69,6 +78,12 @@ Por otro lado en la app móvil vienen incluidos los módulos de importación y e
 3.- Visualice en el dispositivo móvil el código capturado, el error en caso de que el código no sea válido y el número de lectura del mes anterior asociado al medidor en cuestión.
 
 4.- Ingrese una lectura que sea mayor o igual anterior.
+
+### Imprimir boleta de cobro:
+
+1.- Una vez registrado el número de lectura de un medidor en particular, aparacerá un panatalla donde podrá ver el estado de conexion de la impresora, una previsualización de la boleta de cobro a imprimir con los datos del cliente, su consumo y cobro.
+
+2.- Presione el botón imprimir documento para imprimir la boleta de cobro, en caso de que la impresora se encuentre desconectada o apagada, presione el botón "conectar con impresora" y luego, cuando el estado de la impresora cambie a impresora conectada, vuelva a presionar el botón "imprimir documento".
 
 ### Exportar datos hacia la app web:
 1.- Una vez registrado la totalidad de lecturas correspondiente a los medidores importados, conecte el dispositivo móvil a la red donde se encuentra el equipo que contiene la app web.
@@ -107,6 +122,17 @@ Por otro lado en la app móvil vienen incluidos los módulos de importación y e
 2.- Presione el botón "informe subsidiario" del menú en la parte superior.
 
 3.- Presiones el botón generar informe en la parte inferior de la tabla.
+
+### Registro de pago por consumo de agua potable.
+1.- Presione el botón "Pagos" del menu en la parte superior.
+
+2.- Ingrese en el campo "Rut" el rut del cliente para el cual se quiere ingresar un pago.
+
+3.- En el campo "Monto a Pagar" ingrese el monto que se desea pagar y presione el botón "Pagar".
+
+### Visualizador de clientes con orden de corte de servicio.
+1.- Para visualizar el dasboard presione el botón "Inicio" del menu en la parte superior.
+
 
 
 

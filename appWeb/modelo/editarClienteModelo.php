@@ -14,11 +14,11 @@ $idDecreto = $_POST['decreto'];
 $id = $_POST['id'];
  //recepcion de id a actualizar
 
-if(!limpirarString($rut) or !limpirarString($nombre) or !limpirarString($apellidoP) or !limpirarString($apellidoM) or !limpirarString($direccion) or !limpirarString($numSitio) or !limpirarString($idMedidor) or !limpirarString($idDecreto)){
+if(!limpirarString($rut) or !limpirarString($nombre) or !limpirarString($apellidoP) or !limpirarString($apellidoM) or !limpirarString($direccion) or !limpirarString($numSitio)){
 
-	?> <script>alert('Ingrese sólo números y letras, la ñ reemplácela por una n.')</script><?php
+	?> <script>alert('Ingrese sólo números y letras, la ñ reemplácela por una n y no utilice tildes.')</script><?php
 
-}elseif(restringeLargo($rut, 10) or restringeLargo($nombre, 5) or restringeLargo($apellidoP, 10) or restringeLargo($apellidoM, 10) or restringeLargo($direccion, 10) or restringeLargo($numSitio, 10) or restringeLargo($idMedidor, 10) or restringeLargo($idDecreto, 10)){
+}elseif(restringeLargo($rut, 15) or restringeLargo($nombre, 15) or restringeLargo($apellidoP, 15) or restringeLargo($apellidoM, 15) or restringeLargo($direccion, 35) or restringeLargo($numSitio, 15)){
 	
 	?> <script>alert('Uno de los campos supera el limite de caracteres. Intentelo de nuevo')</script><?php
 }else{
@@ -55,5 +55,11 @@ if(!limpirarString($rut) or !limpirarString($nombre) or !limpirarString($apellid
 ?>
 <script>window.location.href = "../clientes.php";</script>
 
+funcionalidades:
+1.- Registro y edicion de clientes
+2.- Registro y edicion de medidores
+3.- Visualizacion de registro de lecturas
+4.- Visualizacion de decretos (documento que decreta subsidio a un cliente)
+5.- Generacion de informe con datos de cliente con subsidio
 
 

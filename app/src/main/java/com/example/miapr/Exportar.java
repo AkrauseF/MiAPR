@@ -128,7 +128,7 @@ public class Exportar extends AppCompatActivity {
     }
     //verifca que la fecha del ultimo registo en el móvil no se encuntre en exportado. para no volve a exportar o duplicar datos en app web.
     public void verificarFecha(final String date, final int ulIdLectura){
-        String Url = etUrl.getText().toString()+"/Apr/modelo/verificarFecha.php";
+        String Url = "http://"+etUrl.getText().toString()+"/Apr/modelo/verificarFecha.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Url, new Response.Listener<String>() {
 
             @Override
@@ -170,7 +170,7 @@ public class Exportar extends AppCompatActivity {
         Log.i("Exportación- MetrosC", metrosc);
         Log.i("Exportación-", "**************************");*/
 
-        String Url = etUrl.getText().toString() + "/Apr/modelo/cargarDatos.php";
+        String Url = "http://"+etUrl.getText().toString() + "/Apr/modelo/cargarDatos.php";
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Url, new Response.Listener<String>() {
 
