@@ -20,7 +20,7 @@
       <a href="#">Clientes Morosos</a>-->
     </div>
   </li>
-  <li><a href="modelo/salir.php">Salir</a></li>
+  <li><a>Salir</a></li>
  
  <div class="titulo">
  	Agua Potable Villa San Pedro
