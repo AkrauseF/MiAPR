@@ -9,8 +9,16 @@ h1{
   text-align: center;
   color: white;
   background: #154360;
+}
+button{
+  background: #154360;
+  color: #fff;
+  border-radius: 15px;
+  border:0px;
 
-  
+}
+button:hover{
+  background: red;
 }
 #menu{
   border: 1px solid black;
@@ -105,6 +113,15 @@ input[type=text], select {
   box-sizing: border-box;
 }
 input[type=number], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+input[type=password], select {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -297,5 +314,13 @@ li.dropdown {
   margin-right: 10%;
   color: white;
   font-weight: bold;
+}
+.login{
+  margin-top: 10%;
+  margin-left: 35%;
+  width: 25%;
+  border:1px solid gray;
+  border-radius: 15px;
+  padding: 10px;
 }
 

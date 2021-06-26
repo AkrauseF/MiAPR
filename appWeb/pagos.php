@@ -1,4 +1,10 @@
 <?php 
+session_start();
+$usuario =$_SESSION['user'];
+
+if(!isset($usuario)){
+  header("Location: login.php");
+}
 error_reporting(0);
 include "modelo/conexiondb.php";
 ?>

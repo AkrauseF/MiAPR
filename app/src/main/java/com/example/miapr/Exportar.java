@@ -3,17 +3,18 @@ package com.example.miapr;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Handler;
 import android.os.Looper;
 import android.os.SystemClock;
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -37,6 +38,9 @@ public class Exportar extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expotar);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
         btnExportar= findViewById(R.id.btExportar);
         etUrl = findViewById(R.id.etUri2);
 
@@ -51,6 +55,29 @@ public class Exportar extends AppCompatActivity {
             startActivity(i);
         }
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.mnHome:
+                Intent intent1 = new Intent(this, MainActivity.class);
+                startActivity(intent1);
+                return true;
+            case R.id.idSalir:
+                Intent intent2 = new Intent(this, Login.class);
+                startActivity(intent2);
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     public void IniciarExportacion(View view){
@@ -128,7 +155,7 @@ public class Exportar extends AppCompatActivity {
     }
     //verifca que la fecha del ultimo registo en el móvil no se encuntre en exportado. para no volve a exportar o duplicar datos en app web.
     public void verificarFecha(final String date, final int ulIdLectura){
-        String Url = etUrl.getText().toString()+"/Apr/modelo/verificarFecha.php";
+        String Url = "http://"+etUrl.getText().toString()+"/Apr/modelo/verificarFecha.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Url, new Response.Listener<String>() {
 
             @Override
@@ -170,7 +197,7 @@ public class Exportar extends AppCompatActivity {
         Log.i("Exportación- MetrosC", metrosc);
         Log.i("Exportación-", "**************************");*/
 
-        String Url = etUrl.getText().toString() + "/Apr/modelo/cargarDatos.php";
+        String Url = "http://"+etUrl.getText().toString() + "/Apr/modelo/cargarDatos.php";
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Url, new Response.Listener<String>() {
 

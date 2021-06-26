@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.widget.Toast;
 
 public class DatabaseAccess {
     private SQLiteOpenHelper openHelper;
@@ -38,6 +37,43 @@ public class DatabaseAccess {
             this.db.close();
         }
     }
+
+    public String[] UltimoIdDatosCobros() {
+        String[] registros= new String[5];
+        String ultimo=null;
+        c = db.rawQuery("SELECT * FROM datosCobros ORDER BY id_datos DESC LIMIT 1; ", new String[]{});
+        while (c.moveToNext()) {
+            ultimo = c.getString(0);
+
+        }
+        registros[0]=ultimo;
+        return registros;
+    }
+
+    public String[] UltimoIdOperadores() {
+        String[] registros= new String[5];
+        String ultimo=null;
+        c = db.rawQuery("SELECT * FROM usuarios ORDER BY id_usuario DESC LIMIT 1; ", new String[]{});
+        while (c.moveToNext()) {
+            ultimo = c.getString(0);
+
+        }
+        registros[0]=ultimo;
+        return registros;
+    }
+
+    public String[] UltimoIdCliente() {
+        String[] registros= new String[5];
+        String ultimo=null;
+        c = db.rawQuery("SELECT * FROM clientes ORDER BY id_medidor DESC LIMIT 1; ", new String[]{});
+        while (c.moveToNext()) {
+            ultimo = c.getString(0);
+
+        }
+        registros[0]=ultimo;
+        return registros;
+    }
+
 
 
     public String getCodigoMedidor(String num) {
@@ -330,6 +366,11 @@ public class DatabaseAccess {
         db.execSQL("update sqlite_sequence SET seq = 0 WHERE name ='clientes'");
     }
 
+    public void  VaciarOperadores(){
+        db.execSQL("delete from usuarios");
+        db.execSQL("update sqlite_sequence SET seq = 0 WHERE name ='usuarios'");
+    }
+
 
     public void insertarMedidoresM(String numero, String marca, String id) {
        // Log.i("numeros: ", "prueba1");
@@ -375,6 +416,10 @@ public class DatabaseAccess {
 
     public void insertarDatosCobros(String cargoFijo, String metrosSub, String valorMetro){
         db.execSQL("insert into datosCobros (cargo_fijo, metros_subsidio, valor_metro) " + "values ('"+cargoFijo+"','"+metrosSub+"','"+valorMetro+"')");
+
+    }
+    public void insertarOperadores(String usuario, String contrasena){
+        db.execSQL("insert into usuarios (usuario, contrasena) " + "values ('"+usuario+"','"+contrasena+"')");
 
     }
 
@@ -484,6 +529,7 @@ public class DatabaseAccess {
         return buffer.toString();
     }
 
+
     public boolean verificaSiEsNull(){
         Boolean flag= false;
         c = db.rawQuery("SELECT lectura FROM lecturas", null);
@@ -506,6 +552,21 @@ public class DatabaseAccess {
         Log.i("Kreturn", String.valueOf(flag));
         return flag;
 
+    }
+
+    public String[] getCredenciales(String usuario, String contrasena) {
+        String[] registros= new String[3];
+        String user=null;
+        String pass=null;
+        c = db.rawQuery("SELECT * FROM usuarios where usuario='"+usuario+"' and contrasena='"+contrasena+"'", new String[]{});
+        while (c.moveToNext()) {
+            user = c.getString(1);
+            pass = c.getString(2);
+
+        }
+        registros[0]=user;
+        registros[1]=pass;
+        return registros;
     }
 
 

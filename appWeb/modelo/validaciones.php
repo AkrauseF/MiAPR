@@ -1,5 +1,5 @@
 <?php 
-
+include 'conexiondb.php';
 function limpirarString($string){
 	$string= strval($string);
 	$letras=" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -22,13 +22,61 @@ function restringeLargo($string, $largo){
 	}
 }
 
-/*if(limpirarString("hola")){
-	echo "si";
+function verificarUsuarioEnDB($usuario){
+	global $conexion;
+	$flag=false;
+	$select="SELECT usuario FROM usuarios";
+	$query=mysqli_query($conexion, $select);
+
+	while($colum = mysqli_fetch_array($query)){
+		if($usuario==$colum[0]){
+			$flag= true;
+			break;
+		}else{
+			$flag= false;
+		}
+	}
+
+	return $flag;
+
+}
+
+
+function valida_rut($rut){
+    $rut = preg_replace('/[^k0-9]/i', '', $rut);
+    $dv  = substr($rut, -1);
+    $numero = substr($rut, 0, strlen($rut)-1);
+    $i = 2;
+    $suma = 0;
+    foreach(array_reverse(str_split($numero)) as $v){
+        if($i==8){
+            $i = 2;
+        }
+        $suma += $v * $i;
+        ++$i;
+    }
+
+    $dvr = 11 - ($suma % 11);
+    
+    if($dvr == 11){
+        $dvr = 0;
+    }
+    if($dvr == 10){
+        $dvr = 'K';
+    }
+
+    if($dvr == strtoupper($dv)){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+/*if(valida_rut("17826183523")){
+		echo "si";
 }else{
-	echo "no";
+		echo "no";
 }*/
-
-
-
 
 ?>

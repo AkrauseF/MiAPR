@@ -6,92 +6,164 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="62dp"
         tools:layout_editor_absoluteY="23dp">
 
-        <TextView
-            android:id="@+id/tvMedidor"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            app:layout_constraintTop_toTopOf="@+id/guideline"
-            tools:text="hola">
+            android:layout_margin="10dp"
+            app:cardCornerRadius="16dp">
 
-        </TextView>
-          <TextView
-               android:id="@+id/tvSubsidio"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:textSize="16sp"
-               app:layout_constraintTop_toTopOf="@+id/guideline"
-               tools:text="hola">
-
-           </TextView>
-
-           <TextView
-               android:id="@+id/tvlectura"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:textSize="16sp"
-               app:layout_constraintBottom_toTopOf="@+id/guideline2"
-               app:layout_constraintTop_toBottomOf="@+id/tvCodigo"
-               app:layout_constraintVertical_bias="0.291"
-               tools:layout_editor_absoluteX="0dp"
-               tools:text="hola">
-
-           </TextView>
-           <TextView
-               android:id="@+id/tvfecha"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:textSize="16sp"
-               app:layout_constraintBottom_toTopOf="@+id/guideline2"
-               app:layout_constraintTop_toBottomOf="@+id/tvCodigo"
-               app:layout_constraintVertical_bias="0.291"
-               tools:layout_editor_absoluteX="0dp"
-               tools:text="hola">
-
-           </TextView>
-           <TextView
-                android:id="@+id/tvmonto"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toTopOf="@+id/guideline2"
-                app:layout_constraintTop_toBottomOf="@+id/tvCodigo"
-                app:layout_constraintVertical_bias="0.291"
-                tools:layout_editor_absoluteX="0dp"
-                tools:text="hola">
+                android:layout_height="match_parent"
+                android:background="#394867"
+                android:padding="10dp">
 
-            </TextView>
-            <TextView
-                android:id="@+id/tvcubos"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toTopOf="@+id/guideline2"
-                app:layout_constraintTop_toBottomOf="@+id/tvCodigo"
-                app:layout_constraintVertical_bias="0.291"
-                tools:layout_editor_absoluteX="0dp"
-                tools:text="hola">
 
-            </TextView>
-         <TextView
-             android:id="@+id/tvLecturaAnt"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:textSize="16sp"
-             app:layout_constraintBottom_toTopOf="@+id/guideline2"
-             app:layout_constraintTop_toBottomOf="@+id/tvCodigo"
-             app:layout_constraintVertical_bias="0.291"
-             tools:layout_editor_absoluteX="0dp"
-             tools:text="hola">
+                <TextView
+                    android:id="@+id/tvMedidor"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:textColor="#fff"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toTopOf="@+id/guideline"
+                    tools:text="hola">
 
-         </TextView>
-     </LinearLayout>
+                </TextView>
+
+                <TextView
+                    android:id="@+id/tvSubsidio"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvMedidor"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:textColor="#fff"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toTopOf="@+id/guideline"
+                    tools:text="hola">>
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/tvlectura"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvSubsidio"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:textColor="#fff"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline2"
+                    app:layout_constraintTop_toBottomOf="@+id/tvCodigo"
+                    app:layout_constraintVertical_bias="0.291"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:text="hola">>
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/tvfecha"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvlectura"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:textColor="#fff"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline2"
+                    app:layout_constraintTop_toBottomOf="@+id/tvCodigo"
+                    app:layout_constraintVertical_bias="0.291"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:text="hola">>
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/tvmonto"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvfecha"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:textColor="#fff"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline2"
+                    app:layout_constraintTop_toBottomOf="@+id/tvCodigo"
+                    app:layout_constraintVertical_bias="0.291"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:text="hola">>
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/tvcubos"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvmonto"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:textColor="#fff"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline2"
+                    app:layout_constraintTop_toBottomOf="@+id/tvCodigo"
+                    app:layout_constraintVertical_bias="0.291"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:text="hola">>
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/tvLecturaAnt"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvcubos"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:textColor="#fff"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline2"
+                    app:layout_constraintTop_toBottomOf="@+id/tvCodigo"
+                    app:layout_constraintVertical_bias="0.291"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:text="hola">>
+
+                </TextView>
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+    </LinearLayout>
 
 
  </androidx.constraintlayout.widget.ConstraintLayout>

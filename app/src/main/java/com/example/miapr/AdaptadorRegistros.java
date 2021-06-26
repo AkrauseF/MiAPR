@@ -40,7 +40,7 @@ public class AdaptadorRegistros extends BaseAdapter {
         TextView lecturaAnt = (TextView) vista.findViewById(R.id.tvLecturaAnt);
 
         medidor.setText("Medidor: "+datos[i][0]);
-        if(datos[i][1] ==null){
+        if(datos[i][1] =="-"){
             lectura.setText("Lectura: "+datos[i][1]);
             lectura.setTypeface(lectura.getTypeface(), Typeface.BOLD);
             lectura.setTextColor(Color.RED);

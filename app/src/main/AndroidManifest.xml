@@ -5,8 +5,7 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.BLUETOOTH"></uses-permission>
-
+    <uses-permission android:name="android.permission.BLUETOOTH" />
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -20,19 +19,36 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Imprimir"></activity>
-        <activity android:name=".ListaRegistros" />
-        <activity android:name=".Exportar" />
-        <activity android:name=".RegistrarDatosMedidor" />
-        <activity android:name=".ListaMedidores" />
-        <activity android:name=".Importar" />
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".Login">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+    </activity>
+        <activity android:name=".Imprimir"
+            android:parentActivityName=".RegistrarDatosMedidor"
+            />
+        <activity android:name=".ListaRegistros"
+            android:parentActivityName=".MainActivity"
+            />
+        <activity android:name=".Exportar"
+            android:parentActivityName=".MainActivity"
+            />
+        <activity android:name=".RegistrarDatosMedidor"
+            android:parentActivityName=".MainActivity"
+            />
+        <activity android:name=".ListaMedidores"
+            android:parentActivityName=".MainActivity"
+            />
+        <activity android:name=".Importar"
+            android:parentActivityName=".MainActivity"
+            />
+        <activity android:name=".MainActivity"
+
+            android:parentActivityName=".Login"
+            />
+
         <activity
             android:name=".Capturar"
             android:screenOrientation="portrait"

@@ -1,12 +1,15 @@
 package com.example.miapr;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -14,8 +17,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         registrar = findViewById(R.id.btReg);
         importar = findViewById(R.id.btImp);
@@ -23,6 +29,30 @@ public class MainActivity extends AppCompatActivity {
         lista2 = findViewById(R.id.btLista2);
         exportar = findViewById(R.id.btExp);
         //imprimir = findViewById(R.id.btnImprime);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.mnHome:
+                Intent intent1 = new Intent(this, MainActivity.class);
+                startActivity(intent1);
+                return true;
+            case R.id.idSalir:
+                Intent intent2 = new Intent(this, Login.class);
+                startActivity(intent2);
+                return true;
+
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     public void Registrar(View view){

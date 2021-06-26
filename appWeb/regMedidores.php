@@ -1,4 +1,11 @@
+<?php 
+session_start();
+$usuario =$_SESSION['user'];
 
+if(!isset($usuario)){
+  header("Location: login.php");
+}
+?>
 
 <!DOCTYPE html>
 <html>
@@ -14,14 +21,14 @@
 include "menu.php";
 include "modelo/conexiondb.php";
 ?>
+  <h1>Registro de Medidores</h1>
 
 <div id="registros">
-  <h1>Registro de Medidores</h1>
   <form action="modelo/regMedidorModel.php" method="post">
     <label>Código</label>
-    <input type="number" name="codigo">
+    <input type="number" name="codigo" required="required">
     <label>Marca</label>
-    <input type="text" name="marca">
+    <input type="text" name="marca" required="required">
 
     <input type="submit" value="Enviar">
     
