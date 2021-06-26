@@ -1,7 +1,5 @@
 package com.example.miapr;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,11 +7,15 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.SystemClock;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -32,6 +34,9 @@ public class Importar extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_importar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         btImportar2 = findViewById(R.id.btImportar2);
         btImportar = findViewById(R.id.btImportar);
         etUrl = (EditText) findViewById(R.id.etUri);
@@ -55,6 +60,29 @@ public class Importar extends AppCompatActivity {
         });*/
 
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.mnHome:
+                Intent intent1 = new Intent(this, MainActivity.class);
+                startActivity(intent1);
+                return true;
+            case R.id.idSalir:
+                Intent intent2 = new Intent(this, Login.class);
+                startActivity(intent2);
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 
@@ -144,8 +172,10 @@ public class Importar extends AppCompatActivity {
                  }}
 
                  progress.dismiss();
+                 consultaIdOperadores();
                  descargarDatosCobros();
                  consultaIdCliente();
+
 
              }
          };
@@ -201,11 +231,7 @@ public class Importar extends AppCompatActivity {
                                  DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
                                  databaseAccess.open();
                                  databaseAccess.insertarRegistros(lectura, medidor);
-                                 //Consulta en bbdd interna existencia de datos exportados.
-                                 //compara datos obtenidos de la consulta con los obtenido de la bbdd externa.
-                                 //si son iguales, conitunar con el bucle.
-                                 //si son distintos terminar con el bucle y borrar vaciar la tablas correspondientes.
-                                 //emitir error de inportación de medidores de datos,
+
                              } else {
                                  String[] respuesta = response.split(",");
                                  String lectura = respuesta[0];
@@ -213,11 +239,7 @@ public class Importar extends AppCompatActivity {
                                  DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
                                  databaseAccess.open();
                                  databaseAccess.insertarRegistros(lectura, medidor);
-                                 //Consulta en bbdd interna existencia de datos exportados.
-                                 //compara datos obtenidos de la consulta con los obtenido de la bbdd externa.
-                                 //si son iguales, conitunar con el bucle.
-                                 //si son distintos terminar con el bucle y borrar vaciar la tablas correspondientes.
-                                 //emitir error de inportación de lecturas de datos,
+
                              }
 
                          }
@@ -243,6 +265,7 @@ public class Importar extends AppCompatActivity {
                          verificadorTransferencia.verificarClientes();
                          verificadorTransferencia.verificarDatosCobros();
                          verificadorTransferencia.verificarLecturas();
+                         verificadorTransferencia.verificarOperadores();
                      }
                  });
              }
@@ -287,6 +310,7 @@ public class Importar extends AppCompatActivity {
              requestQueue.add(stringRequest);
          }
      }
+
      private void descargarCliente(final int ultimoId){
 
         final String Url = "http://"+etUrl.getText().toString()+"/Apr/modelo/descargaClientes.php";
@@ -374,6 +398,59 @@ public class Importar extends AppCompatActivity {
          t.start();
      }
 
+    private void descargarOperadores(final int ultimoId){
+
+        final String Url = "http://"+etUrl.getText().toString()+"/Apr/modelo/descargarOperadores.php";
+
+
+                int contador = 1;
+                while (contador <= ultimoId){
+                    VerificaConexion verificaConexion = new VerificaConexion(etUrl.getText().toString());
+                    if (!verificaConexion.executeCommand()) {
+                        break;
+                    }else{
+                        progress.setProgress(contador);
+                        SystemClock.sleep(500);
+
+                        String var= String.valueOf(contador);
+                        StringRequest stringRequest = new StringRequest(Request.Method.POST, Url+"?var='"+var+"'", new Response.Listener<String>() {
+
+                            @Override
+                            public void onResponse(String response) {
+                                // Toast.makeText(getApplicationContext(), "respuesta: "+response, Toast.LENGTH_SHORT ).show();
+                                Log.i("kra-rut", "prueba");
+                                String[] respuesta = response.split(",");
+                                String usuario =respuesta[0];
+                                String contrasena =respuesta[1];
+
+                                Log.i("kra-user", usuario);
+                                Log.i("kra-user", contrasena);
+
+                                Toast.makeText(getApplicationContext(), "Usuario: "+usuario, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), "Contrasena: "+contrasena, Toast.LENGTH_LONG).show();
+
+
+                                DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
+                                databaseAccess.open();
+                                databaseAccess.insertarOperadores(usuario, contrasena);
+
+                            }
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                //Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), "Error en la transferencia de Operadores", Toast.LENGTH_LONG).show();
+
+                            }
+                        });
+                        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+                        requestQueue.add(stringRequest);
+
+                        contador++;
+                    }}
+
+}
+
      private void consultaIdCliente(){
          VerificaConexion verificaConexion = new VerificaConexion(etUrl.getText().toString());
          if (!verificaConexion.executeCommand()) {
@@ -402,6 +479,35 @@ public class Importar extends AppCompatActivity {
          }
      }
 
+    private void consultaIdOperadores(){
+        VerificaConexion verificaConexion = new VerificaConexion(etUrl.getText().toString());
+
+        if (!verificaConexion.executeCommand()) {
+            Toast.makeText(this, "Error en la transferencia de Operadores*", Toast.LENGTH_LONG).show();
+
+        }else {
+            String Url = "http://"+etUrl.getText().toString() + "/Apr/modelo/consultaIdOperadores.php"; //obtiene el la cantidad de registros de medidores en appweb.
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, Url, new Response.Listener<String>() {
+
+                @Override
+                public void onResponse(String response) {
+                    // Toast.makeText(getApplicationContext(), "respuesta cliente id+++++:::"+response, Toast.LENGTH_SHORT ).show();
+
+                    int ultimoId = Integer.parseInt(response);
+                    descargarOperadores(ultimoId);
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(getApplicationContext(), "Error en traspaso de Operadores", Toast.LENGTH_LONG).show();
+                }
+            });
+            RequestQueue requestQueue = Volley.newRequestQueue(this);
+            requestQueue.add(stringRequest);
+        }
+    }
+
 
     private void borrartabla(){
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
@@ -410,6 +516,7 @@ public class Importar extends AppCompatActivity {
         databaseAccess.VaciarLecturas();
         databaseAccess.VaciarDatosCobros();
         databaseAccess.VaciarClientes();
+        databaseAccess.VaciarOperadores();
 
     }
     private void crearTabla(String numero, String marca, String id){

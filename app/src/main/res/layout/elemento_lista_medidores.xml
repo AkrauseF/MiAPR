@@ -12,40 +12,63 @@
         tools:layout_editor_absoluteX="62dp"
         tools:layout_editor_absoluteY="23dp">
 
-        <TextView
-            android:id="@+id/tvCodigo"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            app:layout_constraintTop_toTopOf="@+id/guideline"
-            tools:text="hola">
+            android:layout_margin="10dp"
+            app:cardCornerRadius="16dp">
 
-        </TextView>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#394867"
+                android:padding="10dp">
 
-        <TextView
-            android:id="@+id/tvMarca"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline2"
-            app:layout_constraintTop_toBottomOf="@+id/tvCodigo"
-            app:layout_constraintVertical_bias="0.291"
-            tools:layout_editor_absoluteX="0dp"
-            tools:text="hola">
+                <TextView
+                    android:id="@+id/tvCodigo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toTopOf="@+id/guideline"
+                    tools:text="hola"
+                    android:textColor="#fff">
 
-        </TextView>
-        <TextView
-            android:id="@+id/tvSubsidio"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline2"
-            app:layout_constraintTop_toBottomOf="@+id/tvCodigo"
-            app:layout_constraintVertical_bias="0.291"
-            tools:layout_editor_absoluteX="0dp"
-            tools:text="hola">
+                </TextView>
 
-        </TextView>
+                <TextView
+                    android:id="@+id/tvMarca"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvCodigo"
+                    android:layout_marginTop="10dp"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline2"
+                    app:layout_constraintTop_toBottomOf="@+id/tvCodigo"
+                    app:layout_constraintVertical_bias="0.291"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:text="hola"
+                    android:textColor="#fff">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/tvSubsidio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvMarca"
+                    android:layout_marginTop="10dp"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toTopOf="@+id/guideline2"
+                    app:layout_constraintTop_toBottomOf="@+id/tvCodigo"
+                    app:layout_constraintVertical_bias="0.291"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:text="hola"
+                    android:textColor="#fff">
+
+                </TextView>
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
     </LinearLayout>
 
 

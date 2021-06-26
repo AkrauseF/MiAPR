@@ -1,4 +1,11 @@
 <?php 
+session_start();
+$usuario =$_SESSION['user'];
+
+if(!isset($usuario)){
+  header("Location: login.php");
+}
+
 include 'modelo/conexiondb.php';
 $idCliente = $_GET['id']; //recepcion de id 
 

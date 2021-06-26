@@ -1,4 +1,11 @@
 <?php 
+session_start();
+$usuario =$_SESSION['user'];
+
+if(!isset($usuario)){
+  header("Location: login.php");
+}
+
 $select = "SELECT * FROM pagos where id_cliente = $idCliente and saldo != 0 ";
 $query = mysqli_query($conexion, $select);
 $row=mysqli_fetch_array($query);

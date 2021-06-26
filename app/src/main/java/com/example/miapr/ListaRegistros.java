@@ -1,12 +1,13 @@
 package com.example.miapr;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
 import android.os.Bundle;
-
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ListView;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class ListaRegistros extends AppCompatActivity {
 
@@ -31,6 +32,9 @@ public class ListaRegistros extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_registros);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
         lista = findViewById(R.id.lvListaR);
 
         crearListaRegistros();
@@ -43,6 +47,28 @@ public class ListaRegistros extends AppCompatActivity {
         databaseAccess.open();
         String[] ultimoId = databaseAccess.UltimoIdMedidores();
         return ultimoId[0];
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.mnHome:
+                Intent intent1 = new Intent(this, MainActivity.class);
+                startActivity(intent1);
+                return true;
+            case R.id.idSalir:
+                Intent intent2 = new Intent(this, Login.class);
+                startActivity(intent2);
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     public String[][] crearListaRegistros(){
@@ -65,13 +91,49 @@ public class ListaRegistros extends AppCompatActivity {
             //Log.i("Visual->", subsidio);
             int posicion = i;
             int pos = posicion-1;
-            datos[pos][0]=codigo[0];
+            if(codigo[0]== null){
+                datos[pos][0]="-";
+            }else {
+                datos[pos][0]=codigo[0];
+            }
+
+            if(codigo[1]== null){
+                datos[pos][1]="-";
+            }else {
+                datos[pos][1]=codigo[1];
+            }
+            if(codigo[2]== null){
+                datos[pos][2]="-";
+            }else {
+                datos[pos][2]=codigo[2];
+            }
+            if(codigo[3]== null){
+                datos[pos][3]="-";
+            }else {
+                datos[pos][3]=codigo[3];
+            }
+            if(codigo[4]== null){
+                datos[pos][4]="-";
+            }else {
+                datos[pos][4]=codigo[4];
+            }
+            if(codigo[5]== null){
+                datos[pos][5]="-";
+            }else {
+                datos[pos][5]=codigo[5];
+            }
+            if(subsidio== null){
+                datos[pos][6]="-";
+            }else {
+                datos[pos][6]=subsidio;
+            }
+           /* datos[pos][0]=codigo[0];
             datos[pos][1]=codigo[1];
             datos[pos][2]=codigo[2];
-            datos[pos][3]=codigo[3];
+
             datos[pos][4]=codigo[4];
             datos[pos][5]=codigo[5];
-            datos[pos][6]=subsidio;
+            datos[pos][6]=subsidio;*/
         }
         return datos;
     }

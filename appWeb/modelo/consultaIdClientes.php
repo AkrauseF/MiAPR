@@ -1,8 +1,6 @@
 <?php
 include "conexiondb.php";
 
-
-
 	$selectUltId="SELECT MAX(id_cliente) FROM clientes";
 	$query=mysqli_query($conexion, $selectUltId);
 

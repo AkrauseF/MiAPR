@@ -139,5 +139,34 @@ public class VerificadorTransferencia extends AppCompatActivity {
         requestQueue.add(stringRequest);
 
     }
+
+    public void verificarOperadores(){
+        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(context);
+        databaseAccess.open();
+
+        final String[] cantRegistros = databaseAccess.UltimoIdOperadores();
+
+        String Url = "http://"+ipServer+"/Apr/modelo/consultaIdOperadores.php"; //obtiene el la cantidad de registros de LECTURAS del ultimomes
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Url, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+
+                if(Integer.parseInt(cantRegistros[0])== Integer.parseInt(response)){
+                    Toast.makeText(context, "Transferencia de Operadores exitosa", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(context, "Error en Transferencia de Operadores", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
+            }
+        });
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.add(stringRequest);
+
+    }
 }
 
