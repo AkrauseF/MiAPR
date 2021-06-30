@@ -1,9 +1,10 @@
-# MiAPR v8.0.0
+# MiAPR v9.0.0
 Sistema que agiliza los procesos de registro de lectura y gestión de cobros del agua potable rural de Villa San Pedro, comuna de Pucón.
 
 ## Descripción
 Esta versión incluye los módulos de registro y edición de medidores y de clientes, generación de informes de datos de subsidiarios, registro de pagos y dashboard con alerta de orden de corte de servicios para clientes con 3 o mas meses de deudas, junto con un buscador de información relacionada con los pagos por cliente, através de filtros por fecha (mes) y nombre de clientes, todo esto correpondiente a app web.
 Por otro lado en la app móvil vienen incluidos los módulos de importación y exportación de datos entre la app web y la app móvil lo que permitirá poder ejecutar el módulo de identificación de medidores por medio de la captura de código QR y registrar el número de lectura de este que representa los metros cúbicos consumidos por el cliente que tiene asociado dicho medidor. Finalmente estan implementados los módulos de cálculo de cobro en terreno e impresión de bloleta de cobro en terreno.
+Para las dos aplicaciones, en esta versión se integraron los módulos de control de acceso con hashing de contraseña en base de datos y por otro lado, se implementaron las verificaciones de conexión y traspaso de datos entre aplicaciones.
 
 ## El producto resultante de esta iteración consta de las siguientes funcionalidades:
 
@@ -40,14 +41,20 @@ Por otro lado en la app móvil vienen incluidos los módulos de importación y e
 
 •	Visualizacion de clientes con orden de corte de servicio mediante dashboard.
 
-### Funcionalidades añadidas del releas actual 
-
 •	Buscador de pagos y deudas de clientes.
 
 •	Visualizacion de meses con deudas por clientes.
 
+### Funcionalidades añadidas del releas actual 
+
+•	Control de acceso para app móvil y web con hashing de contraseñas en base de datos.
+
+•	verificación de conexión entre app móvil y web.
+
+•	Verificación de traspaso de datos entre app móvil y web.
+
 ## Instrucciones de instalación de la app móvil
-1.- Descargue en el dispositivo móvil el instalador de la aplicación desde el repositorio de GitHub en el siguiente link:   https://github.com/AkrauseF/MiAPR/raw/main/app/entregable/release/MiAPR_6_0_0.apk 
+1.- Descargue en el dispositivo móvil el instalador de la aplicación desde el repositorio de GitHub en el siguiente link:   https://github.com/AkrauseF/MiAPR/raw/main/app/entregable/release/MiAPR_9_0_0.apk 
 
 2.- Si tiene una versión anterior de esta aplicación, desintálela del dispositivo móvil.
 
@@ -57,7 +64,7 @@ Por otro lado en la app móvil vienen incluidos los módulos de importación y e
 
 ## Instrucciones de instalación de la app web
 
-1.- Descargue los archivos comprimidos desde el siguinte link: https://github.com/AkrauseF/MiAPR/archive/v5.0.0.zip
+1.- Descargue los archivos comprimidos desde el siguinte link: https://github.com/AkrauseF/MiAPR/archive/v9.0.0.zip
 
 2.- Descomprima el archivo v5.0.0.zip y monte los archivos y directorios contenidos en la carpeta "appWeb" en su servidor web.
 
@@ -68,8 +75,15 @@ Por otro lado en la app móvil vienen incluidos los módulos de importación y e
 
 ## Instrucciones de uso de la app móvil
 
+### Acceso a la aplicación:
+1.- Ejecute la aplicación móvil.
+
+2.- Ingrese usuario y contraseña en el formulario de acceso y presione el botón "Enviar".
+
 ### Importar medidores:
 1.- Presione el botón "IMPORTAR".
+
+1.- Se trapasaran los datos desde el servidor web hacia la app movil, una vez terminado aparecerá si el traspaso fue exitoso.
 
 2.- Una vez finalizado el procesos de importación resgrese al menú anterior y presione el botón "LISTA MEDIDORES" para verificar los datos de los medidores importados.
 
@@ -94,6 +108,20 @@ Por otro lado en la app móvil vienen incluidos los módulos de importación y e
 2.Presione el botón “EXPORTAR” y espere la confirmación de que los tados fueron exportados correctamente.
 
 ## Instrucciones de uso de la app web
+
+### Acceso a la aplicación:
+1.- Ingrese a la página principal del sitio web.
+
+2.- Ingrese usuario y contraseña en el formulario de acceso y presione el botón "Entrar".
+
+### Registro de Secretarios:
+1.- Ingrese a la aplicación web y en el menú presione el botón secretarios, luego presione el botón registrar.
+
+2.- Ingrese los datos del secretario en el formulario y presione enviar, esto redireccionará hacia la página de secretarios registrados. 
+
+3.- Si presiona el botón eliminar se borrará el registro del secretario seleccionado.
+
+4.- Si presiona el botón editar, la página redireccionará hacia el formulario de edición de secretarios, donde podrá modificar los datos del secretario seleccionado. Al presionar el botón editar se redireccionará hacia la página de secretarios registrados, donde podrá observar los cambios realizados.
 
 ### Registro de medidores:
 1.- Ingrese a su navegador web y escriba la raíz de la dirección donde se encuentra montado el sitio web y agregue /regMedidores.php.
