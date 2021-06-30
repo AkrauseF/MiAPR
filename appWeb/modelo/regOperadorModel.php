@@ -36,9 +36,9 @@ if(!limpirarString($rut) or !limpirarString($nombre) or !limpirarString($apellid
 
 }else{
 
-	//$pass = hash('sha256', $contrasena);
+	$pass = hash('sha256', $contrasena);
 
-	$insert="INSERT INTO operadores (rut, nombre, apellidoP, apellidoM, direccion, usuario, contrasena)VALUES($rut,'$nombre', '$apellidoP', '$apellidoM','$direccion','$usuario','$contrasena')";
+	$insert="INSERT INTO operadores (rut, nombre, apellidoP, apellidoM, direccion, usuario, contrasena)VALUES($rut,'$nombre', '$apellidoP', '$apellidoM','$direccion','$usuario','$pass')";
 
 	if($query=mysqli_query($conexion, $insert)){
 		?> <script>alert('Usuario creado con exito!.')</script><?php

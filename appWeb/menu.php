@@ -8,8 +8,8 @@
   <li><a href="pagos.php">Pagos</a></li>
   <li><a href="generarInforme.php">Informe Subsidiarios</a></li>
   <li><a href="busquedaPagos.php">Buscador de Pagos</a></li>
-  <li><a >Secretarios</a></li>
-  <li><a >Operadores</a></li>
+  <li><a href="secretarios.php">Secretarios</a></li>
+  <li><a href="operadores.php">Operadores</a></li>
 
   
   
@@ -20,7 +20,7 @@
       <a href="#">Clientes Morosos</a>-->
     </div>
   </li>
-  <li><a>Salir</a></li>
+  <li><a href="modelo/salir.php">Salir</a></li>
  
  <div class="titulo">
  	Agua Potable Villa San Pedro

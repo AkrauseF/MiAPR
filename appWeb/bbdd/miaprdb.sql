@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 27-06-2021 a las 01:08:58
+-- Tiempo de generación: 30-06-2021 a las 03:10:00
 -- Versión del servidor: 10.4.18-MariaDB
 -- Versión de PHP: 8.0.3
 
@@ -177,8 +177,11 @@ CREATE TABLE `operadores` (
 --
 
 INSERT INTO `operadores` (`id_operadores`, `rut`, `nombre`, `apellidoP`, `apellidoM`, `direccion`, `usuario`, `contrasena`) VALUES
-(1, 178261835, 'Juana', 'Lagos', 'Martinez', 'av los castanos', 'oper', '123'),
-(2, 178261835, 'Daniel', 'Martinez', 'Pardo', 'Av los didos', 'oper2', '123');
+(1, 142199181, 'Maria', 'Gonzalez', 'Fuentes', 'Av Los Castanos', 'oper1', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3'),
+(2, 204148325, 'Jose', 'Carmona', 'Carmona', 'Calle uno', 'oper2', '1e00a562a0ffc0f766b16302f8a76161252974360c29772e51b1eb6900a6c4d3'),
+(3, 191601874, 'Antonio', 'Vasquez', 'Vasquez', 'Calle dos', 'oper3', '183d30a1acf9320f0f732dba5d360cebe3cea9851be55290f7398e5eea3f6df9'),
+(4, 178261835, 'Jorge', 'Gonzalez', 'Gonzalez', 'Av Los Carreras', 'oper4', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92'),
+(5, 151639690, 'Juan', 'Garcia', 'Hernandez', 'Los manzanos', 'oper5', '8bb0cf6eb9b17d0f7d22b456f121257dc1254e1f01665370476383ea776df414');
 
 -- --------------------------------------------------------
 
@@ -305,8 +308,10 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id_usuarios`, `rut`, `nombre`, `apellidoP`, `apellidoM`, `direccion`, `usuario`, `contrasena`) VALUES
-(17, 151634982, 'Juana', 'Martinez', 'Martinez', 'av los castanos', 'sec', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3'),
-(18, 178261835, 'admin', 'admin', 'admin', 'admin', 'admin', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3');
+(1, 142199181, 'Andres ', 'Campos', 'Campos', 'Av Cuatro 234', 'sec', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3'),
+(2, 201658903, 'Jesus', 'Casanova', 'Casanova', 'Av cuatro', 'sec1', 'f1cb1e433a589d1a70a868f6ffe174f07dcb9ac7f18482905697f25be72bd2e3'),
+(3, 204148325, 'Esteban', 'Morande', 'Castillo', 'Av Cinco', 'sec2', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8'),
+(4, 204148325, 'Jesus', 'Casanova', 'Casanova', 'Av cuatro', 'sec7', 'ad2a3c7510122073d675533aa98c34691f7009dc0eeea2eb78ffc345edb41224');
 
 --
 -- Índices para tablas volcadas
@@ -395,7 +400,7 @@ ALTER TABLE `medidores`
 -- AUTO_INCREMENT de la tabla `operadores`
 --
 ALTER TABLE `operadores`
-  MODIFY `id_operadores` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_operadores` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `pagos`
@@ -413,7 +418,7 @@ ALTER TABLE `registro_lectura`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_usuarios` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_usuarios` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Restricciones para tablas volcadas

@@ -20,6 +20,9 @@ if(!limpirarString($rut) or !limpirarString($nombre) or !limpirarString($apellid
 	
 	?> <script>alert('Uno de los campos supera el limite de caracteres. Intentelo de nuevo')</script><?php
 }else{
+
+	$pass = hash('sha256', $contrasena);
+
 	
 	$update = "UPDATE operadores SET rut=$rut WHERE id_operadores=$id";
 	$query = mysqli_query($conexion, $update);
@@ -41,7 +44,7 @@ if(!limpirarString($rut) or !limpirarString($nombre) or !limpirarString($apellid
 
 	//$pass = hash('sha256', $contrasena);
 
-	$update2 = "UPDATE operadores SET contrasena='$contrasena' WHERE id_operadores=$id";
+	$update2 = "UPDATE operadores SET contrasena='$pass' WHERE id_operadores=$id";
 	$query2 = mysqli_query($conexion, $update2);
 
 }

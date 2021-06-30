@@ -14,7 +14,11 @@ if(!empty($usuario) and !empty($contrasena)){
 //
 		if($usuario == $columna[0] and hash('sha256',$contrasena)==$columna[1]){
 			$_SESSION['user']=$columna[0];
-			header("Location: ../index.php");
+			?><script>
+			alert('Credenciales correctas.');
+			window.location.href = "../index.php";
+			</script><?php
+			//header("Location: ../index.php");
 		}else{
 			?><script>
 			alert('Credenciales invalidas.');
