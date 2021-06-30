@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         lista2 = findViewById(R.id.btLista2);
         exportar = findViewById(R.id.btExp);
         //imprimir = findViewById(R.id.btnImprime);
+
     }
 
     @Override

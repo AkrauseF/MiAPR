@@ -23,6 +23,7 @@ public class VerificadorTransferencia extends AppCompatActivity {
     }
 
     public boolean verificarMedidores(){
+
         Log.i("KraIN::","Ingreso");
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(context);
         databaseAccess.open();
@@ -36,14 +37,19 @@ public class VerificadorTransferencia extends AppCompatActivity {
             public void onResponse(String response) {
                 if(Integer.parseInt(cantRegistros[0])== Integer.parseInt(response)){
                     Toast.makeText(context, "Transferencia de Medidores exitosa", Toast.LENGTH_SHORT).show();
+                    Log.i("Ver-transferencia", "Transferencia de Medidores exitosa");
                 }else{
                     Toast.makeText(context, "Error en Transferencia de Medidores", Toast.LENGTH_SHORT).show();
+                    Log.i("Ver-transferencia", "Error en Transferencia de Medidores");
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context, error.toString(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(context, error.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Error en Transferencia de Medidores", Toast.LENGTH_SHORT).show();
+                Log.i("Ver-transferencia", "Error en Transferencia de Medidores");
+
             }
         });
         RequestQueue requestQueue = Volley.newRequestQueue(context);
@@ -67,18 +73,26 @@ public class VerificadorTransferencia extends AppCompatActivity {
                 if(Integer.parseInt(cantRegistros[0])== Integer.parseInt(response)){
 
                     Toast.makeText(context, "Transferencia de Lecturas exitosa", Toast.LENGTH_SHORT).show();
+                    Log.i("Ver-transferencia", "Transferencia de Lecturas exitosa");
+
                 }else{
                     Toast.makeText(context, "Error en Transferencia de Lecturas", Toast.LENGTH_SHORT).show();
+                    Log.i("Ver-transferencia", "Error en Transferencia de Lecturas");
+
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(context, error.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Error en Transferencia de Lecturas", Toast.LENGTH_SHORT).show();
+                Log.i("Ver-transferencia", "Error en Transferencia de Lecturas");
+
             }
         });
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         requestQueue.add(stringRequest);
+
 
     }
 
@@ -93,17 +107,25 @@ public class VerificadorTransferencia extends AppCompatActivity {
 
             @Override
             public void onResponse(String response) {
+
                 if(Integer.parseInt(cantRegistros[0])== Integer.parseInt(response)){
 
                     Toast.makeText(context, "Transferencia de Datos de Cobros exitosa", Toast.LENGTH_SHORT).show();
+                    Log.i("Ver-transferencia", "Transferencia de Datos de Cobros exitosa");
+
                 }else{
                     Toast.makeText(context, "Error en Transferencia de  Datos de Cobros", Toast.LENGTH_SHORT).show();
+                    Log.i("Ver-transferencia", "Error en Transferencia de  Datos de Cobros");
+
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(context, error.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Error en Transferencia de  Datos de Cobros", Toast.LENGTH_SHORT).show();
+                Log.i("Ver-transferencia", "Error en Transferencia de  Datos de Cobros");
+
             }
         });
         RequestQueue requestQueue = Volley.newRequestQueue(context);
@@ -117,22 +139,33 @@ public class VerificadorTransferencia extends AppCompatActivity {
 
         final String[] cantRegistros = databaseAccess.UltimoIdCliente();
 
+
         String Url = "http://"+ipServer+"/Apr/modelo/consultaIdClientes.php"; //obtiene el la cantidad de registros de LECTURAS del ultimomes
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Url, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
+                Log.i("Cant-clientesIn", cantRegistros[0]);
+                Log.i("Cant-clientesEx", response);
+
 
                 if(Integer.parseInt(cantRegistros[0])== Integer.parseInt(response)){
                     Toast.makeText(context, "Transferencia de Clientes exitosa", Toast.LENGTH_SHORT).show();
+                    Log.i("Ver-transferencia", "Transferencia de Clientes exitosa");
+
                 }else{
                     Toast.makeText(context, "Error en Transferencia de Clientes", Toast.LENGTH_SHORT).show();
+                    Log.i("Ver-transferencia", "Error en Transferencia de Clientes");
+
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(context, error.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Error en Transferencia de Clientes", Toast.LENGTH_SHORT).show();
+                Log.i("Ver-transferencia", "Error en Transferencia de Clientes");
+
             }
         });
         RequestQueue requestQueue = Volley.newRequestQueue(context);
@@ -151,17 +184,26 @@ public class VerificadorTransferencia extends AppCompatActivity {
 
             @Override
             public void onResponse(String response) {
+                Log.i("Cant-operIn", cantRegistros[0]);
+                Log.i("Cant-operEx", response);
 
-                if(Integer.parseInt(cantRegistros[0])== Integer.parseInt(response)){
+                if(Integer.parseInt(cantRegistros[0])+1 == Integer.parseInt(response)){
                     Toast.makeText(context, "Transferencia de Operadores exitosa", Toast.LENGTH_SHORT).show();
+                    Log.i("Ver-transferencia", "Transferencia de Operadores exitosa");
+
                 }else{
                     Toast.makeText(context, "Error en Transferencia de Operadores", Toast.LENGTH_SHORT).show();
+                    Log.i("Ver-transferencia", "Error en Transferencia de Operadores");
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(context, error.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Error en Transferencia de Operadores", Toast.LENGTH_SHORT).show();
+
+                Log.i("Ver-transferencia", "Error en Transferencia de Operadores**");
+
             }
         });
         RequestQueue requestQueue = Volley.newRequestQueue(context);

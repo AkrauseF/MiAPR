@@ -65,7 +65,7 @@ public class DatabaseAccess {
     public String[] UltimoIdCliente() {
         String[] registros= new String[5];
         String ultimo=null;
-        c = db.rawQuery("SELECT * FROM clientes ORDER BY id_medidor DESC LIMIT 1; ", new String[]{});
+        c = db.rawQuery("SELECT * FROM clientes ORDER BY id_cliente DESC LIMIT 1; ", new String[]{});
         while (c.moveToNext()) {
             ultimo = c.getString(0);
 
@@ -404,7 +404,6 @@ public class DatabaseAccess {
         Log.i("insertando4: ", direccion);
         Log.i("insertando5: ", subsidio);
         Log.i("insertando6: ", numSitio);*/
-
 
         db.execSQL("insert into clientes (rut, nombre, apellido, direccion, subsidio, num_sitio, id_medidor) " + "values ('"+rut+"','"+nombre+"','"+apellido+"','"+direccion+"','"+subsidio+"','"+numSitio+"','"+idMedidor+"')");
 

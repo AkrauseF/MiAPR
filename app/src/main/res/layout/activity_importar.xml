@@ -21,22 +21,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etUri" />
 
-    <Button
-        android:id="@+id/btImportar2"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="72dp"
-        android:background="@drawable/boton1"
-        android:text="Importar Lecturas Anteriores"
-        android:textColor="#fff"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btImportar"
-        app:layout_constraintVertical_bias="0.0" />
-
     <EditText
         android:id="@+id/etUri"
         android:layout_width="wrap_content"
@@ -44,11 +28,118 @@
         android:layout_marginTop="40dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="192.168.0.6"
+        android:text="192.168.0.4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <!--<TableRow
+        android:layout_width="267dp"
+        android:layout_height="345dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btImportar">
+
+        <TableRow
+            android:layout_width="136dp"
+            android:layout_height="match_parent" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvMediores"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:text="Medidores" />
+
+                <TextView
+                    android:id="@+id/tvLecturas"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:text="Lecturas" />
+
+                <TextView
+                    android:id="@+id/tvCobros"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:text="Datos Cobros" />
+
+                <TextView
+                    android:id="@+id/tvClientes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:text="Clientes" />
+
+                <TextView
+                    android:id="@+id/tvOperadores"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:text="Operadores" />
+            </LinearLayout>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvRmedidores"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:text="NO"
+                    android:gravity="center_horizontal" />
+
+                <TextView
+                    android:id="@+id/tvRlecturas"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:text="NO"
+                    android:gravity="center_horizontal"/>
+
+               <TextView
+                    android:id="@+id/tvRcobros"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:text="NO"
+                   android:gravity="center_horizontal"/>
+
+                <TextView
+                    android:id="@+id/tvRclientes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:text="NO"
+                    android:gravity="center_horizontal"/>
+
+                <TextView
+                    android:id="@+id/tvRoperadores"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:text="NO"
+                    android:gravity="center_horizontal"/>
+            </LinearLayout>
+        </TableRow>
+    </TableRow> -->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

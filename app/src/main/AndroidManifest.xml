@@ -45,9 +45,7 @@
             android:parentActivityName=".MainActivity"
             />
         <activity android:name=".MainActivity"
-
-            android:parentActivityName=".Login"
-            />
+            android:parentActivityName=".Login" />
 
         <activity
             android:name=".Capturar"

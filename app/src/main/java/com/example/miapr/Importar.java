@@ -10,8 +10,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -28,37 +30,37 @@ public class Importar extends AppCompatActivity {
 
     Button btImportar, btImportar2;
     EditText etUrl;
+    TextView tvRmedidores, tvRlecturas, tvRcobros, tvRclientes, tvRoperadores;
+
     private ProgressDialog progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_importar);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        btImportar2 = findViewById(R.id.btImportar2);
+        //tvRmedidores = findViewById(R.id.tvRmedidores);
+        //tvRmedidores.setVisibility(View.INVISIBLE);
+        //tvRlecturas = findViewById(R.id.tvRlecturas);
+        //tvRlecturas.setVisibility(View.INVISIBLE);
+        //tvRcobros = findViewById(R.id.tvRcobros);
+        //tvRcobros.setVisibility(View.INVISIBLE);
+        //tvRclientes = findViewById(R.id.tvRclientes);
+        //tvRclientes.setVisibility(View.INVISIBLE);
+        //tvRoperadores = findViewById(R.id.tvRoperadores);
+        //tvRoperadores.setVisibility(View.INVISIBLE);
+
         btImportar = findViewById(R.id.btImportar);
         etUrl = (EditText) findViewById(R.id.etUri);
         btImportar.setEnabled(true);
-        btImportar2.setVisibility(View.INVISIBLE);
-        btImportar2.setEnabled(false);
         btImportar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 consulUltId();
+                borrartabla();//borra la tabla de medidores de app movil antes de insertar los nuevos medidores exportados
 
             }
         });
-
-
-
-        /*btImportar2.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                descargaLecturasAnteriores();
-
-            }
-        });*/
-
 
     }
 
@@ -85,16 +87,16 @@ public class Importar extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
-
     public void consulUltId() {
         btImportar.setEnabled(false);
 
-        //Toast.makeText(this,"Importando datos desde el servidor",Toast.LENGTH_LONG).show();
+
         VerificaConexion verificaConexion = new VerificaConexion(etUrl.getText().toString());
         if (!verificaConexion.executeCommand()) {
+            Log.i("Ver-transferencia", "*****************");
+            Log.i("Ver-transferencia", "");
             Toast.makeText(this, "Error de conexión con el Servidor", Toast.LENGTH_LONG).show();
-
+            btImportar.setEnabled(true);
         }else {
             String Url = "http://"+etUrl.getText().toString() + "/Apr/modelo/consultaID.php"; //obtiene el la cantidad de registros de medidores en appweb.
             StringRequest stringRequest = new StringRequest(Request.Method.POST, Url, new Response.Listener<String>() {
@@ -116,10 +118,10 @@ public class Importar extends AppCompatActivity {
     }
      public void conexionUnophp(final String id, String str) {
 
+
+
         final String Url = "http://"+etUrl.getText().toString()+"/Apr/modelo/descargarDatos.php";
         //Toast.makeText(this, "Se importarán "+id+" registros de medidores", Toast.LENGTH_LONG).show();
-
-        borrartabla();//borra la tabla de medidores de app movil antes de insertar los nuevos medidores exportados
 
          final int ide = Integer.parseInt(id);
          progress=new ProgressDialog(this);
@@ -129,21 +131,32 @@ public class Importar extends AppCompatActivity {
          progress.setProgress(0);
          progress.show();
          progress.setMax(ide);
+         progress.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
          final Thread t = new Thread() {
              @Override
              public void run() {
-
-
+                 Boolean flag = true;
                  Integer num = 1;
-
                  while (num <= ide ){
                      VerificaConexion verificaConexion = new VerificaConexion(etUrl.getText().toString());
                      if(!verificaConexion.executeCommand()){
+                         flag=false;
+                         new Handler(Looper.getMainLooper()).post(new Runnable() {
+                             @Override
+                             public void run() {
+                                 Log.i("Ver-transferencia", "*****************");
+                                 Log.i("Ver-transferencia", "");
+                                 Log.i("Ver-transferencia: ","Error de conexión con el Servidor");
+                                 Toast.makeText(getApplicationContext(), "Error de conexión con el Servidor", Toast.LENGTH_LONG).show();
+                                 btImportar.setEnabled(true);
+
+                             }
+                         });
                          break;
                      }else{
-                     progress.setProgress(num);
-                     SystemClock.sleep(500);
+                         progress.setProgress(num);
+                     SystemClock.sleep(250);
                      final StringRequest stringRequest = new StringRequest(Request.Method.POST, Url+"?var='"+num+"'", new Response.Listener<String>() { //envia el id de la tabla de medidores.
 
                          @Override
@@ -160,32 +173,36 @@ public class Importar extends AppCompatActivity {
                          public void onErrorResponse(VolleyError error) {
                              //Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
                              Toast.makeText(getApplicationContext(), "Error en la tranferencia de medidores", Toast.LENGTH_LONG).show();
+                             btImportar.setEnabled(true);
 
                          }
                      });
                      RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
                      requestQueue.add(stringRequest);
 
-
                      //Toast.makeText(getApplicationContext(), stringRequest.toString(), Toast.LENGTH_LONG).show();
                      num = num + 1;
-                 }}
+                    }
+                 }
 
                  progress.dismiss();
-                 consultaIdOperadores();
-                 descargarDatosCobros();
-                 consultaIdCliente();
 
+                 if(flag) {
+                     new Handler(Looper.getMainLooper()).post(new Runnable() {
+                         @Override
+                         public void run() {
+                             descargaLecturasAnteriores();
 
+                         }
+                     });
+                 }
              }
          };
          t.start();
-
      }
 
-
      public void descargaLecturasAnteriores(){
-         btImportar2.setEnabled(false);
+
          //Toast.makeText(this, "Importanto lecturas del mes anterior", Toast.LENGTH_LONG).show();
          final DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
          databaseAccess.open();
@@ -203,17 +220,33 @@ public class Importar extends AppCompatActivity {
          progress.show();
 
          progress.setMax(ListaidMed.length -1);
+         progress.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
          final Thread t = new Thread() {
              @Override
              public void run() {
-
+                 Boolean flag=true;
                  for (int cont = 1; cont < ListaidMed.length; cont++) {
+
                      VerificaConexion verificaConexion = new VerificaConexion(etUrl.getText().toString());
                      if (!verificaConexion.executeCommand()) {
+                         flag=false;
+                         new Handler(Looper.getMainLooper()).post(new Runnable() {
+                             @Override
+                             public void run() {
+                                 Log.i("Ver-transferencia", "*****************");
+                                 Log.i("Ver-transferencia", "");
+                                 Log.i("Ver-transferencia: ","Error de conexión con el Servidor");
+
+                                 Toast.makeText(getApplicationContext(), "Error de conexión con el Servidor", Toast.LENGTH_LONG).show();
+                                 btImportar.setEnabled(true);
+
+                             }
+                         });
                          break;
                      }else{
                      progress.setProgress(cont);
-                     SystemClock.sleep(500);
+                     SystemClock.sleep(250);
 
                      //String num= Integer.toString(cont);
                      final String numeroMedidor = databaseAccess.getCodigoMedidor(ListaidMed[cont]);
@@ -248,26 +281,24 @@ public class Importar extends AppCompatActivity {
                          public void onErrorResponse(VolleyError error) {
                              //Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
                              Toast.makeText(getApplicationContext(), "Error en la transferencia de lecturas", Toast.LENGTH_LONG).show();
+                             btImportar.setEnabled(true);
+
                          }
                      });
                      RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
                      requestQueue.add(stringRequest);
                  }}
                  progress.dismiss();
-                 new Handler(Looper.getMainLooper()).post(new Runnable() {
-                     @Override
-                     public void run() {
-                         Toast.makeText(getApplicationContext(), "Se importaron " + (ListaidMed.length - 1) + " clientes juntos con sus medidores asociados.", Toast.LENGTH_LONG).show();
+                 if(flag) {
+                     new Handler(Looper.getMainLooper()).post(new Runnable() {
+                         @Override
+                         public void run() {
+                             descargarDatosCobros();
 
-                         VerificadorTransferencia verificadorTransferencia = new VerificadorTransferencia(etUrl.getText().toString(), getApplicationContext());
+                         }
+                     });
+                 }
 
-                         verificadorTransferencia.verificarMedidores();
-                         verificadorTransferencia.verificarClientes();
-                         verificadorTransferencia.verificarDatosCobros();
-                         verificadorTransferencia.verificarLecturas();
-                         verificadorTransferencia.verificarOperadores();
-                     }
-                 });
              }
 
          };
@@ -279,6 +310,18 @@ public class Importar extends AppCompatActivity {
          VerificaConexion verificaConexion = new VerificaConexion(etUrl.getText().toString());
          if (!verificaConexion.executeCommand()) {
              Toast.makeText(this, "Error en la transferencia de Datos de cobros", Toast.LENGTH_LONG).show();
+             btImportar.setEnabled(true);
+
+             new Handler(Looper.getMainLooper()).post(new Runnable() {
+                 @Override
+                 public void run() {
+                     Log.i("Ver-transferencia", "*****************");
+                     Log.i("Ver-transferencia", "");
+                     Log.i("Ver-transferencia: ","Error de conexión con el Servidor");
+
+                     Toast.makeText(getApplicationContext(), "Error de conexión con el Servidor", Toast.LENGTH_LONG).show();
+                 }
+             });
 
          }else {
              String Url = "http://"+etUrl.getText().toString() + "/Apr/modelo/descargarDatosCobros.php";
@@ -303,12 +346,24 @@ public class Importar extends AppCompatActivity {
              }, new Response.ErrorListener() {
                  @Override
                  public void onErrorResponse(VolleyError error) {
-                     Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
+                     //Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
+                     Toast.makeText(getApplicationContext(), "Error en la transferencia de Datos de cobros", Toast.LENGTH_LONG).show();
+                     btImportar.setEnabled(true);
+
                  }
              });
              RequestQueue requestQueue = Volley.newRequestQueue(this);
              requestQueue.add(stringRequest);
          }
+         new Handler(Looper.getMainLooper()).post(new Runnable() {
+             @Override
+             public void run() {
+
+                 consultaIdCliente();
+
+             }
+         });
+
      }
 
      private void descargarCliente(final int ultimoId){
@@ -321,20 +376,34 @@ public class Importar extends AppCompatActivity {
          //progress.setIndeterminate(true);
          progress.setProgress(0);
          progress.show();
-
          progress.setMax(ultimoId);
+         progress.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
          final Thread t = new Thread() {
              @Override
              public void run() {
+                 Boolean flag=true;
+                 Log.i("Cant-clientesId", String.valueOf(ultimoId));
 
                  int contador = 1;
                  while (contador <= ultimoId){
                      VerificaConexion verificaConexion = new VerificaConexion(etUrl.getText().toString());
                      if (!verificaConexion.executeCommand()) {
+                         flag=false;
+                         new Handler(Looper.getMainLooper()).post(new Runnable() {
+                             @Override
+                             public void run() {
+                                 Log.i("Ver-transferencia", "*****************");
+                                 Log.i("Ver-transferencia", "");
+                                 Log.i("Ver-transferencia: ","Error de conexión con el Servidor");
+                                 btImportar.setEnabled(true);
+                                 Toast.makeText(getApplicationContext(), "Error de conexión con el Servidor", Toast.LENGTH_LONG).show();
+                             }
+                         });
                         break;
                      }else{
                      progress.setProgress(contador);
-                     SystemClock.sleep(500);
+                     SystemClock.sleep(250);
 
                      String var= String.valueOf(contador);
                      StringRequest stringRequest = new StringRequest(Request.Method.POST, Url+"?var='"+var+"'", new Response.Listener<String>() {
@@ -359,17 +428,13 @@ public class Importar extends AppCompatActivity {
                              databaseAccess.open();
                              databaseAccess.insertarClientes(rut, nombre, apellido, direccion, subsidio, numSitio, idMedidor);
 
-                             //Consulta en bbdd interna existencia de datos exportados.
-                             //compara datos obtenidos de la consulta con los obtenido de la bbdd externa.
-                             //si son iguales, conitunar con el bucle.
-                             //si son distintos terminar con el bucle y borrar vaciar la tablas correspondientes.
-                             //emitir error de inportación de clientes de datos,
                          }
                      }, new Response.ErrorListener() {
                          @Override
                          public void onErrorResponse(VolleyError error) {
                              //Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
                              Toast.makeText(getApplicationContext(), "Error en la transferencia de Clientes", Toast.LENGTH_LONG).show();
+                             btImportar.setEnabled(true);
 
                          }
                      });
@@ -377,57 +442,86 @@ public class Importar extends AppCompatActivity {
                      requestQueue.add(stringRequest);
 
                      contador++;
-                 }}
+                 }
+                 }
                  progress.dismiss();
+                 if(flag) {
+                     new Handler(Looper.getMainLooper()).post(new Runnable() {
+                         @Override
+                         public void run() {
+                             consultaIdOperadores();
 
-                 new Handler(Looper.getMainLooper()).post(new Runnable() {
-                     @Override
-                     public void run() {
-                         //btImportar2.setEnabled(true);
-                        // btImportar2.setVisibility(View.VISIBLE);
-                         descargaLecturasAnteriores();
-
-                     }
-                 });
-
+                         }
+                     });
+                 }
 
              }
-
          };
 
          t.start();
+
      }
 
     private void descargarOperadores(final int ultimoId){
+        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
+        databaseAccess.open();
+
+        databaseAccess.VaciarOperadores();
+
 
         final String Url = "http://"+etUrl.getText().toString()+"/Apr/modelo/descargarOperadores.php";
+        progress=new ProgressDialog(this);
+        progress.setMessage("Importando Operadores...");
+        progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        //progress.setIndeterminate(true);
+        progress.setProgress(0);
+        progress.show();
+        progress.setMax(ultimoId);
+        progress.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
+        final Thread t = new Thread() {
+            @Override
+            public void run() {
+                Boolean flag = true;
 
                 int contador = 1;
-                while (contador <= ultimoId){
+                while (contador <= ultimoId) {
                     VerificaConexion verificaConexion = new VerificaConexion(etUrl.getText().toString());
                     if (!verificaConexion.executeCommand()) {
+                        flag=false;
+                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Log.i("Ver-transferencia", "*****************");
+                                Log.i("Ver-transferencia", "");
+                                Log.i("Ver-transferencia: ","Error de conexión con el Servidor");
+
+                                Toast.makeText(getApplicationContext(), "Error de conexión con el Servidor", Toast.LENGTH_LONG).show();
+                                btImportar.setEnabled(true);
+
+                            }
+                        });
                         break;
                     }else{
                         progress.setProgress(contador);
-                        SystemClock.sleep(500);
+                        SystemClock.sleep(250);
 
-                        String var= String.valueOf(contador);
-                        StringRequest stringRequest = new StringRequest(Request.Method.POST, Url+"?var='"+var+"'", new Response.Listener<String>() {
+                        String var = String.valueOf(contador);
+                        StringRequest stringRequest = new StringRequest(Request.Method.POST, Url + "?var='" + var + "'", new Response.Listener<String>() {
 
                             @Override
                             public void onResponse(String response) {
                                 // Toast.makeText(getApplicationContext(), "respuesta: "+response, Toast.LENGTH_SHORT ).show();
                                 Log.i("kra-rut", "prueba");
                                 String[] respuesta = response.split(",");
-                                String usuario =respuesta[0];
-                                String contrasena =respuesta[1];
+                                String usuario = respuesta[0];
+                                String contrasena = respuesta[1];
 
                                 Log.i("kra-user", usuario);
                                 Log.i("kra-user", contrasena);
 
-                                Toast.makeText(getApplicationContext(), "Usuario: "+usuario, Toast.LENGTH_LONG).show();
-                                Toast.makeText(getApplicationContext(), "Contrasena: "+contrasena, Toast.LENGTH_LONG).show();
+                                //Toast.makeText(getApplicationContext(), "Usuario: "+usuario, Toast.LENGTH_LONG).show();
+                                //Toast.makeText(getApplicationContext(), "Contrasena: "+contrasena, Toast.LENGTH_LONG).show();
 
 
                                 DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
@@ -440,6 +534,8 @@ public class Importar extends AppCompatActivity {
                             public void onErrorResponse(VolleyError error) {
                                 //Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
                                 Toast.makeText(getApplicationContext(), "Error en la transferencia de Operadores", Toast.LENGTH_LONG).show();
+                                btImportar.setEnabled(true);
+
 
                             }
                         });
@@ -447,14 +543,39 @@ public class Importar extends AppCompatActivity {
                         requestQueue.add(stringRequest);
 
                         contador++;
-                    }}
+                    }
+                }
+                progress.dismiss();
+                if(flag) {
+                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                        @Override
+                        public void run() {
+                            verficadorTransferencia();
 
-}
+                        }
+                    });
+                }
+
+            }
+        };
+
+        t.start();
+    }
 
      private void consultaIdCliente(){
          VerificaConexion verificaConexion = new VerificaConexion(etUrl.getText().toString());
          if (!verificaConexion.executeCommand()) {
-             Toast.makeText(this, "Error en la transferencia de Clientes*", Toast.LENGTH_LONG).show();
+             new Handler(Looper.getMainLooper()).post(new Runnable() {
+                 @Override
+                 public void run() {
+                     Log.i("Ver-transferencia", "*****************");
+                     Log.i("Ver-transferencia", "");
+                     Log.i("Ver-transferencia: ","Error de conexión con el Servidor");
+
+                     Toast.makeText(getApplicationContext(), "Error en la transferencia de Clientes", Toast.LENGTH_LONG).show();
+                     btImportar.setEnabled(true);
+                 }
+             });
 
          }else {
              String Url = "http://"+etUrl.getText().toString() + "/Apr/modelo/consultaIdClientes.php"; //obtiene el la cantidad de registros de medidores en appweb.
@@ -471,19 +592,34 @@ public class Importar extends AppCompatActivity {
              }, new Response.ErrorListener() {
                  @Override
                  public void onErrorResponse(VolleyError error) {
-                     Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
+                     //Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
+                     Toast.makeText(getApplicationContext(), "Error en la transferencia de Clientes", Toast.LENGTH_LONG).show();
+                     btImportar.setEnabled(true);
                  }
              });
              RequestQueue requestQueue = Volley.newRequestQueue(this);
              requestQueue.add(stringRequest);
          }
+
+
      }
 
     private void consultaIdOperadores(){
         VerificaConexion verificaConexion = new VerificaConexion(etUrl.getText().toString());
 
         if (!verificaConexion.executeCommand()) {
-            Toast.makeText(this, "Error en la transferencia de Operadores*", Toast.LENGTH_LONG).show();
+            new Handler(Looper.getMainLooper()).post(new Runnable() {
+                @Override
+                public void run() {
+                    Log.i("Ver-transferencia", "*****************");
+                    Log.i("Ver-transferencia", "");
+                    Log.i("Ver-transferencia: ","Error de conexión con el Servidor");
+
+                    Toast.makeText(getApplicationContext(), "Error en la transferencia de Operadores*", Toast.LENGTH_LONG).show();
+                    btImportar.setEnabled(true);
+
+                }
+            });
 
         }else {
             String Url = "http://"+etUrl.getText().toString() + "/Apr/modelo/consultaIdOperadores.php"; //obtiene el la cantidad de registros de medidores en appweb.
@@ -501,11 +637,14 @@ public class Importar extends AppCompatActivity {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     Toast.makeText(getApplicationContext(), "Error en traspaso de Operadores", Toast.LENGTH_LONG).show();
+                    btImportar.setEnabled(true);
+
                 }
             });
             RequestQueue requestQueue = Volley.newRequestQueue(this);
             requestQueue.add(stringRequest);
         }
+
     }
 
 
@@ -516,7 +655,6 @@ public class Importar extends AppCompatActivity {
         databaseAccess.VaciarLecturas();
         databaseAccess.VaciarDatosCobros();
         databaseAccess.VaciarClientes();
-        databaseAccess.VaciarOperadores();
 
     }
     private void crearTabla(String numero, String marca, String id){
@@ -541,5 +679,59 @@ public class Importar extends AppCompatActivity {
         databaseAccess.close();
     }
 
+    public void verficadorTransferencia(){
+
+        VerificaConexion verificaConexion = new VerificaConexion(etUrl.getText().toString());
+        if (!verificaConexion.executeCommand()) {
+            Toast.makeText(getApplicationContext(), "No se puede verificar la transferencia de datos. Importe nuevamente los datos.", Toast.LENGTH_LONG).show();
+            btImportar.setEnabled(true);
+        }else {
+            new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                VerificadorTransferencia verificadorTransferencia = new VerificadorTransferencia(etUrl.getText().toString(), getApplicationContext());
+
+                verificadorTransferencia.verificarMedidores();
+                verificadorTransferencia.verificarClientes();
+                verificadorTransferencia.verificarDatosCobros();
+                verificadorTransferencia.verificarLecturas();
+
+                verificadorTransferencia.verificarOperadores();
+                Log.i("Ver-transferencia", "*****************");
+                Log.i("Ver-transferencia", "");            }
+        });
+        }
+    }
+
+    public void verificarMedidoresLecturas(){
+        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
+        databaseAccess.open();
+
+        final String[] cantRegistros = databaseAccess.UltimoIdMedidores();
+
+        String Url = "http://"+etUrl.getText().toString()+"/Apr/modelo/consultaCantidadLecturas.php"; //obtiene el la cantidad de registros de LECTURAS del ultimomes
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Url, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+
+                if(Integer.parseInt(cantRegistros[0])== Integer.parseInt(response)){
+
+                    descargaLecturasAnteriores();
+                }else{
+                    descargarDatosCobros();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_LONG).show();
+
+
+            }
+        });
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+    }
 
 }
