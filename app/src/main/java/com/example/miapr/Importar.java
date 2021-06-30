@@ -80,6 +80,7 @@ public class Importar extends AppCompatActivity {
                 return true;
             case R.id.idSalir:
                 Intent intent2 = new Intent(this, Login.class);
+                intent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // Removes other Activities from stack
                 startActivity(intent2);
                 return true;
         }

@@ -40,7 +40,6 @@
             android:inputType="textPersonName"
             android:padding="5dp"
             android:hint="Usuario"
-            android:text="oper1"
             android:textAlignment="center"
             android:textSize="30dp"
             />
@@ -59,7 +58,6 @@
             android:padding="5dp"
             android:hint="Contraseña"
             android:textSize="30dp"
-            android:text="123"
 
             />
 

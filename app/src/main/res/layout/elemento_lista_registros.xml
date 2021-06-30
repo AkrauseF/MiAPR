@@ -40,7 +40,6 @@
                     android:layout_marginRight="10dp"
                     android:textColor="#fff"
                     android:textSize="16sp"
-                    app:layout_constraintTop_toTopOf="@+id/guideline"
                     tools:text="hola">
 
                 </TextView>
@@ -61,8 +60,7 @@
                     android:layout_marginRight="10dp"
                     android:textColor="#fff"
                     android:textSize="16sp"
-                    app:layout_constraintTop_toTopOf="@+id/guideline"
-                    tools:text="hola">>
+                    tools:text="hola">
 
                 </TextView>
 
@@ -82,8 +80,6 @@
                     android:layout_marginRight="10dp"
                     android:textColor="#fff"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toTopOf="@+id/guideline2"
-                    app:layout_constraintTop_toBottomOf="@+id/tvCodigo"
                     app:layout_constraintVertical_bias="0.291"
                     tools:layout_editor_absoluteX="0dp"
                     tools:text="hola">>
@@ -106,8 +102,6 @@
                     android:layout_marginRight="10dp"
                     android:textColor="#fff"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toTopOf="@+id/guideline2"
-                    app:layout_constraintTop_toBottomOf="@+id/tvCodigo"
                     app:layout_constraintVertical_bias="0.291"
                     tools:layout_editor_absoluteX="0dp"
                     tools:text="hola">>
@@ -130,8 +124,6 @@
                     android:layout_marginRight="10dp"
                     android:textColor="#fff"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toTopOf="@+id/guideline2"
-                    app:layout_constraintTop_toBottomOf="@+id/tvCodigo"
                     app:layout_constraintVertical_bias="0.291"
                     tools:layout_editor_absoluteX="0dp"
                     tools:text="hola">>
@@ -154,8 +146,6 @@
                     android:layout_marginRight="10dp"
                     android:textColor="#fff"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toTopOf="@+id/guideline2"
-                    app:layout_constraintTop_toBottomOf="@+id/tvCodigo"
                     app:layout_constraintVertical_bias="0.291"
                     tools:layout_editor_absoluteX="0dp"
                     tools:text="hola">>
@@ -178,8 +168,6 @@
                     android:layout_marginRight="10dp"
                     android:textColor="#fff"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toTopOf="@+id/guideline2"
-                    app:layout_constraintTop_toBottomOf="@+id/tvCodigo"
                     app:layout_constraintVertical_bias="0.291"
                     tools:layout_editor_absoluteX="0dp"
                     tools:text="hola">>
