@@ -63,7 +63,7 @@ En las últimas versiones de estas aplicaciones se agragaron como mejora, partic
 
 
 ## Instrucciones de instalación de la app móvil
-1.- Descargue en el dispositivo móvil el instalador de la aplicación desde el repositorio de GitHub en el siguiente link:   https://github.com/AkrauseF/MiAPR/raw/main/app/entregable/release/MiAPR_9_0_0.apk 
+1.- Descargue en el dispositivo móvil el instalador de la aplicación desde el repositorio de GitHub en el siguiente link:   https://github.com/AkrauseF/MiAPR/raw/main/app/entregable/release/MiAPR_10_0_0.apk 
 
 2.- Si tiene una versión anterior de esta aplicación, desintálela del dispositivo móvil.
 
@@ -73,7 +73,7 @@ En las últimas versiones de estas aplicaciones se agragaron como mejora, partic
 
 ## Instrucciones de instalación de la app web
 
-1.- Descargue los archivos comprimidos desde el siguinte link: https://github.com/AkrauseF/MiAPR/archive/v9.0.0.zip
+1.- Descargue los archivos comprimidos desde el siguinte link: https://github.com/AkrauseF/MiAPR/archive/v10.0.0.zip
 
 2.- Descomprima el archivo v5.0.0.zip y monte los archivos y directorios contenidos en la carpeta "appWeb" en su servidor web.
 
@@ -195,7 +195,7 @@ En las últimas versiones de estas aplicaciones se agragaron como mejora, partic
 
 2.- Ingrese en el campo "Rut" el rut del cliente para el cual se quiere buscar la información.
 
-3.- En la parte inferiror de la pagina se pude ver los mese con deudas del cliente en cuestión.
+3.- En la parte inferiror de la página se pude ver los meses con deudas del cliente en cuestión.
 
 
 
