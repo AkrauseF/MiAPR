@@ -28,6 +28,7 @@ public class VerificaConexion {
         {
             ignore.printStackTrace();
             System.out.println(" Exception:"+ignore);
+
         }
         catch (IOException e)
         {

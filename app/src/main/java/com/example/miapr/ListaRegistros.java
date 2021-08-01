@@ -1,10 +1,12 @@
 package com.example.miapr;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 public class ListaRegistros extends AppCompatActivity {
 
     ListView lista;
+    TextView cantidadRegistros;
+
 
 
 
@@ -36,7 +40,7 @@ public class ListaRegistros extends AppCompatActivity {
 
 
         lista = findViewById(R.id.lvListaR);
-
+        cantidadRegistros= findViewById(R.id.tvCantMedidores);
         crearListaRegistros();
         lista.setAdapter(new AdaptadorRegistros(this, crearListaRegistros()));
 
@@ -76,6 +80,10 @@ public class ListaRegistros extends AppCompatActivity {
 
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
         databaseAccess.open();
+
+        String [] cantRegistros = databaseAccess.UltimoIdLectura();
+        cantidadRegistros.setText(cantRegistros[0]);
+        cantidadRegistros.setTextColor(Color.BLUE);
 
         String sub = databaseAccess.getIdMedidores();
         String[] respuesta = sub.split(",");

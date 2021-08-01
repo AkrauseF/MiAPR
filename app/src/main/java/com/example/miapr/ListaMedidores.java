@@ -1,11 +1,13 @@
 package com.example.miapr;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -14,6 +16,8 @@ import androidx.appcompat.app.AppCompatActivity;
 public class ListaMedidores extends AppCompatActivity {
 
     ListView lista;
+    TextView cantidadMedidores;
+
 
 
 
@@ -38,6 +42,7 @@ public class ListaMedidores extends AppCompatActivity {
 
 
         lista = findViewById(R.id.lvLista);
+        cantidadMedidores= findViewById(R.id.tvCantMedidores);
         crearListaMedidores();
         lista.setAdapter(new AdaptadorMedidores(this, crearListaMedidores()));
 
@@ -71,8 +76,14 @@ public class ListaMedidores extends AppCompatActivity {
 
     public String[][] crearListaMedidores(){
 
+
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
         databaseAccess.open();
+
+        String [] cantRegistros = databaseAccess.UltimoIdMedidores();
+        cantidadMedidores.setText(cantRegistros[0]);
+        cantidadMedidores.setTextColor(Color.BLUE);
+
 
         String sub = databaseAccess.getIdMedidores();
         Log.i("subsidioChar", "prueba");

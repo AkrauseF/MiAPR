@@ -56,8 +56,16 @@ public class Importar extends AppCompatActivity {
         btImportar.setEnabled(true);
         btImportar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                consulUltId();
-                borrartabla();//borra la tabla de medidores de app movil antes de insertar los nuevos medidores exportados
+                VerificaConexion verificaConexion = new VerificaConexion(etUrl.getText().toString());
+                if(!verificaConexion.executeCommand()){
+                    Toast.makeText(getApplicationContext(), "Error de conexión con el Servidor", Toast.LENGTH_LONG).show();
+                    btImportar.setEnabled(true);
+
+                }else{
+                    consulUltId();
+                    borrartabla();
+
+                }
 
             }
         });
@@ -704,7 +712,7 @@ public class Importar extends AppCompatActivity {
         }
     }
 
-    public void verificarMedidoresLecturas(){
+   /* public void verificarMedidoresLecturas(){
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(this);
         databaseAccess.open();
 
@@ -733,6 +741,6 @@ public class Importar extends AppCompatActivity {
         });
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
-    }
+    }*/
 
 }
