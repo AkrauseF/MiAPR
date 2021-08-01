@@ -1,10 +1,14 @@
-# MiAPR v9.0.0
+# MiAPR v10.0.0
 Sistema que agiliza los procesos de registro de lectura y gestión de cobros del agua potable rural de Villa San Pedro, comuna de Pucón.
 
 ## Descripción
 Esta versión incluye los módulos de registro y edición de medidores y de clientes, generación de informes de datos de subsidiarios, registro de pagos y dashboard con alerta de orden de corte de servicios para clientes con 3 o mas meses de deudas, junto con un buscador de información relacionada con los pagos por cliente, através de filtros por fecha (mes) y nombre de clientes, todo esto correpondiente a app web.
+
 Por otro lado en la app móvil vienen incluidos los módulos de importación y exportación de datos entre la app web y la app móvil lo que permitirá poder ejecutar el módulo de identificación de medidores por medio de la captura de código QR y registrar el número de lectura de este que representa los metros cúbicos consumidos por el cliente que tiene asociado dicho medidor. Finalmente estan implementados los módulos de cálculo de cobro en terreno e impresión de bloleta de cobro en terreno.
+
 Para las dos aplicaciones, en esta versión se integraron los módulos de control de acceso con hashing de contraseña en base de datos y por otro lado, se implementaron las verificaciones de conexión y traspaso de datos entre aplicaciones.
+
+En las últimas versiones de estas aplicaciones se agragaron como mejora, particularmente en la app móvil, un contador para los registros de medidores y lecturas importadas desde la app web.
 
 ## El producto resultante de esta iteración consta de las siguientes funcionalidades:
 
@@ -45,13 +49,18 @@ Para las dos aplicaciones, en esta versión se integraron los módulos de contro
 
 •	Visualizacion de meses con deudas por clientes.
 
-### Funcionalidades añadidas del releas actual 
-
 •	Control de acceso para app móvil y web con hashing de contraseñas en base de datos.
 
 •	verificación de conexión entre app móvil y web.
 
 •	Verificación de traspaso de datos entre app móvil y web.
+
+### Funcionalidades añadidas del releas actual 
+
+•	Contador visual en la parte superior de la lista de medidores en la app móvil.
+
+•	Contador visual en la parte superior de la lista de registros en la app móvil.
+
 
 ## Instrucciones de instalación de la app móvil
 1.- Descargue en el dispositivo móvil el instalador de la aplicación desde el repositorio de GitHub en el siguiente link:   https://github.com/AkrauseF/MiAPR/raw/main/app/entregable/release/MiAPR_9_0_0.apk 
@@ -75,17 +84,27 @@ Para las dos aplicaciones, en esta versión se integraron los módulos de contro
 
 ## Instrucciones de uso de la app móvil
 
+
 ### Acceso a la aplicación:
 1.- Ejecute la aplicación móvil.
 
 2.- Ingrese usuario y contraseña en el formulario de acceso y presione el botón "Enviar".
 
+### Desplazamiento entre funcionalidades:
+1.- Una vez ingresado a la app móvil medianre el login, podrá derigirse a cada una de las funcionalidades a travéz de la lista de botones que ofrece el meú principal. 
+
+2.- Para regreasar a una vista anterior, puede utilizar el botón "back" que se representa como una flecha hacia atrás, ubicado en la parte superior izquierda de la app.
+
+3.- Para volver al menú principal, idependiente de la vista en que se encuentre, presione el botón "home" que se representa como una casa ubicada en la parte superior derecha de la app.
+
+4.- Para salir de la app móvil y volve al control de acceso, presione el botón de "logout" ubicado en la parte superior derecha de la app, representado con una flecha dentro de un cuadrado.
+
 ### Importar medidores:
 1.- Presione el botón "IMPORTAR".
 
-1.- Se trapasaran los datos desde el servidor web hacia la app movil, una vez terminado aparecerá si el traspaso fue exitoso.
+1.- Se trapasarán los datos desde el servidor web hacia la app movil, una vez terminado aparecerá si el traspaso fue exitoso, si no es así, informará error de conexión.
 
-2.- Una vez finalizado el procesos de importación resgrese al menú anterior y presione el botón "LISTA MEDIDORES" para verificar los datos de los medidores importados.
+2.- Una vez finalizado el procesos de importación resgrese al menú anterior y presione el botón "LISTA MEDIDORES" para verificar los datos de los medidores importados, donde en la parte superior podrá ver la cantidad de medidores importados.
 
 ### Capturar un número de medidor:
 1.- Presione el botón “CAPTURAR QR”.
@@ -95,6 +114,8 @@ Para las dos aplicaciones, en esta versión se integraron los módulos de contro
 3.- Visualice en el dispositivo móvil el código capturado, el error en caso de que el código no sea válido y el número de lectura del mes anterior asociado al medidor en cuestión.
 
 4.- Ingrese una lectura que sea mayor o igual anterior.
+
+5.- Para verificar los registros de lecturas ingresados, en el menú principal presione el boton "LISTA DE REGISTROS", donde en la parte superior podrá ver la cantidad de medidores importados.
 
 ### Imprimir boleta de cobro:
 
