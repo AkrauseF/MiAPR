@@ -13,6 +13,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class ListaMedidores extends AppCompatActivity {
 
     ListView lista;
@@ -47,6 +50,7 @@ public class ListaMedidores extends AppCompatActivity {
         lista.setAdapter(new AdaptadorMedidores(this, crearListaMedidores()));
 
         //prueba();
+       // testPresentadorContador();
     }
 
     @Override
@@ -73,17 +77,46 @@ public class ListaMedidores extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
-    public String[][] crearListaMedidores(){
-
-
+    public void contadorMedidores(){
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
         databaseAccess.open();
 
         String [] cantRegistros = databaseAccess.UltimoIdMedidores();
-        cantidadMedidores.setText(cantRegistros[0]);
-        cantidadMedidores.setTextColor(Color.BLUE);
+        presentadorContador(cantRegistros[0]);
 
+    }
+
+    public void presentadorContador(String contador){
+        String[] flag= new String[1];
+        List<String> numeros = Arrays.asList("1", "2", "3", "4", "5","6","7","8","9","0");
+        for(int e=0; e<contador.length(); e++) {
+            char c = contador.charAt(e);
+            if (numeros.contains(String.valueOf(c)) ) {
+                flag[0] = "true";
+            } else {
+                flag[0] = "false";
+                break;
+                }
+        }
+        if(flag[0].equals("true")){
+            Log.i("Valor-Válido",contador);
+            cantidadMedidores.setText(contador);
+        }else{
+            Log.i("Valor-Inválido",contador);
+            cantidadMedidores.setText("--");
+        }
+        cantidadMedidores.setTextColor(Color.BLUE);
+    }
+
+
+
+
+    public String[][] crearListaMedidores(){
+
+        contadorMedidores();
+
+        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
+        databaseAccess.open();
 
         String sub = databaseAccess.getIdMedidores();
         Log.i("subsidioChar", "prueba");
@@ -95,7 +128,9 @@ public class ListaMedidores extends AppCompatActivity {
         String [][] datos = new String[respuesta.length-1][3];
 
         for(int i=1; i < respuesta.length; i++){
-           String id = respuesta[i];
+            Log.i("valoresResp", respuesta[i]);
+
+            String id = respuesta[i];
             //Log.i("subsidioID", id);
             String codigo = databaseAccess.getCodigoMedidor(id);
             String marca = databaseAccess.getMarcaMedidor(id);
@@ -192,4 +227,11 @@ public class ListaMedidores extends AppCompatActivity {
         }
 
     }*/
+
+    public void testPresentadorContador(){
+        String[] datos={"1000","b16ygr41" };
+        for(int i=0; i<datos.length; i++){
+            presentadorContador(datos[i]);
+        }
+    }
 }

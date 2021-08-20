@@ -356,7 +356,7 @@ public class RegistrarDatosMedidor extends AppCompatActivity {
                     //etNumMedidor.setText("");
                     //tvValidar.setText("");
                     //tvLectAnt.setText("");
-                    Toast.makeText(this, "Registro de lectura exitoso 1", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "Registro de lectura exitoso", Toast.LENGTH_LONG).show();
 
 
                     i.putExtra("medidor", NumMedidor);

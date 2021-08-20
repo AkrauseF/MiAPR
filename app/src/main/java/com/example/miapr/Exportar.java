@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -31,6 +32,7 @@ public class Exportar extends AppCompatActivity {
 
     Button btnExportar;
     EditText etUrl;
+    TextView tvRlecturas;
     private ProgressDialog progress;
 
     @Override
@@ -43,6 +45,7 @@ public class Exportar extends AppCompatActivity {
 
         btnExportar= findViewById(R.id.btExportar);
         etUrl = findViewById(R.id.etUri2);
+        tvRlecturas= findViewById(R.id.tvRlecturas);
 
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
         databaseAccess.open();
@@ -85,23 +88,43 @@ public class Exportar extends AppCompatActivity {
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
         databaseAccess.open();
 
-        if(databaseAccess.verificaSiEsNull()){
-            Toast.makeText(this, "No se han registado todas las lecturas", Toast.LENGTH_LONG).show();
-            Toast.makeText(this, "Complete la totalidad de registros de lecturas", Toast.LENGTH_LONG).show();
+        VerificadorActivTransf ver = new VerificadorActivTransf(etUrl.getText().toString(), getApplication());
+        ver.verificarPermisoTransferencia();
 
 
-            Intent i = new Intent(this, ListaRegistros.class);
-            startActivity(i);
-        }else {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
 
-            String[] ultimaLectura = databaseAccess.UltimoIdLectura();
-            //Toast.makeText(this, "Se exportarán "+ultimaLectura[0]+" Registros de lecturas", Toast.LENGTH_LONG).show();
+                DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
+                databaseAccess.open();
 
-            int ulIdLectura = Integer.parseInt(ultimaLectura[0]);
+                String respuesta = databaseAccess.getPermisoTransferencia();
 
-            String[] fecha = databaseAccess.getLecturas(ulIdLectura);
-            verificarFecha(fecha[2], ulIdLectura );
-        }
+
+                if(databaseAccess.verificaSiEsNull()){
+                    Toast.makeText(getApplicationContext(), "No se han registado todas las lecturas", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Complete la totalidad de registros de lecturas", Toast.LENGTH_LONG).show();
+
+                    Intent i = new Intent(getApplicationContext(), ListaRegistros.class);
+                    startActivity(i);
+                } else if(respuesta.equals("0")){
+                    Toast.makeText(getApplicationContext(), "No tiene permisos para transferir datos !!!", Toast.LENGTH_LONG).show();
+
+                }else {
+
+                    String[] ultimaLectura = databaseAccess.UltimoIdLectura();
+                    //Toast.makeText(this, "Se exportarán "+ultimaLectura[0]+" Registros de lecturas", Toast.LENGTH_LONG).show();
+
+                    int ulIdLectura = Integer.parseInt(ultimaLectura[0]);
+
+                    String[] fecha = databaseAccess.getLecturas(ulIdLectura);
+                    verificarFecha(fecha[2], ulIdLectura );
+                }
+            }
+        }, 2000);
+
+
 
     }
     //Obtine los registros de lecturas en base de datos app móvil
@@ -161,7 +184,6 @@ public class Exportar extends AppCompatActivity {
 
             @Override
             public void onResponse(String response) {
-               // Toast.makeText(getApplicationContext(), "recibido: "+response+" Enviado: "+date, Toast.LENGTH_LONG).show();
 
                 if(response.equals("1")){
                     Toast.makeText(getApplicationContext(), "Los datos ya se encuentran exportados", Toast.LENGTH_LONG).show();
@@ -228,6 +250,21 @@ public class Exportar extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
 
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+
+                        VerificadorTransferencia verificadorTransferencia = new VerificadorTransferencia(etUrl.getText().toString(), getApplicationContext(), tvRlecturas, tvRlecturas,tvRlecturas,tvRlecturas,tvRlecturas );
+                        verificadorTransferencia.verificarLecturas();
+                    }
+                }, 2000);
+
+            }
+        });
 
     }
 

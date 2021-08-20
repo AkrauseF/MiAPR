@@ -32,6 +32,7 @@ public class Importar extends AppCompatActivity {
     EditText etUrl;
     TextView tvRmedidores, tvRlecturas, tvRcobros, tvRclientes, tvRoperadores;
 
+
     private ProgressDialog progress;
 
     @Override
@@ -40,32 +41,63 @@ public class Importar extends AppCompatActivity {
         setContentView(R.layout.activity_importar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //tvRmedidores = findViewById(R.id.tvRmedidores);
-        //tvRmedidores.setVisibility(View.INVISIBLE);
-        //tvRlecturas = findViewById(R.id.tvRlecturas);
-        //tvRlecturas.setVisibility(View.INVISIBLE);
-        //tvRcobros = findViewById(R.id.tvRcobros);
-        //tvRcobros.setVisibility(View.INVISIBLE);
-        //tvRclientes = findViewById(R.id.tvRclientes);
-        //tvRclientes.setVisibility(View.INVISIBLE);
-        //tvRoperadores = findViewById(R.id.tvRoperadores);
-        //tvRoperadores.setVisibility(View.INVISIBLE);
+
+
+        tvRmedidores = findViewById(R.id.tvRmedidores);
+        tvRmedidores.setVisibility(View.VISIBLE);
+        tvRlecturas = findViewById(R.id.tvRlecturas);
+        tvRlecturas.setVisibility(View.VISIBLE);
+        tvRcobros = findViewById(R.id.tvRcobros);
+        tvRcobros.setVisibility(View.VISIBLE);
+        tvRclientes = findViewById(R.id.tvRclientes);
+        tvRclientes.setVisibility(View.VISIBLE);
+        tvRoperadores = findViewById(R.id.tvRoperadores);
+        tvRoperadores.setVisibility(View.VISIBLE);
+
+
 
         btImportar = findViewById(R.id.btImportar);
         etUrl = (EditText) findViewById(R.id.etUri);
         btImportar.setEnabled(true);
         btImportar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                VerificaConexion verificaConexion = new VerificaConexion(etUrl.getText().toString());
-                if(!verificaConexion.executeCommand()){
-                    Toast.makeText(getApplicationContext(), "Error de conexión con el Servidor", Toast.LENGTH_LONG).show();
-                    btImportar.setEnabled(true);
+                DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
+                databaseAccess.open();
 
-                }else{
-                    consulUltId();
-                    borrartabla();
+                VerificadorActivTransf ver = new VerificadorActivTransf(etUrl.getText().toString(), getApplication());
+                ver.verificarPermisoTransferencia();
 
-                }
+                Toast.makeText(getApplication(), "Verifcando conexión", Toast.LENGTH_LONG).show();
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+
+                        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
+                        databaseAccess.open();
+                        String respuesta = databaseAccess.getPermisoTransferencia();
+
+                        Log.i("Ver-respuesta2", respuesta);
+                        VerificaConexion verificaConexion = new VerificaConexion(etUrl.getText().toString(), getApplicationContext());
+                        databaseAccess.close();
+
+                        if(!verificaConexion.executeCommand()){
+                            Toast.makeText(getApplicationContext(), "Error de conexión con el Servidor !!!", Toast.LENGTH_LONG).show();
+                            btImportar.setEnabled(true);
+
+                        }else if(respuesta.equals("0")){
+                            Toast.makeText(getApplicationContext(), "No tiene permisos para transferir datos !!!", Toast.LENGTH_LONG).show();
+                            btImportar.setEnabled(true);
+
+                        }else{
+                            consulUltId();
+                            borrartabla();
+                        }
+                    }
+                }, 2000);
+
+
+
 
             }
         });
@@ -100,7 +132,7 @@ public class Importar extends AppCompatActivity {
         btImportar.setEnabled(false);
 
 
-        VerificaConexion verificaConexion = new VerificaConexion(etUrl.getText().toString());
+        VerificaConexion verificaConexion = new VerificaConexion(etUrl.getText().toString(), getApplicationContext());
         if (!verificaConexion.executeCommand()) {
             Log.i("Ver-transferencia", "*****************");
             Log.i("Ver-transferencia", "");
@@ -112,7 +144,8 @@ public class Importar extends AppCompatActivity {
 
                 @Override
                 public void onResponse(String response) {
-                    conexionUnophp(response, "0");//obtiene los medidores de appweb y los inserta en la appmovil
+                    Log.i("Ver-resp", response);
+                    conexionUnophp(response);//obtiene los medidores de appweb y los inserta en la appmovil
                 }
             }, new Response.ErrorListener() {
                 @Override
@@ -125,7 +158,7 @@ public class Importar extends AppCompatActivity {
         }
 
     }
-     public void conexionUnophp(final String id, String str) {
+     public void conexionUnophp(final String id) {
 
 
 
@@ -148,7 +181,7 @@ public class Importar extends AppCompatActivity {
                  Boolean flag = true;
                  Integer num = 1;
                  while (num <= ide ){
-                     VerificaConexion verificaConexion = new VerificaConexion(etUrl.getText().toString());
+                     VerificaConexion verificaConexion = new VerificaConexion(etUrl.getText().toString(), getApplicationContext());
                      if(!verificaConexion.executeCommand()){
                          flag=false;
                          new Handler(Looper.getMainLooper()).post(new Runnable() {
@@ -175,7 +208,11 @@ public class Importar extends AppCompatActivity {
                              String numero =respuesta[0];
                              String marca =respuesta[1];
                              String id =respuesta[2];
-                             crearTabla(numero,marca, id);
+                             //crearTabla(numero,marca, id);
+                             DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
+                             databaseAccess.open();
+                             databaseAccess.insertarMedidoresM(numero,marca, id);
+                             databaseAccess.insertarMedidorL(numero);
                          }
                      }, new Response.ErrorListener() {
                          @Override
@@ -197,6 +234,7 @@ public class Importar extends AppCompatActivity {
                  progress.dismiss();
 
                  if(flag) {
+                     SystemClock.sleep(250);
                      new Handler(Looper.getMainLooper()).post(new Runnable() {
                          @Override
                          public void run() {
@@ -208,6 +246,8 @@ public class Importar extends AppCompatActivity {
              }
          };
          t.start();
+
+
      }
 
      public void descargaLecturasAnteriores(){
@@ -218,7 +258,12 @@ public class Importar extends AppCompatActivity {
 
          String idMedidores = databaseAccess.getIdMedidores();
          final String[] ListaidMed = idMedidores.split(",");
-         Log.i("KRA2::","prueba1");
+         Log.i("KRA24Len::",String.valueOf(ListaidMed));
+         Log.i("KRA241::",ListaidMed[0]);
+         Log.i("KRA242::",ListaidMed[1]);
+         Log.i("KRA243::",ListaidMed[2]);
+         Log.i("KRA244::",ListaidMed[3]);
+       // !!!!log de todos los elementos de la lista hacer esto!!!!!
          final String Url = "http://"+etUrl.getText().toString()+"/Apr/modelo/descargaLecturasAnteriores.php";
 
          progress=new ProgressDialog(this);
@@ -237,7 +282,7 @@ public class Importar extends AppCompatActivity {
                  Boolean flag=true;
                  for (int cont = 1; cont < ListaidMed.length; cont++) {
 
-                     VerificaConexion verificaConexion = new VerificaConexion(etUrl.getText().toString());
+                     VerificaConexion verificaConexion = new VerificaConexion(etUrl.getText().toString(), getApplicationContext());
                      if (!verificaConexion.executeCommand()) {
                          flag=false;
                          new Handler(Looper.getMainLooper()).post(new Runnable() {
@@ -257,19 +302,20 @@ public class Importar extends AppCompatActivity {
                      progress.setProgress(cont);
                      SystemClock.sleep(250);
 
-                     //String num= Integer.toString(cont);
+
+                         //String num= Integer.toString(cont);
                      final String numeroMedidor = databaseAccess.getCodigoMedidor(ListaidMed[cont]);
+                         Log.i("KRAMedidor::", numeroMedidor);
                      StringRequest stringRequest = new StringRequest(Request.Method.POST, Url + "?var='" + numeroMedidor + "'", new Response.Listener<String>() {
                          @Override
                          public void onResponse(String response) {
                              Log.i("KRA2::", response);
                              Log.i("KRA::", "prueba2");
 
-
                              if (response.equals("")) {
                                  String lectura = "0";
                                  String medidor = numeroMedidor;
-                                 Log.i("KRA-??:", "si");
+                                 Log.i("KRAz-??:", "si");
                                  DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
                                  databaseAccess.open();
                                  databaseAccess.insertarRegistros(lectura, medidor);
@@ -277,6 +323,8 @@ public class Importar extends AppCompatActivity {
                              } else {
                                  String[] respuesta = response.split(",");
                                  String lectura = respuesta[0];
+                                 Log.i("KRA::", lectura);
+
                                  String medidor = respuesta[1];
                                  DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
                                  databaseAccess.open();
@@ -316,7 +364,7 @@ public class Importar extends AppCompatActivity {
      }
 
      private void descargarDatosCobros(){
-         VerificaConexion verificaConexion = new VerificaConexion(etUrl.getText().toString());
+         VerificaConexion verificaConexion = new VerificaConexion(etUrl.getText().toString(), getApplicationContext());
          if (!verificaConexion.executeCommand()) {
              Toast.makeText(this, "Error en la transferencia de Datos de cobros", Toast.LENGTH_LONG).show();
              btImportar.setEnabled(true);
@@ -396,7 +444,7 @@ public class Importar extends AppCompatActivity {
 
                  int contador = 1;
                  while (contador <= ultimoId){
-                     VerificaConexion verificaConexion = new VerificaConexion(etUrl.getText().toString());
+                     VerificaConexion verificaConexion = new VerificaConexion(etUrl.getText().toString(), getApplicationContext());
                      if (!verificaConexion.executeCommand()) {
                          flag=false;
                          new Handler(Looper.getMainLooper()).post(new Runnable() {
@@ -495,7 +543,7 @@ public class Importar extends AppCompatActivity {
 
                 int contador = 1;
                 while (contador <= ultimoId) {
-                    VerificaConexion verificaConexion = new VerificaConexion(etUrl.getText().toString());
+                    VerificaConexion verificaConexion = new VerificaConexion(etUrl.getText().toString(), getApplicationContext());
                     if (!verificaConexion.executeCommand()) {
                         flag=false;
                         new Handler(Looper.getMainLooper()).post(new Runnable() {
@@ -572,7 +620,7 @@ public class Importar extends AppCompatActivity {
     }
 
      private void consultaIdCliente(){
-         VerificaConexion verificaConexion = new VerificaConexion(etUrl.getText().toString());
+         VerificaConexion verificaConexion = new VerificaConexion(etUrl.getText().toString(), getApplicationContext());
          if (!verificaConexion.executeCommand()) {
              new Handler(Looper.getMainLooper()).post(new Runnable() {
                  @Override
@@ -614,7 +662,7 @@ public class Importar extends AppCompatActivity {
      }
 
     private void consultaIdOperadores(){
-        VerificaConexion verificaConexion = new VerificaConexion(etUrl.getText().toString());
+        VerificaConexion verificaConexion = new VerificaConexion(etUrl.getText().toString(), getApplicationContext());
 
         if (!verificaConexion.executeCommand()) {
             new Handler(Looper.getMainLooper()).post(new Runnable() {
@@ -690,7 +738,7 @@ public class Importar extends AppCompatActivity {
 
     public void verficadorTransferencia(){
 
-        VerificaConexion verificaConexion = new VerificaConexion(etUrl.getText().toString());
+        VerificaConexion verificaConexion = new VerificaConexion(etUrl.getText().toString(), getApplicationContext());
         if (!verificaConexion.executeCommand()) {
             Toast.makeText(getApplicationContext(), "No se puede verificar la transferencia de datos. Importe nuevamente los datos.", Toast.LENGTH_LONG).show();
             btImportar.setEnabled(true);
@@ -698,14 +746,14 @@ public class Importar extends AppCompatActivity {
             new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
-                VerificadorTransferencia verificadorTransferencia = new VerificadorTransferencia(etUrl.getText().toString(), getApplicationContext());
+                VerificadorTransferencia verificadorTransferencia = new VerificadorTransferencia(etUrl.getText().toString(), getApplicationContext(), tvRmedidores, tvRlecturas, tvRcobros, tvRclientes, tvRoperadores);
 
                 verificadorTransferencia.verificarMedidores();
                 verificadorTransferencia.verificarClientes();
                 verificadorTransferencia.verificarDatosCobros();
                 verificadorTransferencia.verificarLecturas();
-
                 verificadorTransferencia.verificarOperadores();
+
                 Log.i("Ver-transferencia", "*****************");
                 Log.i("Ver-transferencia", "");            }
         });

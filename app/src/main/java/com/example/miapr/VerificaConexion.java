@@ -1,14 +1,19 @@
 package com.example.miapr;
 
+import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.IOException;
 
 public class VerificaConexion {
     String url;
+    Context context;
 
-    public VerificaConexion(String url){
+    public VerificaConexion(String url, Context context){
+
         this.url= url;
+        this.context=context;
     }
 
     public boolean executeCommand(){
@@ -28,12 +33,15 @@ public class VerificaConexion {
         {
             ignore.printStackTrace();
             System.out.println(" Exception:"+ignore);
+            Toast.makeText(context, "Error de conexión", Toast.LENGTH_LONG).show();
 
         }
         catch (IOException e)
         {
             e.printStackTrace();
             System.out.println(" Exception:"+e);
+            Toast.makeText(context, "Error de conexión", Toast.LENGTH_LONG).show();
+
         }
         return false;
     }

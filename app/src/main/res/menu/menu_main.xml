@@ -11,5 +11,5 @@
         android:id="@+id/idSalir"
         android:icon="@drawable/ic_baseline_exit_to_app_24"
         android:title="salir"
-        app:showAsAction="always"/>/>
+        app:showAsAction="always"/>
 </menu>

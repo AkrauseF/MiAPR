@@ -25,6 +25,7 @@ public class Login extends AppCompatActivity {
         //VerificaConexion verificaConexion = new VerificaConexion("192.168.0.5");
         //verificaConexion.testExecuteCommand();
 
+
     }
 
     public void login(View view) {

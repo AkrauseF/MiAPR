@@ -74,8 +74,23 @@ public class DatabaseAccess {
         return registros;
     }
 
+    public String getPermisoTransferencia() {
+        c = db.rawQuery("select valor from valorperm where id = 1", new String[]{});
+        StringBuffer buffer = new StringBuffer();
+        while (c.moveToNext()) {
+            String valor = c.getString(0);
+
+            buffer.append(valor);
+
+        }
+        return buffer.toString();
+    }
+
+    public void actulizarPermisoTransferencia(String num){
+        db.execSQL("update valorperm set valor = '"+num+"' where id ='1'");//reset autoincrement
 
 
+    }
     public String getCodigoMedidor(String num) {
         c = db.rawQuery("select numero from medidores where id_medidor = '"+num+"'", new String[]{});
         StringBuffer buffer = new StringBuffer();
@@ -180,14 +195,17 @@ public class DatabaseAccess {
     }
 
     public String getIdMedidores() {
+
         c = db.rawQuery("select id_medidor from medidores", new String[]{});
         StringBuffer buffer = new StringBuffer();
-        while (c.moveToNext()) {
+        Log.i("valoresLen", String.valueOf(c.getCount()));
+       while (c.moveToNext()) {
             String lecturaAnterior = c.getString(0);
             buffer.append(",");
             buffer.append(lecturaAnterior);
 
         }
+
         return buffer.toString();
     }
 
