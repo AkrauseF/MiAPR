@@ -11,9 +11,6 @@
   <li><a href="secretarios.php">Secretarios</a></li>
   <li><a href="operadores.php">Operadores</a></li>
 
-  
-  
-
   <li class="dropdown">
     <a href="clientes.php">Clientes</a>
    <!-- <div class="dropdown-content">
@@ -21,6 +18,9 @@
     </div>
   </li>
   <li><a href="modelo/salir.php">Salir</a></li>
+
+  
+  
  
  <div class="titulo">
  	Agua Potable Villa San Pedro

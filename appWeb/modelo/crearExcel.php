@@ -12,14 +12,8 @@ $objPHPExcel->getProperties()
 ->setKeywords('excle phpexcel php')
 ->setCategory('Ejemplo');
 
-
 $objPHPExcel->setActiveSheetIndex(0);
 $objPHPExcel->getActiveSheet()->setTitle('Hoja1');
-
-
-
-//$objPHPExcel->getActiveSheet()->setCellValue('A1','rut');
-
 
 //CREAR ARCHIVO
 header('Content-Type: application/vnd.ms-excel');

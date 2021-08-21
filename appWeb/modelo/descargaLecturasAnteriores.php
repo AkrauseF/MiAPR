@@ -42,7 +42,6 @@ function descargarLecturaAnterior(){
 		echo $row[1];
 
 	}
-	
 
 }
 

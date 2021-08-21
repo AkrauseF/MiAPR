@@ -73,10 +73,13 @@ function valida_rut($rut){
     }
 }
 
-/*if(valida_rut("17826183523")){
+if(valida_rut(123123)){
 		echo "si";
 }else{
 		echo "no";
-}*/
+}
+
+
+
 
 ?>

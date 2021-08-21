@@ -17,7 +17,6 @@ if(limpirarString($codigo) and limpirarString($marca) and limpirarString($id) ){
 	?> <script>alert('Ingrese sólo números y letras, la ñ reemplácela por una n.')</script><?php
 }
 
-
 ?>
 <script>window.location.href = "../medidores.php";</script>
 

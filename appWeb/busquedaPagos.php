@@ -11,11 +11,12 @@ if(!isset($usuario)){
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" type="text/css" href="css/css.css">
+
   <meta charset="utf-8">
-  <title>Exportar informe Excel</title>
-  <!-- Latest compiled and minified CSS -->
  
 </head>
+
 <body onload="buscar()">
   <?php 
 include "menu.php"; 
