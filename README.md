@@ -77,11 +77,13 @@ Para ésta última versión, que esta enmarcada dentor de los plazos planificado
 
 ## Instrucciones de instalación de la app web
 
-1.- Descargue los archivos comprimidos desde el siguinte link: https://github.com/AkrauseF/MiAPR/archive/v11.0.0.zip
+1.- Descargue los archivos comprimidos desde el siguinte link: https://github.com/AkrauseF/MiAPR.git
 
 2.- Descomprima el archivo v5.0.0.zip y monte los archivos y directorios contenidos en la carpeta "appWeb" en su servidor web.
 
 3.- En el directorio "modelo", dentro del directorio "appWeb", se encontrará un archivo llamado "conexiondb.php" en el cual debe reemplazar los datos de acceso a su servicio de base de datos mysql. 
+
+4.- En el directorio "bbdd" se encuentra el archivo llamado "miaprdb.sql", el cual debe ser importado desde gestor de base de datos (MySQL PHPMyAdmin).
 
 #### NOTA: 
     Los servicios utilizados para la ejecución del servidor fueron: Apache 2.4.46, PHP 7.2.33 y MariaDB 10.4.14. Todos contenidos en el paquete de software Xampp 7.2.33.
