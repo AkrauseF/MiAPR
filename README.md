@@ -1,4 +1,4 @@
-# MiAPR v10.0.0
+# MiAPR v11.0.0
 Sistema que agiliza los procesos de registro de lectura y gestión de cobros del agua potable rural de Villa San Pedro, comuna de Pucón.
 
 ## Descripción
@@ -9,6 +9,8 @@ Por otro lado en la app móvil vienen incluidos los módulos de importación y e
 Para las dos aplicaciones, en esta versión se integraron los módulos de control de acceso con hashing de contraseña en base de datos y por otro lado, se implementaron las verificaciones de conexión y traspaso de datos entre aplicaciones.
 
 En las últimas versiones de estas aplicaciones se agragaron como mejora, particularmente en la app móvil, un contador para los registros de medidores y lecturas importadas desde la app web.
+
+Para ésta última versión, que esta enmarcada dentor de los plazos planificados del proyecto, por un lado se agregó un icono identificatico de la solucion a la applicación móvil, junto con una imagen, igual al icono, al inicio de la aplicación, especificamente en el login. Por otro lado, en la app web se implementó un interruptor que habilita y deshabilita las tranferencia de datos entre la app móvil y la app web en ambos sentidos.  
 
 ## El producto resultante de esta iteración consta de las siguientes funcionalidades:
 
@@ -55,15 +57,17 @@ En las últimas versiones de estas aplicaciones se agragaron como mejora, partic
 
 •	Verificación de traspaso de datos entre app móvil y web.
 
-### Funcionalidades añadidas del releas actual 
-
 •	Contador visual en la parte superior de la lista de medidores en la app móvil.
 
 •	Contador visual en la parte superior de la lista de registros en la app móvil.
 
+### Funcionalidades añadidas del releas actual 
+
+•	Habilitador y deshabilitador de transferencias de datos entres app móvil y app web en ambos sentidos.
+
 
 ## Instrucciones de instalación de la app móvil
-1.- Descargue en el dispositivo móvil el instalador de la aplicación desde el repositorio de GitHub en el siguiente link:   https://github.com/AkrauseF/MiAPR/raw/main/app/entregable/release/MiAPR_10_0_0.apk 
+1.- Descargue en el dispositivo móvil el instalador de la aplicación desde el repositorio de GitHub en el siguiente link:   https://github.com/AkrauseF/MiAPR/raw/main/app/entregable/release/MiAPR_11_0_0.apk 
 
 2.- Si tiene una versión anterior de esta aplicación, desintálela del dispositivo móvil.
 
@@ -73,11 +77,13 @@ En las últimas versiones de estas aplicaciones se agragaron como mejora, partic
 
 ## Instrucciones de instalación de la app web
 
-1.- Descargue los archivos comprimidos desde el siguinte link: https://github.com/AkrauseF/MiAPR/archive/v10.0.0.zip
+1.- Descargue los archivos comprimidos desde el siguinte link: https://github.com/AkrauseF/MiAPR.git
 
 2.- Descomprima el archivo v5.0.0.zip y monte los archivos y directorios contenidos en la carpeta "appWeb" en su servidor web.
 
 3.- En el directorio "modelo", dentro del directorio "appWeb", se encontrará un archivo llamado "conexiondb.php" en el cual debe reemplazar los datos de acceso a su servicio de base de datos mysql. 
+
+4.- En el directorio "bbdd" se encuentra el archivo llamado "miaprdb.sql", el cual debe ser importado desde gestor de base de datos (MySQL PHPMyAdmin).
 
 #### NOTA: 
     Los servicios utilizados para la ejecución del servidor fueron: Apache 2.4.46, PHP 7.2.33 y MariaDB 10.4.14. Todos contenidos en el paquete de software Xampp 7.2.33.
@@ -196,6 +202,12 @@ En las últimas versiones de estas aplicaciones se agragaron como mejora, partic
 2.- Ingrese en el campo "Rut" el rut del cliente para el cual se quiere buscar la información.
 
 3.- En la parte inferiror de la página se pude ver los meses con deudas del cliente en cuestión.
+
+### Habilitador o deshabilitador de transferencias de datos.
+1.- Para habilitar la transferencia de datos presione el botón "Inicio" del menú.
+
+2.- Luego presione el interruptor, el cual cambiará de color. Si está de color celeste, la transferencia de datos está habilitada, por el contrario, estará bloqueada.
+
 
 
 
