@@ -89,6 +89,11 @@ Para ésta última versión, que esta enmarcada dentor de los plazos planificado
 
 5.- En el directorio "bbdd" se encuentra el archivo llamado "miaprdb.sql", el cual debe ser importado desde la base de datos creada anteriormente (MySQL PHPMyAdmin).
 
+6.- Por medio de un navegador, en la barra de direcciones digite la direccion de su servidor web donde montó el sitio.
+
+7.- Credenciales de acceso para la app web: usuario: sec ; contraseña: 123.
+
+
 #### NOTA: 
     Los servicios utilizados para la ejecución del servidor fueron: Apache 2.4.46, PHP 7.2.33 y MariaDB 10.4.14. Todos contenidos en el paquete de software Xampp 7.2.33.
 
