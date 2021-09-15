@@ -14,7 +14,7 @@ Para ésta última versión, que esta enmarcada dentor de los plazos planificado
 
 ## El producto resultante de esta iteración consta de las siguientes funcionalidades:
 
-### Funcionalidades deL release anterior
+### Funcionalidades del release anterior
 •	Captura de código QR mediante cámara de dispositivo móvil.
 
 •	Interfaz de control de captura y visualización de códigos QR de la app móvil.
@@ -75,15 +75,19 @@ Para ésta última versión, que esta enmarcada dentor de los plazos planificado
 
 4.- Ejecute la aplicación.
 
+4.- Credenciales de acceso para la app móvil: usuario: admin ; contraseña: 123.
+
 ## Instrucciones de instalación de la app web
 
 1.- Descargue los archivos comprimidos desde el siguinte link: https://github.com/AkrauseF/MiAPR.git
 
-2.- Descomprima el archivo v5.0.0.zip y monte los archivos y directorios contenidos en la carpeta "appWeb" en su servidor web.
+2.- Descomprima el archivo MiAPR-11.0.0.zip y monte los archivos y directorios contenidos en la carpeta "appWeb" en su servidor web.
 
 3.- En el directorio "modelo", dentro del directorio "appWeb", se encontrará un archivo llamado "conexiondb.php" en el cual debe reemplazar los datos de acceso a su servicio de base de datos mysql. 
 
-4.- En el directorio "bbdd" se encuentra el archivo llamado "miaprdb.sql", el cual debe ser importado desde gestor de base de datos (MySQL PHPMyAdmin).
+4.- Cree una nueva base de datos utilizando el mismo nombre que configuró en el archivo "conexiondb.php" ($baseDatos).
+
+5.- En el directorio "bbdd" se encuentra el archivo llamado "miaprdb.sql", el cual debe ser importado desde la base de datos creada anteriormente (MySQL PHPMyAdmin).
 
 #### NOTA: 
     Los servicios utilizados para la ejecución del servidor fueron: Apache 2.4.46, PHP 7.2.33 y MariaDB 10.4.14. Todos contenidos en el paquete de software Xampp 7.2.33.
