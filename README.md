@@ -79,7 +79,7 @@ Para ésta última versión, que esta enmarcada dentor de los plazos planificado
 
 ## Instrucciones de instalación de la app web
 
-1.- Descargue los archivos comprimidos desde el siguinte link: https://github.com/AkrauseF/MiAPR.git
+1.- Descargue los archivos comprimidos desde el siguinte link: https://github.com/AkrauseF/MiAPR/archive/refs/tags/v11.0.0.zip
 
 2.- Descomprima el archivo MiAPR-11.0.0.zip y monte los archivos y directorios contenidos en la carpeta "appWeb" en su servidor web.
 
